@@ -139,7 +139,10 @@
     "noData": "Nessun dato per questo paese.",
     "allMetrics": "Tutte le metriche per {{country}}",
     "history": "Negli anni",
-    "disputed": "conteso"
+    "disputed": "conteso",
+    "population": "popolazione {{value}}",
+    "rankLabel": "Posizione",
+    "noMetricMatch": "Nessuna metrica corrisponde al filtro."
   },
   "share": {
     "title": "Condividi",

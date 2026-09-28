@@ -117,9 +117,16 @@
   overflow-y: auto;
   scrollbar-width: none;
 
+  // With a country selected, the (collapsed) metric card stays on top and the country panel takes the rest,
+  // scrolling inside its own body.
   app-country-panel {
-    flex: 0 1 auto;
+    flex: 1 1 auto;
+    min-height: 0;
   }
+}
+
+.has-country .right {
+  overflow: hidden;
 }
 
 .comparing .left app-metric-picker:not(.comparing-pick) {
@@ -286,6 +293,23 @@
   }
 }
 
+// Phones: a selected country gets a taller sheet (the globe is lifted above it, see bottomInset). The country panel
+// already shows the metric and its value, so the metric card steps aside while the sheet is open.
+@media (max-width: 760px) {
+  .sheet-handle {
+    flex: none;
+  }
+
+  .has-country .right:not(.collapsed) {
+    height: 58vh;
+    max-height: 58vh;
+
+    app-metric-card {
+      display: none;
+    }
+  }
+}
+
 // ---------------------------------------------------------------- short landscape: side sheet
 
 @media (max-height: 500px) and (orientation: landscape) and (min-width: 761px) {
@@ -337,12 +361,17 @@
     overflow: hidden;
   }
 
+  .has-country .right:not(.collapsed) app-metric-card {
+    display: none;
+  }
+
   .sheet-hidden {
     display: none;
   }
 
   .sheet-handle {
     display: flex;
+    flex: none;
     justify-content: center;
     align-self: center;
     width: 64px;

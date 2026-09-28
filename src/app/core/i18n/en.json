@@ -139,7 +139,10 @@
     "noData": "No data for this country.",
     "allMetrics": "All metrics for {{country}}",
     "history": "Over the years",
-    "disputed": "disputed"
+    "disputed": "disputed",
+    "population": "population {{value}}",
+    "rankLabel": "Rank",
+    "noMetricMatch": "No metric matches this filter."
   },
   "share": {
     "title": "Share",

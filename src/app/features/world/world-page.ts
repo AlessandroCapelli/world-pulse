@@ -115,6 +115,8 @@ export class WorldPage {
     const iso = this.store.country();
     return iso ? (this.catalog.countryByIso().get(iso)?.i ?? null) : null;
   });
+  /** Phones: how much of the screen the bottom sheet covers, so the globe (and the selected country) stays visible above it. */
+  protected readonly bottomInset = computed(() => (this.sheetCollapsed() ? 0.28 : this.store.country() ? 0.56 : 0.4));
   private readonly singleCompare = computed(() => this.narrow() && this.store.comparing());
   /** Globe inputs: on phones only one metric is drawn at a time (full-size globe), switched by the compare tabs. */
   protected readonly globeA = computed(() => (this.singleCompare() && this.compareSlot() === 1 ? this.world.globeSecondary() : this.world.globePrimary()));
@@ -328,7 +330,9 @@ export class WorldPage {
   // ------------------------------------------------------------------ phone bottom sheet (swipe / tap)
 
   protected onSheetTouchStart(e: TouchEvent, sheet: HTMLElement): void {
-    this.sheetTouch = this.narrow() ? { y: e.touches[0].clientY, top: sheet.scrollTop } : null;
+    // The country panel scrolls inside its own body: a downward swipe collapses the sheet only when that is at the top.
+    const inner = (e.target as Element).closest('.body')?.scrollTop ?? 0;
+    this.sheetTouch = this.narrow() ? { y: e.touches[0].clientY, top: Math.max(sheet.scrollTop, inner) } : null;
   }
 
   protected onSheetTouchEnd(e: TouchEvent): void {

@@ -68,6 +68,16 @@ export class CountryPanel {
     };
   });
 
+  /** Population of the country in the current year (from the population proxy). */
+  protected readonly population = computed(() => this.view()?.population?.countries.find((c) => c.iso3 === this.iso3())?.value ?? null);
+
+  /** Width of the share-of-world bar: never thinner than a visible sliver. */
+  protected shareBar(pct: number): number {
+    return Math.max(1.5, Math.min(100, pct));
+  }
+
+  protected readonly query = signal('');
+
   // ---- sparkline over the metric's year range
   private readonly history = signal<SparkPoint[]>([]);
   protected readonly spark = computed(() => this.history());
@@ -76,8 +86,11 @@ export class CountryPanel {
     const mode = this.store.mode();
     const snaps: Map<string, MetricSnapshot> = mode === 'history' ? this.world.yearAll() : this.world.latestAll();
     const iso = this.iso3();
+    const lang = this.lang();
+    const q = this.query().trim().toLowerCase();
     const groups = new Map<string, Row[]>();
     for (const e of this.catalog.entries()) {
+      if (q && !e.file.name[lang].toLowerCase().includes(q)) continue;
       const s = snaps.get(e.file.id);
       const value = s?.countries.find((c) => c.iso3 === iso);
       if (!value) continue;

@@ -130,6 +130,13 @@
   .live .hud-label {
     letter-spacing: 0.08em;
     font-size: 9.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .live {
+    min-width: 0;
   }
 
   .seg button {

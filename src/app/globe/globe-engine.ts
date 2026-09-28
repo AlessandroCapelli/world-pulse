@@ -86,6 +86,7 @@ export class GlobeEngine {
   private readonly governor: QualityGovernor;
   private pixelRatio = 1;
   private spawnBudget = 400;
+  private bottomInset = 0.32;
   private width = 1;
   private height = 1;
   private raf = 0;
@@ -260,6 +261,14 @@ export class GlobeEngine {
     this.sphere.material.uniforms['uChoropleth'].value = layers.choropleth ? 1 : 0;
   }
 
+  /** Portrait phones: fraction of the screen height covered by the bottom sheet (the globe is lifted by half of it). */
+  setBottomInset(fraction: number): void {
+    const f = Math.max(0, Math.min(0.7, fraction));
+    if (Math.abs(f - this.bottomInset) < 1e-3) return;
+    this.bottomInset = f;
+    this.resize(this.width, this.height);
+  }
+
   setTimeScale(scale: number): void {
     this.timeScale = scale;
     if (scale === 1) this.simUnix = Date.now() / 1000;
@@ -342,7 +351,7 @@ export class GlobeEngine {
     this.camera.aspect = this.width / this.height;
     // On narrow portrait layouts the bottom sheet covers the lower part: lift the globe.
     if (this.width < 760 && this.height > this.width && !this.comparing) {
-      this.camera.setViewOffset(this.width, this.height, 0, this.height * 0.16, this.width, this.height);
+      this.camera.setViewOffset(this.width, this.height, 0, this.height * this.bottomInset * 0.5, this.width, this.height);
     } else if (this.height <= 500 && this.width > this.height && !this.comparing) {
       // Short landscape (phone on its side): the side panel covers the right: shift the globe left.
       this.camera.setViewOffset(this.width, this.height, Math.min(170, this.width * 0.19), 0, this.width, this.height);

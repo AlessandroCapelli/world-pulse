@@ -13,7 +13,7 @@ export interface SparkPoint {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (geometry(); as g) {
-      <svg [attr.viewBox]="'0 0 ' + width + ' ' + height" preserveAspectRatio="none" role="img" [attr.aria-label]="label()">
+      <svg [attr.viewBox]="'0 0 ' + width + ' ' + height()" [style.height.px]="height()" preserveAspectRatio="none" role="img" [attr.aria-label]="label()">
         <path class="area" [attr.d]="g.area" />
         <path class="line" [attr.d]="g.line" />
         @for (p of g.points; track p.x) {
@@ -25,7 +25,7 @@ export interface SparkPoint {
   `,
   styles: `
     :host { display: block; }
-    svg { width: 100%; height: 44px; overflow: visible; }
+    svg { width: 100%; overflow: visible; }
     .line { fill: none; stroke: var(--spark, var(--wp-accent)); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
     .area { fill: var(--spark, var(--wp-accent)); opacity: 0.1; }
     circle { fill: var(--spark, var(--wp-accent)); }
@@ -39,7 +39,7 @@ export class Sparkline {
   readonly current = input<number | null>(null);
   readonly label = input('');
   protected readonly width = 200;
-  protected readonly height = 44;
+  readonly height = input(44);
 
   protected readonly geometry = computed(() => {
     const pts = [...this.points()].sort((a, b) => a.x - b.x);
@@ -48,10 +48,11 @@ export class Sparkline {
     const maxX = pts[pts.length - 1].x;
     const maxY = Math.max(...pts.map((p) => p.y)) || 1;
     const sx = (x: number) => ((x - minX) / (maxX - minX || 1)) * this.width;
-    const sy = (y: number) => this.height - 3 - (y / maxY) * (this.height - 6);
+    const h = this.height();
+    const sy = (y: number) => h - 3 - (y / maxY) * (h - 6);
     const coords = pts.map((p) => ({ cx: sx(p.x), cy: sy(p.y), x: p.x, estimated: !!p.estimated, current: p.x === this.current() }));
     const line = coords.map((c, i) => `${i ? 'L' : 'M'}${c.cx.toFixed(1)},${c.cy.toFixed(1)}`).join(' ');
-    const area = `${line} L${this.width},${this.height} L0,${this.height} Z`;
+    const area = `${line} L${this.width},${h} L0,${h} Z`;
     return { line, area, points: coords, minX, maxX };
   });
 }

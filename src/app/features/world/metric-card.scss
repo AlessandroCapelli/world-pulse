@@ -308,7 +308,42 @@
   }
 }
 
-// Mobile collapsed sheet: title + headline only.
+// Collapsed card (phone sheet, or a country is selected): title, headline and map legend only.
+.card.collapsed {
+  gap: 8px;
+  padding: 12px 16px;
+
+  .stats,
+  .trust,
+  .coverage,
+  .legend,
+  .controls,
+  .details-toggle,
+  .details,
+  .hint {
+    display: none;
+  }
+
+  .icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  .titles h2 {
+    font-size: 16px;
+  }
+
+  .headline .big {
+    font-size: 26px;
+  }
+
+  .headline .caption {
+    margin-top: 4px;
+    font-size: 12px;
+  }
+}
+
 @media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
   // One globe at a time on phones: "left/right" means nothing there.
   .side-label {
@@ -319,27 +354,7 @@
     display: inline;
   }
 
-  .card.collapsed {
-    gap: 6px;
-
-    .stats,
-    .trust,
-    .coverage,
-    .legend,
-    .map-legend,
-    .controls,
-    .details-toggle,
-    .details,
-    .hint {
-      display: none;
-    }
-
-    .headline .big {
-      font-size: 26px;
-    }
-
-    .headline .caption {
-      margin-top: 4px;
-    }
+  .card.collapsed .map-legend {
+    display: none;
   }
 }

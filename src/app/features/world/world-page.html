@@ -17,6 +17,7 @@
           [initialPose]="initialPose()"
           [fly]="fly()"
           [reducedMotion]="reducedMotion()"
+          [bottomInset]="bottomInset()"
           (hoverChange)="hovered.set($event)"
           (countrySelect)="onCountrySelect($event)"
           (poseChange)="onPose($event)"
@@ -65,10 +66,10 @@
       </button>
       @if (store.comparing()) {
         @if (compareCard(); as c) {
-          <app-metric-card [view]="c.view" [compact]="true" [side]="c.side" [collapsed]="sheetCollapsed()" (changeMetric)="changeSlot(c.side === 'left' ? 'primary' : 'compare')" />
+          <app-metric-card [view]="c.view" [compact]="true" [side]="c.side" [collapsed]="sheetCollapsed() || !!store.country()" (changeMetric)="changeSlot(c.side === 'left' ? 'primary' : 'compare')" />
         }
       } @else if (world.primary(); as v) {
-        <app-metric-card [view]="v" [compact]="!!store.country()" [collapsed]="sheetCollapsed()" (compareRequest)="startCompare()" />
+        <app-metric-card [view]="v" [compact]="!!store.country()" [collapsed]="sheetCollapsed() || !!store.country()" (compareRequest)="startCompare()" />
       } @else if (catalog.status() === 'error') {
         <p class="hud-panel status">{{ 'status.error' | transloco: { message: catalog.error() } }}</p>
       } @else {

@@ -1,5 +1,6 @@
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-height: 0;
 }
 
@@ -7,54 +8,139 @@
   --metric: var(--wp-accent);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  min-height: 0;
   max-height: 100%;
-  padding: 14px 16px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(70, 240, 255, 0.25) transparent;
+  background:
+    radial-gradient(100% 45% at 100% 0%, color-mix(in srgb, var(--metric) 12%, transparent), transparent 70%),
+    var(--wp-panel-strong);
+  border-color: color-mix(in srgb, var(--metric) 30%, var(--wp-border));
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
+  padding: 16px 16px 12px 18px;
+  border-bottom: 1px solid var(--wp-border);
+
+  .titles {
+    min-width: 0;
+  }
 
   h2 {
-    margin: 2px 0 0;
-    font: 600 20px/1.2 var(--wp-font-display);
+    margin: 4px 0 0;
+    font: 600 24px/1.15 var(--wp-font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .close {
+    flex: none;
   }
 }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  padding: 14px 16px 16px 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(70, 240, 255, 0.25) transparent;
+}
+
+// ---------------------------------------------------------------- current metric
 
 .primary {
-  padding: 12px;
-  border-radius: 11px;
-  border: 1px solid color-mix(in srgb, var(--metric) 35%, transparent);
-  background: color-mix(in srgb, var(--metric) 6%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-  .value {
-    margin: 6px 0 0;
-    font-size: 24px;
-    color: #fff;
-    text-shadow: 0 0 16px color-mix(in srgb, var(--metric) 50%, transparent);
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--metric);
+  font: 500 12.5px/1.2 var(--wp-font-display);
 
-    .per {
-      font-size: 12px;
-      color: var(--wp-text-dim);
-      font-family: var(--wp-font-display);
-      text-shadow: none;
-    }
+  span {
+    color: var(--wp-text);
   }
 }
 
-.facts {
+.value {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 12px;
-  margin-top: 8px;
-  font-size: 11.5px;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+
+  .num {
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-shadow: 0 0 20px color-mix(in srgb, var(--metric) 50%, transparent);
+  }
+
+  .per {
+    font-size: 13px;
+    color: var(--wp-text-dim);
+  }
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
   color: var(--wp-text-dim);
+
+  .bar {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.07);
+    overflow: hidden;
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--metric);
+    box-shadow: 0 0 10px var(--metric);
+    transition: width 400ms ease;
+  }
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  margin: 0;
+
+  div {
+    padding: 8px 10px;
+    border-radius: 9px;
+    border: 1px solid var(--wp-border);
+    background: rgba(70, 240, 255, 0.035);
+  }
+
+  dt {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: var(--wp-text);
+  }
 }
 
 .trust {
@@ -62,7 +148,6 @@ header {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin-top: 10px;
   font-size: 12px;
 
   a {
@@ -71,13 +156,18 @@ header {
 }
 
 .note {
-  margin: 8px 0 0;
+  margin: 0;
   font-size: 11.5px;
+  line-height: 1.45;
   color: var(--wp-text-faint);
 }
 
 .spark {
   --spark: var(--metric);
+
+  .hud-label {
+    margin: 0 0 6px;
+  }
 }
 
 .empty {
@@ -86,9 +176,51 @@ header {
   font-size: 13px;
 }
 
+// ---------------------------------------------------------------- all metrics
+
 .all {
+  border-top: 1px solid var(--wp-border);
+  padding-top: 12px;
+
+  .all-head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 4px;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    border-radius: 9px;
+    border: 1px solid var(--wp-border);
+    background: rgba(0, 0, 0, 0.25);
+    color: var(--wp-text-faint);
+
+    &:focus-within {
+      border-color: var(--wp-border-strong);
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      min-height: 34px;
+      border: 0;
+      background: none;
+      color: var(--wp-text);
+      font: 400 13px/1 var(--wp-font-display);
+      outline: none;
+    }
+  }
+
   .cat {
-    margin: 10px 0 4px;
+    margin: 12px 0 4px;
     font-size: 9px;
     color: var(--wp-text-faint);
   }
@@ -103,24 +235,36 @@ header {
     --c: var(--wp-accent);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
-    padding: 4px 6px;
+    min-height: 36px;
+    padding: 4px 8px 4px 4px;
     border: 0;
-    border-radius: 7px;
+    border-radius: 8px;
     background: none;
     text-align: left;
-    font-size: 12.5px;
+    font-size: 13px;
     color: var(--wp-text);
 
-    &:hover,
-    &.current {
+    &:hover {
       background: rgba(70, 240, 255, 0.06);
     }
 
-    app-icon {
-      color: var(--c);
+    &.current {
+      background: color-mix(in srgb, var(--c) 12%, transparent);
+      box-shadow: inset 2px 0 0 var(--c);
     }
+  }
+
+  .ic {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex: none;
+    border-radius: 7px;
+    color: var(--c);
+    background: color-mix(in srgb, var(--c) 10%, transparent);
   }
 
   .n {
@@ -132,8 +276,9 @@ header {
   }
 
   .v {
-    font-size: 11.5px;
+    font-size: 12px;
     color: var(--wp-text-dim);
+    white-space: nowrap;
   }
 
   .p {
@@ -147,9 +292,36 @@ header {
     &.carried {
       background: var(--wp-warn);
     }
+
     &.allocated {
       background: transparent;
       border: 1px solid var(--wp-accent-2);
     }
+  }
+}
+
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  header {
+    padding: 12px 12px 10px 14px;
+
+    h2 {
+      font-size: 21px;
+    }
+  }
+
+  .body {
+    padding: 12px 12px 14px 14px;
+    gap: 14px;
+  }
+
+  .value .num {
+    font-size: 28px;
+  }
+
+  // Bigger touch targets for the close button.
+  .close {
+    min-width: 40px;
+    min-height: 40px;
+    justify-content: center;
   }
 }

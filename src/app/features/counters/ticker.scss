@@ -88,11 +88,11 @@ li button {
 
 .toggle {
   flex: none;
-  padding: 5px;
+  padding: 7px;
 }
 
-// Reduced motion: paused by default (the strip can be scrolled by hand); pressing play is an explicit opt-in,
-// so it overrides the global reduced-motion reset.
+// The strip is a slow marquee with its own pause button, so it keeps scrolling under reduced motion
+// (overriding the global reset); while paused it can be scrolled by hand.
 @media (prefers-reduced-motion: reduce) {
   .ticker.paused .viewport {
     overflow-x: auto;

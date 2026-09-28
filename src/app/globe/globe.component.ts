@@ -67,6 +67,8 @@ export class GlobeComponent {
   readonly initialPose = input<CameraPose | null>(null);
   readonly fly = input<FlyRequest | null>(null);
   readonly reducedMotion = input(false);
+  /** Portrait phones: fraction of the screen height covered by the bottom sheet. */
+  readonly bottomInset = input(0.32);
 
   readonly hoverChange = output<{ index: number | null; slot: 0 | 1 }>();
   readonly countrySelect = output<{ index: number | null; slot: 0 | 1 }>();
@@ -118,6 +120,7 @@ export class GlobeComponent {
     effect(() => this.engine()?.setSelected(this.selectedIndex()));
     effect(() => this.engine()?.setTimeScale(this.timeScale()));
     effect(() => this.engine()?.setReducedMotion(this.reducedMotion()));
+    effect(() => this.engine()?.setBottomInset(this.bottomInset()));
     effect(() => {
       const req = this.fly();
       const engine = this.engine();

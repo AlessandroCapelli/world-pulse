@@ -1,11 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
   output,
-  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -62,7 +60,7 @@ import { WorldView } from '../world/world-view.service';
       <button
         type="button"
         class="toggle hud-button icon-only"
-        (click)="paused.set(!paused())"
+        (click)="toggle()"
         [attr.aria-pressed]="paused()"
         [attr.aria-label]="(paused() ? 'ticker.play' : 'ticker.pause') | transloco"
         [title]="(paused() ? 'ticker.play' : 'ticker.pause') | transloco"
@@ -79,10 +77,8 @@ export class Ticker {
   private readonly catalog = inject(CatalogService);
   private readonly clock = inject(ClockService);
   protected readonly lang = inject(LocaleService).lang;
-  /** Scrolling starts paused when the visitor asked for reduced motion; the toggle can still start it. */
-  protected readonly paused = signal(
-    isPlatformBrowser(inject(PLATFORM_ID)) && typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
+  /** Pause freezes both the scrolling and the counters (WCAG 2.2.2: moving content can be paused). */
+  protected readonly paused = signal(false);
   protected readonly copies = [0, 1];
 
   private readonly rates = computed(() => {
@@ -108,9 +104,13 @@ export class Ticker {
       });
   });
 
+  /** Clock time at which the strip was paused: counters are frozen there until play. */
+  private readonly frozenAt = signal<number | null>(null);
+
   protected readonly items = computed(() => {
     const t0 = this.clock.openedAt / 1000;
-    const t1 = this.clock.now() / 1000;
+    // While paused the clock is not read, so the strip does not even re-render.
+    const t1 = (this.paused() ? (this.frozenAt() ?? this.clock.openedAt) : this.clock.now()) / 1000;
     const lang = this.lang();
     return this.rates().map(({ entry, snapshot, src, rates }) => {
       const value = splitQuantity(integrate(rates, t0, t1), entry.file.unit, lang, true);
@@ -124,4 +124,10 @@ export class Ticker {
       };
     });
   });
+
+  protected toggle(): void {
+    const pause = !this.paused();
+    this.frozenAt.set(pause ? this.clock.now() : null);
+    this.paused.set(pause);
+  }
 }
