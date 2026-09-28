@@ -1,0 +1,151 @@
+:host {
+  display: block;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 8px 12px;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .clock {
+    font-size: 15px;
+    color: var(--wp-accent);
+    min-width: 52px;
+  }
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff4d6d;
+  box-shadow: 0 0 10px #ff4d6d;
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.window {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.seg {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 11px;
+  border: 1px solid var(--wp-border);
+  background: rgba(0, 0, 0, 0.25);
+
+  button {
+    min-width: 42px;
+    padding: 6px 9px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--wp-text-dim);
+    font: 500 12px/1 var(--wp-font-mono);
+
+    &:hover {
+      color: var(--wp-text);
+    }
+
+    &.active {
+      background: rgba(70, 240, 255, 0.16);
+      color: var(--wp-accent);
+      box-shadow: 0 0 12px rgba(70, 240, 255, 0.2);
+    }
+  }
+}
+
+.replay {
+  position: relative;
+  overflow: hidden;
+
+  .progress {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--wp-accent);
+    box-shadow: 0 0 8px var(--wp-accent);
+  }
+}
+
+.history {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(560px, 80vw);
+
+  .year {
+    font-size: 22px;
+    color: var(--wp-accent);
+    text-shadow: 0 0 14px var(--wp-accent-glow);
+    min-width: 58px;
+    text-align: center;
+  }
+}
+
+.slider {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  input {
+    width: 100%;
+    accent-color: var(--wp-accent);
+  }
+
+  .ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--wp-text-faint);
+  }
+}
+
+.speed {
+  min-width: 42px;
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .live .hud-label {
+    letter-spacing: 0.08em;
+    font-size: 9.5px;
+  }
+
+  .seg button {
+    min-width: 36px;
+    padding: 6px 7px;
+  }
+}
+
+// Short landscape: the controls share the width with the side sheet.
+@media (max-height: 500px) and (orientation: landscape) {
+  .controls {
+    min-height: 42px;
+    padding: 5px 10px;
+  }
+
+  .history {
+    width: min(460px, 52vw);
+  }
+}

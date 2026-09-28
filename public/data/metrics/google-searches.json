@@ -1,0 +1,72 @@
+{
+ "schemaVersion": 1,
+ "id": "google-searches",
+ "category": "digital",
+ "name": {
+  "en": "Google searches",
+  "it": "Ricerche su Google"
+ },
+ "description": {
+  "en": "Searches on Google, from company statements (“at least 2 trillion a year” in 2016, “more than 5 trillion a year” in 2025) — both lower bounds. Spread by internet users outside China.",
+  "it": "Ricerche su Google, da dichiarazioni dell’azienda («almeno 2 mila miliardi l’anno» nel 2016, «oltre 5 mila miliardi l’anno» nel 2025): entrambi limiti inferiori. Distribuite per utenti di internet fuori dalla Cina."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "searches",
+  "it": "ricerche"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "internet-users",
+  "exclude": [
+   "CHN",
+   "PRK"
+  ]
+ },
+ "resolution": {
+  "maxYearGap": 2
+ },
+ "visual": {
+  "color": "#8ab4ff",
+  "icon": "search",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2016,
+   "value": 2000000000000,
+   "period": "year",
+   "sourceId": "google16",
+   "confidence": "estimate",
+   "note": "Lower bound."
+  },
+  {
+   "scope": "world",
+   "year": 2025,
+   "value": 5000000000000,
+   "period": "year",
+   "sourceId": "google25",
+   "confidence": "estimate",
+   "note": "Lower bound."
+  }
+ ],
+ "sources": {
+  "google16": {
+   "title": "Google now handles at least 2 trillion searches per year",
+   "publisher": "Search Engine Land (Google statement)",
+   "url": "https://searchengineland.com/google-now-handles-2-999-trillion-searches-per-year-250247",
+   "published": "2016-05",
+   "accessed": "2026-06"
+  },
+  "google25": {
+   "title": "Google Search: more than 5 trillion searches a year",
+   "publisher": "Google (The Keyword blog)",
+   "url": "https://blog.google/products/search/",
+   "published": "2025-03",
+   "accessed": "2026-06"
+  }
+ }
+}

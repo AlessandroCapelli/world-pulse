@@ -1,0 +1,155 @@
+:host {
+  display: block;
+  min-height: 0;
+}
+
+.panel {
+  --metric: var(--wp-accent);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 100%;
+  padding: 14px 16px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(70, 240, 255, 0.25) transparent;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+
+  h2 {
+    margin: 2px 0 0;
+    font: 600 20px/1.2 var(--wp-font-display);
+  }
+}
+
+.primary {
+  padding: 12px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--metric) 35%, transparent);
+  background: color-mix(in srgb, var(--metric) 6%, transparent);
+
+  .value {
+    margin: 6px 0 0;
+    font-size: 24px;
+    color: #fff;
+    text-shadow: 0 0 16px color-mix(in srgb, var(--metric) 50%, transparent);
+
+    .per {
+      font-size: 12px;
+      color: var(--wp-text-dim);
+      font-family: var(--wp-font-display);
+      text-shadow: none;
+    }
+  }
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: var(--wp-text-dim);
+}
+
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+
+  a {
+    color: var(--wp-text-dim);
+  }
+}
+
+.note {
+  margin: 8px 0 0;
+  font-size: 11.5px;
+  color: var(--wp-text-faint);
+}
+
+.spark {
+  --spark: var(--metric);
+}
+
+.empty {
+  margin: 0;
+  color: var(--wp-text-dim);
+  font-size: 13px;
+}
+
+.all {
+  .cat {
+    margin: 10px 0 4px;
+    font-size: 9px;
+    color: var(--wp-text-faint);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    --c: var(--wp-accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 6px;
+    border: 0;
+    border-radius: 7px;
+    background: none;
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--wp-text);
+
+    &:hover,
+    &.current {
+      background: rgba(70, 240, 255, 0.06);
+    }
+
+    app-icon {
+      color: var(--c);
+    }
+  }
+
+  .n {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .v {
+    font-size: 11.5px;
+    color: var(--wp-text-dim);
+  }
+
+  .p {
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--wp-ok);
+
+    &.interpolated,
+    &.carried {
+      background: var(--wp-warn);
+    }
+    &.allocated {
+      background: transparent;
+      border: 1px solid var(--wp-accent-2);
+    }
+  }
+}

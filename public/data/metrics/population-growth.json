@@ -1,0 +1,57 @@
+{
+ "schemaVersion": 1,
+ "id": "population-growth",
+ "category": "demography-health",
+ "name": {
+  "en": "Population growth",
+  "it": "Crescita della popolazione"
+ },
+ "description": {
+  "en": "Net natural increase of the world population: UN births minus UN deaths. Not placed on countries, because several countries are shrinking.",
+  "it": "Aumento naturale netto della popolazione mondiale: nascite ONU meno decessi ONU. Non assegnato ai paesi, perché diversi paesi sono in calo."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "people",
+  "it": "persone"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#ff9ecb",
+  "icon": "trend",
+  "scale": "linear"
+ },
+ "tables": [
+  {
+   "sourceId": "wpp",
+   "confidence": "official",
+   "period": "year",
+   "note": "Computed: births minus deaths.",
+   "years": [
+    2000,
+    2005,
+    2010,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ],
+   "values": {
+    "world": [83520000, 83780000, 89090000, 88030000, 88100000, 86030000, 82540000, 80240000, 71170000, 63720000, 70200000, 70460000]
+   }
+  }
+ ],
+ "sources": {
+  "wpp": {
+   "title": "World Population Prospects 2024 – births and deaths (via Our World in Data)",
+   "publisher": "United Nations, DESA Population Division",
+   "url": "https://ourworldindata.org/grapher/number-of-births-per-year",
+   "accessed": "2026-09-27"
+  }
+ }
+}

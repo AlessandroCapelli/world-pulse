@@ -1,0 +1,301 @@
+{
+  "app": {
+    "title": "World Pulse",
+    "tagline": "What happens in the world, right now",
+    "description": "An interactive holographic globe showing how many babies are born, iPhones sold, tonnes of CO₂ emitted and emails sent — live, per time window and across the years. Every number is sourced."
+  },
+  "nav": {
+    "about": "About the data",
+    "back": "Back to the globe",
+    "more": "More"
+  },
+  "lang": {
+    "label": "Language",
+    "en": "English",
+    "it": "Italiano"
+  },
+  "mode": {
+    "label": "Time mode",
+    "live": "Live",
+    "window": "Window",
+    "history": "History",
+    "liveHint": "Counting since you opened this page",
+    "windowHint": "How much happens in a chosen interval",
+    "historyHint": "How the world changed over the years"
+  },
+  "window": {
+    "label": "Time window",
+    "1s": "1 second",
+    "1min": "1 minute",
+    "1h": "1 hour",
+    "1d": "1 day",
+    "1w": "1 week",
+    "1y": "1 year",
+    "short": {
+      "1s": "1s",
+      "1min": "1m",
+      "1h": "1h",
+      "1d": "1d",
+      "1w": "1w",
+      "1y": "1y"
+    },
+    "inTheWorld": "In {{window}} in the world…",
+    "replay": "Replay this window",
+    "replaying": "Replaying {{window}} in 10 seconds",
+    "stop": "Stop replay",
+    "rightNow": "at the current time of day"
+  },
+  "history": {
+    "year": "Year",
+    "play": "Play the years",
+    "pause": "Pause",
+    "speed": "Speed"
+  },
+  "picker": {
+    "title": "Metrics",
+    "open": "Choose a metric",
+    "search": "Search metrics…",
+    "empty": "No metric matches “{{q}}”.",
+    "count": "{{n}} metrics"
+  },
+  "category": {
+    "consumer": "Consumption",
+    "demography-health": "People & health",
+    "environment-energy": "Environment & energy",
+    "digital": "Digital & science",
+    "economy": "Economy",
+    "geography": "Geography",
+    "user": "Your data"
+  },
+  "card": {
+    "sinceOpen": "since you opened this page",
+    "perSecond": "per second",
+    "perYear": "per year",
+    "inWindow": "in {{window}}",
+    "inYear": "in {{year}}",
+    "level": "in total",
+    "levelHint": "This is a level (stock), not a flow: it does not accumulate over time.",
+    "coverage": "Country coverage",
+    "coverageHint": "{{pct}} of the world total comes from country-level data.",
+    "coverageProxyHint": "Countries with data hold {{pct}} of the world population.",
+    "unallocated": "{{pct}} of the total is not placed on any country.",
+    "allocatedHint": "Hatched countries have no data: they receive a share of the world total by {{proxy}}.",
+    "sources": "Sources",
+    "confidence": "Confidence",
+    "legendTitle": "Each pulse",
+    "details": "Details & sources",
+    "hideDetails": "Hide details",
+    "worldTotal": "World",
+    "stale": "Latest data: {{year}}",
+    "perPersonYear": "per person per year",
+    "perDay": "per day",
+    "mapLegend": "Map colour scale",
+    "mapQuantiles": "Quantile classes: each colour holds about the same number of countries"
+  },
+  "confidence": {
+    "official": "official",
+    "estimate": "estimate",
+    "modelled": "modelled"
+  },
+  "confidenceHint": {
+    "official": "Published by an official statistical body or the organisation itself.",
+    "estimate": "A published estimate, or an approximate/rounded figure.",
+    "modelled": "Derived by World Pulse (allocation, shares, forecasts)."
+  },
+  "provenance": {
+    "reported": "reported",
+    "interpolated": "interpolated",
+    "carried": "carried forward",
+    "allocated": "allocated",
+    "sum": "sum of countries"
+  },
+  "layers": {
+    "label": "Layers",
+    "particles": "Pulses",
+    "spikes": "Spikes",
+    "choropleth": "Map fill"
+  },
+  "perCapita": {
+    "label": "Per person",
+    "hint": "Divide by population"
+  },
+  "compare": {
+    "button": "Compare",
+    "title": "Compare with…",
+    "close": "Stop comparing",
+    "ratio": "1 {{a}} for every {{n}} {{b}}",
+    "left": "Left",
+    "right": "Right",
+    "incompatible": "Pick another flow metric to see a ratio.",
+    "swap": "Swap metrics",
+    "change": "Change",
+    "show": "Metric shown on the globe"
+  },
+  "country": {
+    "close": "Close country panel",
+    "rank": "#{{rank}} of {{total}}",
+    "share": "{{pct}} of the world",
+    "perPerson": "per person",
+    "noData": "No data for this country.",
+    "allMetrics": "All metrics for {{country}}",
+    "history": "Over the years",
+    "disputed": "disputed"
+  },
+  "share": {
+    "title": "Share",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "copyFailed": "Copy failed — the link is in the address bar",
+    "screenshot": "Save image",
+    "capturing": "Capturing…"
+  },
+  "upload": {
+    "button": "Add your data",
+    "title": "Add your own dataset",
+    "intro": "Drop a CSV or JSON file with one value per country (and optionally per year). It stays in this browser only.",
+    "drop": "Drop a file here or click to choose",
+    "parsing": "Reading file…",
+    "step": {
+      "file": "File",
+      "map": "Columns",
+      "check": "Check"
+    },
+    "rows": "{{n}} rows · {{c}} columns",
+    "name": "Name",
+    "namePlaceholder": "e.g. Bicycles sold",
+    "countryCol": "Country column",
+    "valueCol": "Value column",
+    "yearMode": "Year",
+    "yearColumn": "From a column",
+    "yearFixed": "Fixed year",
+    "yearCol": "Year column",
+    "kind": "Type",
+    "kindFlow": "Flow — accumulates over time (births, sales)",
+    "kindStock": "Level — a quantity at a point in time (population)",
+    "period": "Each value is per",
+    "unit": "Unit",
+    "unitLabel": "Unit label",
+    "unitLabelPlaceholder": "e.g. bicycles",
+    "proxy": "Spread a world row over missing countries by",
+    "noProxy": "Do not spread",
+    "source": "Source (title and URL)",
+    "sourceTitle": "Where does the data come from?",
+    "report": "Validation report",
+    "matched": "{{n}} rows matched to countries",
+    "worldRows": "{{n}} world rows",
+    "unmatched": "Unmatched country names",
+    "suggestion": "use {{name}}",
+    "ignore": "ignore",
+    "duplicates": "{{n}} duplicate country/year rows (the last one wins)",
+    "negatives": "{{n}} negative or invalid values skipped",
+    "outliers": "Possible outliers",
+    "ok": "Everything looks good.",
+    "save": "Add to globe",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "saved": "The dataset will be stored only in this browser (IndexedDB): nothing is uploaded.",
+    "delete": "Remove",
+    "yours": "Your datasets",
+    "error": "The file could not be read: {{message}}",
+    "invalid": "The dataset is not valid:",
+    "points": "{{n}} data points"
+  },
+  "userData": {
+    "badge": "your data",
+    "missing": "This link refers to a dataset stored in someone else’s browser, so it is not available here. Showing the default metric instead."
+  },
+  "table": {
+    "view": "Table view",
+    "close": "Back to globe",
+    "caption": "{{metric}} by country",
+    "country": "Country",
+    "value": "Value",
+    "share": "Share",
+    "provenance": "Data",
+    "year": "Year",
+    "sortBy": "Sort by {{col}}",
+    "filter": "Filter countries…",
+    "sort": "Sort",
+    "noMatch": "No country matches this filter."
+  },
+  "fallback": {
+    "noWebgl": "Your browser cannot display the 3D globe (WebGL 2 is unavailable), so data is shown as a table.",
+    "globeLoading": "Initialising globe…"
+  },
+  "status": {
+    "loading": "Loading data…",
+    "error": "Data could not be loaded: {{message}}"
+  },
+  "ticker": {
+    "title": "Since you arrived",
+    "pause": "Pause ticker",
+    "play": "Resume ticker"
+  },
+  "tooltip": {
+    "noData": "no data",
+    "perYear": "/ yr",
+    "perPerson": "/ person",
+    "perPersonYear": "/ person / yr"
+  },
+  "a11y": {
+    "globe": "Interactive 3D globe. Arrow keys rotate, plus and minus zoom, Enter selects the country in the centre, Escape clears the selection.",
+    "mode": "Mode: {{mode}}"
+  },
+  "about": {
+    "title": "About the data",
+    "lead": "World Pulse turns published statistics into rates per second and places them on the globe. This page explains how, and where every number comes from.",
+    "honesty": "Numbers are never invented. Every value carries a source, a data year and a confidence level. Most datasets are downloaded from the original publishers (World Bank, UN, WHO, Global Carbon Project, Ember, FAO, IEA, USGS…) by a reproducible script; the rest are transcribed from the cited reports. Check the original source before citing a figure.",
+    "method": {
+      "title": "Methodology",
+      "rates": "Every value is converted into a per-second rate using the mean Gregorian year (365.2425 days).",
+      "years": "For a given year the engine uses the exact data point; otherwise it interpolates linearly between the nearest years; beyond the series it carries the nearest value for a limited number of years (scaled by world growth when possible) and flags it as carried forward. It never extrapolates further.",
+      "allocation": "When only a world total exists, the part not covered by countries is either spread over the remaining countries by a declared proxy (population, GDP, internet users or land area) and marked as allocated — hatched on the map — or left unallocated.",
+      "coverage": "Coverage is the share of the world total backed by country-level data.",
+      "profiles": "Some activities follow the clock (emails, solar power). Their rate is modulated by each country’s local hour with a stylized daily curve whose average is 1, so daily totals are unchanged.",
+      "counters": "Counters are computed from absolute timestamps (rate × elapsed time), never by adding per-frame steps, so they do not drift.",
+      "colours": "Map colours use quantile classes: each colour groups about the same number of countries, so neighbours stay distinguishable even when a few countries dominate. The legend shows the range of every class.",
+      "centroids": "Spikes stand at the centre of the largest land mass of each country; for 27 large countries an approximate population centre is used instead.",
+      "etl": "Years with incomplete reporting (no world total, or a world total smaller than the sum of its countries) are dropped by the data pipeline instead of being shown as a false decline."
+    },
+    "confidence": {
+      "title": "Confidence levels"
+    },
+    "limits": {
+      "title": "Known limitations",
+      "items": [
+        "Official statistics are rounded to 4 significant figures and the most recent years are often provisional; the latest available year is used and shown.",
+        "Company statements (Google, OpenAI, YouTube, WhatsApp, Coca-Cola, McDonald’s) are self-reported and often lower bounds.",
+        "Allocation by proxy is a visual approximation, not a measurement of the receiving country.",
+        "Energy conversions (oil in barrels, gas in cubic metres) use standard average factors.",
+        "Each country uses a single representative time zone; daily activity curves are stylized.",
+        "Disputed territories are drawn but carry no data (Kosovo excepted, following the World Bank)."
+      ]
+    },
+    "sources": {
+      "title": "All sources",
+      "metric": "Used by",
+      "accessed": "accessed {{date}}"
+    },
+    "tech": {
+      "title": "How it is built",
+      "text": "Angular 21 (signals, zoneless), Three.js with custom shaders, Natural Earth geometry. Everything is served from this site: no external APIs, no trackers.",
+      "by": "Created by",
+      "source": "source code on GitHub",
+      "license": "MIT License"
+    }
+  },
+  "common": {
+    "close": "Close"
+  },
+  "sheet": {
+    "expand": "Show details",
+    "collapse": "Show the globe"
+  },
+  "proxyBy": {
+    "population": "population",
+    "gdp": "GDP",
+    "internet-users": "number of internet users",
+    "land-area": "land area"
+  }
+}

@@ -1,0 +1,49 @@
+{
+ "schemaVersion": 1,
+ "id": "mobile-data-traffic",
+ "category": "digital",
+ "name": {
+  "en": "Mobile data used",
+  "it": "Dati mobili usati"
+ },
+ "description": {
+  "en": "Global mobile data traffic, excluding fixed wireless access, measured in operator networks (Ericsson Mobility Report: 146 EB per month at the end of 2025). Spread by internet users.",
+  "it": "Traffico dati mobile globale, escluso l’accesso wireless fisso, misurato nelle reti degli operatori (Ericsson Mobility Report: 146 EB al mese a fine 2025). Distribuito per utenti di internet."
+ },
+ "unit": "byte",
+ "unitLabel": {
+  "en": "mobile data",
+  "it": "dati mobili"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "internet-users"
+ },
+ "visual": {
+  "color": "#43e6ff",
+  "icon": "network",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2025,
+   "value": 146000000000000000000,
+   "period": "month",
+   "sourceId": "ericsson",
+   "confidence": "official",
+   "note": "Monthly traffic at the end of 2025."
+  }
+ ],
+ "sources": {
+  "ericsson": {
+   "title": "Ericsson Mobility Report – mobile network traffic update",
+   "publisher": "Ericsson",
+   "url": "https://www.ericsson.com/en/reports-and-papers/mobility-report/dataforecasts/mobile-traffic-update",
+   "published": "2026",
+   "accessed": "2026-09-27"
+  }
+ }
+}

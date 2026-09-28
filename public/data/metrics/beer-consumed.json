@@ -1,0 +1,110 @@
+{
+ "schemaVersion": 1,
+ "id": "beer-consumed",
+ "category": "consumer",
+ "name": {
+  "en": "Beer drunk",
+  "it": "Birra bevuta"
+ },
+ "description": {
+  "en": "Beer consumption (Kirin Global Beer Consumption Report, 170 countries; Japan includes happo-shu and new-genre beer). Countries not listed share the rest by population, except where alcohol is prohibited.",
+  "it": "Consumo di birra (Kirin Global Beer Consumption Report, 170 paesi; il Giappone include happo-shu e birre “new genre”). I paesi non elencati si ripartiscono il resto per popolazione, tranne dove l’alcol è vietato."
+ },
+ "unit": "litre",
+ "unitLabel": {
+  "en": "litres",
+  "it": "litri"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "population",
+  "exclude": [
+   "SAU",
+   "AFG",
+   "IRN",
+   "LBY",
+   "KWT",
+   "SOM",
+   "YEM",
+   "MRT"
+  ]
+ },
+ "visual": {
+  "color": "#ffd23f",
+  "icon": "beer",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "sources": {
+  "kirin": {
+   "title": "Global Beer Consumption by Country in 2024",
+   "publisher": "Kirin Holdings",
+   "url": "https://www.kirinholdings.com/en/newsroom/release/2025/1222_01.html",
+   "published": "2025-12",
+   "accessed": "2026-09-27"
+  }
+ },
+ "tables": [
+  {
+   "sourceId": "kirin",
+   "confidence": "official",
+   "period": "year",
+   "years": [
+    2023,
+    2024
+   ],
+   "values": {
+    "world": [193229000000, 194117000000],
+    "CHN": [42091000000, 40534000000],
+    "USA": [22463000000, 22340000000],
+    "BRA": [15137000000, 15304000000],
+    "MEX": [10232000000, 10787000000],
+    "RUS": [8727000000, 9512000000],
+    "DEU": [7399000000, 7236000000],
+    "ZAF": [4388000000, 4586000000],
+    "VNM": [4550000000, 4577000000],
+    "GBR": [4432000000, 4509000000],
+    "ESP": [4419000000, 4362000000],
+    "JPN": [4249000000, 4135000000],
+    "IND": [3004000000, 3444000000],
+    "POL": [3402000000, 3344000000],
+    "COL": [2551000000, 2634000000],
+    "KOR": [2292000000, 2307000000],
+    "ITA": [2157000000, 2177000000],
+    "FRA": [2121000000, 2100000000],
+    "THA": [1849000000, 1957000000],
+    "CAN": [1824000000, 1822000000],
+    "AUS": [1781000000, 1736000000],
+    "ETH": [1645000000, 1729000000],
+    "ROU": [1680000000, 1714000000],
+    "PHL": [1688000000, 1693000000],
+    "UKR": [1606000000, 1654000000],
+    "CZE": [1576000000, 1562000000],
+    "LTU": [null, 299000000],
+    "AUT": [null, 941000000],
+    "IRL": [null, 505000000],
+    "HRV": [null, 380000000],
+    "EST": [null, 121000000],
+    "SVN": [null, 186000000],
+    "BGR": [null, 537000000],
+    "SVK": [null, 462000000],
+    "GAB": [null, 202000000],
+    "LVA": [null, 142000000],
+    "HUN": [null, 741000000],
+    "BIH": [null, 228000000],
+    "FIN": [null, 378000000],
+    "PRT": [null, 682000000],
+    "NLD": [null, 1173000000],
+    "NAM": [null, 172000000],
+    "SRB": [null, 465000000],
+    "PRI": [null, 204000000],
+    "DNK": [null, 359000000],
+    "BEL": [null, 672000000],
+    "NOR": [null, 307000000],
+    "LAO": [null, 425000000],
+    "PAN": [null, 387000000]
+   }
+  }
+ ]
+}

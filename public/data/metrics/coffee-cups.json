@@ -1,0 +1,48 @@
+{
+ "schemaVersion": 1,
+ "id": "coffee-cups",
+ "category": "consumer",
+ "name": {
+  "en": "Cups of coffee",
+  "it": "Tazze di caffè"
+ },
+ "description": {
+  "en": "Cups of coffee drunk. A widely cited industry order-of-magnitude figure (~2.25 billion cups a day); spread by GDP share as a rough purchasing-power proxy.",
+  "it": "Tazze di caffè bevute. Un ordine di grandezza molto citato dall’industria (~2,25 miliardi di tazze al giorno); distribuito per quota di PIL come proxy grezzo del potere d’acquisto."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "cups",
+  "it": "tazze"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "gdp"
+ },
+ "visual": {
+  "color": "#d6a36b",
+  "icon": "coffee",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2020,
+   "value": 2250000000,
+   "period": "day",
+   "sourceId": "bca",
+   "confidence": "estimate",
+   "note": "Industry estimate; not a measured statistic."
+  }
+ ],
+ "sources": {
+  "bca": {
+   "title": "Coffee facts – “around 2.25 billion cups of coffee are consumed in the world every day”",
+   "publisher": "British Coffee Association",
+   "url": "https://britishcoffeeassociation.org/coffee-consumption/",
+   "accessed": "2026-06"
+  }
+ }
+}

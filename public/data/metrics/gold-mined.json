@@ -1,0 +1,65 @@
+{
+ "schemaVersion": 1,
+ "id": "gold-mined",
+ "category": "economy",
+ "name": {
+  "en": "Gold mined",
+  "it": "Oro estratto"
+ },
+ "description": {
+  "en": "Gold mine production (USGS Mineral Commodity Summaries 2025). Smaller producers are unallocated.",
+  "it": "Produzione mineraria di oro (USGS Mineral Commodity Summaries 2025). I produttori minori non sono allocati."
+ },
+ "unit": "tonne",
+ "unitLabel": {
+  "en": "tonnes of gold",
+  "it": "tonnellate d’oro"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#ffd700",
+  "icon": "gold",
+  "scale": "sqrt"
+ },
+ "sources": {
+  "usgs": {
+   "title": "Mineral Commodity Summaries 2025 – Gold",
+   "publisher": "US Geological Survey",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gold.pdf",
+   "published": "2025-01",
+   "accessed": "2026-09-27"
+  }
+ },
+ "tables": [
+  {
+   "sourceId": "usgs",
+   "confidence": "estimate",
+   "period": "year",
+   "years": [
+    2023,
+    2024
+   ],
+   "values": {
+    "world": [3250, 3300],
+    "USA": [170, 160],
+    "AUS": [296, 290],
+    "BRA": [71, 70],
+    "BFA": [57, 60],
+    "CAN": [198, 200],
+    "CHN": [375, 380],
+    "COL": [61, 60],
+    "GHA": [126, 130],
+    "IDN": [100, 100],
+    "KAZ": [133, 130],
+    "MLI": [67, 70],
+    "MEX": [127, 130],
+    "PER": [100, 100],
+    "RUS": [313, 310],
+    "ZAF": [104, 100],
+    "TZA": [55, 60],
+    "UZB": [120, 120]
+   },
+   "note": "2024 values are USGS estimates."
+  }
+ ]
+}

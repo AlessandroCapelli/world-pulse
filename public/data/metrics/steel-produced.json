@@ -1,0 +1,188 @@
+{
+ "schemaVersion": 1,
+ "id": "steel-produced",
+ "category": "economy",
+ "name": {
+  "en": "Crude steel produced",
+  "it": "Acciaio grezzo prodotto"
+ },
+ "description": {
+  "en": "Crude steel production (World Steel Association). Smaller producers are unallocated.",
+  "it": "Produzione di acciaio grezzo (World Steel Association). I produttori minori non sono allocati."
+ },
+ "unit": "tonne",
+ "unitLabel": {
+  "en": "tonnes of steel",
+  "it": "tonnellate di acciaio"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#c7d2fe",
+  "icon": "anvil",
+  "scale": "sqrt"
+ },
+ "series": [
+  {
+   "scope": "world",
+   "year": 2000,
+   "value": 850000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2005,
+   "value": 1148000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2010,
+   "value": 1435000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2015,
+   "value": 1621000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 1875000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2020,
+   "value": 1880000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2021,
+   "value": 1960000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  },
+  {
+   "scope": "world",
+   "year": 2022,
+   "value": 1885000000,
+   "period": "year",
+   "sourceId": "wsa",
+   "confidence": "estimate",
+   "note": "World totals from earlier worldsteel editions, rounded."
+  }
+ ],
+ "sources": {
+  "wsif": {
+   "title": "World Steel in Figures 2025 – crude steel production by country (as compiled in “List of countries by steel production”)",
+   "publisher": "World Steel Association",
+   "url": "https://en.wikipedia.org/wiki/List_of_countries_by_steel_production",
+   "published": "2025",
+   "accessed": "2026-09-27"
+  },
+  "wsa": {
+   "title": "World Steel in Figures (earlier editions)",
+   "publisher": "World Steel Association",
+   "url": "https://worldsteel.org/data/world-steel-in-figures/",
+   "accessed": "2026-09-27"
+  }
+ },
+ "tables": [
+  {
+   "sourceId": "wsif",
+   "confidence": "official",
+   "period": "year",
+   "years": [
+    2023,
+    2024
+   ],
+   "values": {
+    "world": [1904100000, 1886300000],
+    "CHN": [1028900000.0000001, 1005100000],
+    "IND": [140800000, 149400000],
+    "USA": [81400000, 79500000],
+    "JPN": [87000000, 84000000],
+    "RUS": [76000000, 71000000],
+    "KOR": [66700000, 63600000],
+    "TUR": [33700000, 36900000],
+    "DEU": [35400000, 37300000],
+    "BRA": [32000000, 33900000],
+    "IRN": [30700000, 31400000],
+    "VNM": [19200000, 22000000],
+    "ITA": [21100000, 20000000],
+    "IDN": [16800000, 18600000],
+    "TWN": [19100000, 19200000],
+    "MEX": [16399999.999999998, 13800000],
+    "ESP": [11400000, 11900000],
+    "CAN": [12200000, 12300000],
+    "SAU": [9900000, 9600000],
+    "EGY": [10400000, 10700000],
+    "FRA": [10000000, 10800000],
+    "MYS": [7500000, 9000000],
+    "AUT": [7100000, 7100000],
+    "UKR": [6200000, 7600000],
+    "BEL": [5900000, 7100000],
+    "POL": [6400000, 7100000],
+    "NLD": [4700000, 6400000],
+    "DZA": [4400000, 4500000],
+    "AUS": [5300000, 4700000],
+    "THA": [5000000, 4900000],
+    "BGD": [5000000, 4500000],
+    "ZAF": [5000000, 4700000],
+    "KAZ": [3900000, 4200000],
+    "ARG": [4900000, 3900000],
+    "SWE": [4300000, 4000000],
+    "ARE": [3800000, 3700000],
+    "FIN": [3800000, 3700000],
+    "SVK": [4400000, 3900000],
+    "PAK": [5300000, 4099999.9999999995],
+    "IRQ": [2800000, 3000000],
+    "OMN": [2900000, 3000000],
+    "CZE": [3400000, 2500000],
+    "GBR": [5600000, 4000000],
+    "PRT": [2000000, 1900000],
+    "LUX": [1900000, 1800000],
+    "BLR": [2300000, 2300000],
+    "KEN": [1400000, 1800000],
+    "PHL": [1900000, 1800000],
+    "QAT": [1100000, 1200000],
+    "PER": [1600000, 1600000],
+    "MAR": [1400000, 1400000],
+    "SRB": [1500000, 1400000],
+    "COL": [1400000, 1300000],
+    "GRC": [1200000, 1300000],
+    "CHE": [1200000, 1200000],
+    "NGA": [1200000, 1200000],
+    "BHR": [1300000, 1200000],
+    "LBY": [900000, 900000],
+    "KWT": [1000000, 1000000],
+    "UZB": [1000000, 1000000],
+    "ROU": [1600000, 1400000],
+    "CHL": [1200000, 800000]
+   }
+  }
+ ]
+}

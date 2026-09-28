@@ -1,0 +1,374 @@
+:host {
+  display: block;
+}
+
+.world {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.seo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.globe-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  .orb {
+    width: min(62vh, 62vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(10, 40, 60, 0.6), rgba(2, 8, 14, 0.9) 70%);
+    box-shadow:
+      0 0 80px rgba(70, 240, 255, 0.12),
+      inset 0 0 60px rgba(70, 240, 255, 0.15);
+    border: 1px solid rgba(70, 240, 255, 0.2);
+  }
+}
+
+.hud {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(250px, 300px) 1fr minmax(310px, 370px);
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    'top top top'
+    'left . right'
+    'bottom bottom bottom'
+    'ticker ticker ticker';
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.comparing .hud {
+  grid-template-columns: minmax(300px, 350px) 1fr minmax(310px, 370px);
+}
+
+.top {
+  grid-area: top;
+}
+
+.notice {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  max-width: min(640px, calc(100vw - 24px));
+  margin: 0;
+  padding: 10px 12px 10px 16px;
+  font-size: 13px;
+  color: var(--wp-warn);
+  z-index: 5;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  padding: 4px 16px 12px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.left {
+  grid-area: left;
+
+  app-metric-picker {
+    flex: 1 1 auto;
+  }
+}
+
+.sheet-handle {
+  display: none;
+}
+
+.right {
+  grid-area: right;
+  overflow-y: auto;
+  scrollbar-width: none;
+
+  app-country-panel {
+    flex: 0 1 auto;
+  }
+}
+
+.comparing .left app-metric-picker:not(.comparing-pick) {
+  display: none;
+}
+
+.comparing .left app-metric-picker.comparing-pick + .compare-left {
+  display: none;
+}
+
+.comparing .left .compare-left {
+  margin-top: 0;
+}
+
+.status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--wp-text-dim);
+}
+
+.spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--wp-accent);
+  border-right-color: transparent;
+  animation: spin 900ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bottom {
+  grid-area: bottom;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 12px;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+.ticker {
+  grid-area: ticker;
+}
+
+.table-layer {
+  position: absolute;
+  inset: 76px 16px 52px;
+  z-index: 4;
+  display: grid;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.table-mode .left,
+.table-mode .right {
+  visibility: hidden;
+}
+
+.share-pop {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  z-index: 6;
+}
+
+// ---------------------------------------------------------------- mobile: bottom sheet
+
+@media (max-width: 760px) {
+  .hud,
+  .comparing .hud {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+    grid-template-areas:
+      'top'
+      '.'
+      'right'
+      'bottom'
+      'ticker';
+  }
+
+  .left {
+    position: fixed;
+    inset: 0;
+    z-index: 8;
+    padding: calc(12px + var(--wp-safe-top)) 12px 12px;
+    background: rgba(1, 4, 9, 0.82);
+    backdrop-filter: blur(6px);
+    display: none;
+  }
+
+  .picker-open .left,
+  .left.overlay {
+    display: flex;
+  }
+
+  .comparing .left .compare-left {
+    display: none;
+  }
+
+  .sheet-handle {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 64px;
+    padding: 6px 0 2px;
+    border: 0;
+    background: none;
+
+    span {
+      width: 38px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--wp-border-strong);
+    }
+  }
+
+  .right.collapsed {
+    overflow: hidden;
+  }
+
+  .sheet-hidden {
+    display: none;
+  }
+
+  .right {
+    min-width: 0;
+    max-height: 46vh;
+    padding: 0 10px 8px;
+    gap: 8px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .bottom {
+    padding: 0 10px 8px;
+  }
+
+  .table-layer {
+    inset: 100px 8px 44px;
+  }
+
+  .share-pop {
+    top: 96px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 760px) and (max-height: 700px) {
+  .right {
+    max-height: 38vh;
+  }
+}
+
+// ---------------------------------------------------------------- short landscape: side sheet
+
+@media (max-height: 500px) and (orientation: landscape) and (min-width: 761px) {
+  .hud,
+  .comparing .hud {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 330px);
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'top top'
+      '. right'
+      'bottom right';
+  }
+
+  .ticker {
+    display: none;
+  }
+
+  .left {
+    position: fixed;
+    inset: 0;
+    z-index: 8;
+    padding: calc(8px + var(--wp-safe-top)) max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
+    background: rgba(1, 4, 9, 0.82);
+    backdrop-filter: blur(6px);
+    display: none;
+
+    app-metric-picker {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  .picker-open .left,
+  .left.overlay {
+    display: flex;
+  }
+
+  .comparing .left .compare-left {
+    display: none;
+  }
+
+  .right {
+    padding: 0 max(10px, env(safe-area-inset-right)) 8px 0;
+    gap: 8px;
+  }
+
+  .right.collapsed {
+    overflow: hidden;
+  }
+
+  .sheet-hidden {
+    display: none;
+  }
+
+  .sheet-handle {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 64px;
+    padding: 2px 0;
+    border: 0;
+    background: none;
+
+    span {
+      width: 38px;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--wp-border-strong);
+    }
+  }
+
+  .bottom {
+    padding: 0 10px 6px max(10px, env(safe-area-inset-left));
+    gap: 6px;
+  }
+
+  .table-layer {
+    inset: 52px 8px 8px;
+  }
+
+  .share-pop {
+    top: 52px;
+    right: 12px;
+  }
+}

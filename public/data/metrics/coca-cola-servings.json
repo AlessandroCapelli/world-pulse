@@ -1,0 +1,51 @@
+{
+ "schemaVersion": 1,
+ "id": "coca-cola-servings",
+ "category": "consumer",
+ "name": {
+  "en": "Coca-Cola Company drinks",
+  "it": "Bevande The Coca-Cola Company"
+ },
+ "description": {
+  "en": "Servings of all The Coca-Cola Company beverage brands, as stated by the company. Spread by population share.",
+  "it": "Porzioni di tutte le bevande di The Coca-Cola Company, secondo l’azienda. Distribuite per quota di popolazione."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "servings",
+  "it": "porzioni"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "population",
+  "exclude": [
+   "PRK",
+   "CUB"
+  ]
+ },
+ "visual": {
+  "color": "#ff4d5e",
+  "icon": "soda",
+  "scale": "sqrt"
+ },
+ "series": [
+  {
+   "scope": "world",
+   "year": 2023,
+   "value": 2200000000,
+   "period": "day",
+   "sourceId": "ko",
+   "confidence": "estimate",
+   "note": "Company statement (“about 2.2 billion servings per day”)."
+  }
+ ],
+ "sources": {
+  "ko": {
+   "title": "Company overview / annual report",
+   "publisher": "The Coca-Cola Company",
+   "url": "https://investors.coca-colacompany.com/",
+   "accessed": "2026-06"
+  }
+ }
+}

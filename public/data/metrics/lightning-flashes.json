@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "id": "lightning-flashes",
+ "category": "environment-energy",
+ "name": {
+  "en": "Lightning flashes",
+  "it": "Fulmini"
+ },
+ "description": {
+  "en": "Lightning flashes, from NASA satellite climatology (≈44 per second). Crude placement: spread by land area, excluding polar and sub-polar countries; real flash density peaks in the tropics.",
+  "it": "Fulmini, dalla climatologia satellitare NASA (≈44 al secondo). Collocazione approssimativa: per superficie, esclusi i paesi polari e subpolari; la densità reale è massima ai tropici."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "flashes",
+  "it": "fulmini"
+ },
+ "kind": "flow",
+ "allocation": {
+  "proxy": "land-area",
+  "exclude": [
+   "ATA",
+   "GRL",
+   "RUS",
+   "CAN",
+   "NOR",
+   "SWE",
+   "FIN",
+   "ISL",
+   "ATF",
+   "HMD",
+   "SGS",
+   "FLK",
+   "ALA",
+   "FRO"
+  ]
+ },
+ "visual": {
+  "color": "#d0b3ff",
+  "icon": "lightning",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2010,
+   "value": 44,
+   "period": "second",
+   "sourceId": "nasa",
+   "confidence": "estimate",
+   "note": "Long-term satellite average (OTD/LIS, ±5 flashes per second)."
+  }
+ ],
+ "resolution": {
+  "maxYearGap": 30
+ },
+ "sources": {
+  "nasa": {
+   "title": "Lightning climatology from OTD/LIS",
+   "publisher": "NASA Global Hydrometeorology Resource Center",
+   "url": "https://ghrc.nsstc.nasa.gov/lightning/",
+   "accessed": "2026-06"
+  }
+ }
+}

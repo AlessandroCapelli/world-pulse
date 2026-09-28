@@ -1,0 +1,57 @@
+{
+ "schemaVersion": 1,
+ "id": "bitcoin-transactions",
+ "category": "digital",
+ "name": {
+  "en": "Bitcoin transactions",
+  "it": "Transazioni Bitcoin"
+ },
+ "description": {
+  "en": "Confirmed on-chain Bitcoin transactions, yearly average per day (Blockchain.com). Not geolocatable, so not placed on countries.",
+  "it": "Transazioni Bitcoin confermate on-chain, media giornaliera annua (Blockchain.com). Non geolocalizzabili, quindi non assegnate ai paesi."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "transactions",
+  "it": "transazioni"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#f7931a",
+  "icon": "bitcoin",
+  "scale": "linear"
+ },
+ "tables": [
+  {
+   "sourceId": "bc",
+   "confidence": "official",
+   "period": "day",
+   "note": "Yearly average of daily counts.",
+   "years": [
+    2010,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "values": {
+    "world": [507.7, 125100, 225800, 285100, 223000, 328200, 307500, 267900, 255100, 420300, 525300, 420700]
+   }
+  }
+ ],
+ "sources": {
+  "bc": {
+   "title": "Confirmed transactions per day",
+   "publisher": "Blockchain.com",
+   "url": "https://www.blockchain.com/explorer/charts/n-transactions",
+   "accessed": "2026-09-27"
+  }
+ }
+}

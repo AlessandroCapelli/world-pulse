@@ -1,0 +1,55 @@
+<nav class="hud-panel picker" [attr.aria-label]="'picker.title' | transloco">
+  <header>
+    <div class="title-row">
+      <h2 class="hud-label">
+        @if (mode() === 'compare') {
+          {{ 'compare.title' | transloco }}
+        } @else {
+          {{ heading() ?? ('picker.title' | transloco) }}
+        }
+      </h2>
+      <button type="button" class="close hud-button icon-only" (click)="closed.emit()" [attr.aria-label]="'common.close' | transloco">
+        <app-icon name="x" [size]="14" />
+      </button>
+    </div>
+    <label class="search">
+      <app-icon name="search" [size]="15" />
+      <span class="visually-hidden">{{ 'picker.search' | transloco }}</span>
+      <input type="search" [placeholder]="'picker.search' | transloco" [value]="query()" (input)="onSearch($event)" autocomplete="off" />
+    </label>
+  </header>
+
+  <div class="list" role="list">
+    @for (g of groups(); track g.category) {
+      <section role="listitem" class="group">
+        <h3 class="hud-label">{{ 'category.' + g.category | transloco }}</h3>
+        <ul>
+          @for (e of g.items; track e.file.id) {
+            <li>
+              <button
+                type="button"
+                class="item"
+                [class.selected]="e.file.id === selectedId() || e.file.id === compareId()"
+                [attr.aria-current]="e.file.id === selectedId() ? 'true' : null"
+                [style.--c]="e.file.visual?.color ?? '#46f0ff'"
+                (click)="pick.emit(e.file.id)"
+              >
+                <span class="ico"><app-icon [name]="e.file.visual?.icon ?? 'globe'" [size]="16" /></span>
+                <span class="name">{{ e.file.name | tx: lang() }}</span>
+                @if (values().get(e.file.id); as v) {
+                  <span class="val mono" [title]="v.trace">{{ v.text }}@if (v.unit) {<small>{{ v.unit }}</small>}<i class="conf" [class]="v.confidence" aria-hidden="true"></i><span class="visually-hidden">({{ v.trace }})</span></span>
+                }
+                @if (e.origin === 'user') {
+                  <span class="badge user">{{ 'userData.badge' | transloco }}</span>
+                }
+              </button>
+            </li>
+          }
+        </ul>
+      </section>
+    } @empty {
+      <p class="empty">{{ 'picker.empty' | transloco: { q: query() } }}</p>
+    }
+  </div>
+  <footer class="hud-label">{{ 'picker.count' | transloco: { n: total() } }}</footer>
+</nav>

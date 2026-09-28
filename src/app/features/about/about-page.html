@@ -1,0 +1,84 @@
+<div class="page">
+  <nav class="top">
+    <a class="hud-button" routerLink="/" queryParamsHandling="preserve"><app-icon name="chevron-left" [size]="14" />{{ 'nav.back' | transloco }}</a>
+    <span class="brand mono">WORLD PULSE</span>
+  </nav>
+
+  <main class="content">
+    <header class="hero">
+      <p class="hud-label">{{ 'nav.about' | transloco }}</p>
+      <h1>{{ 'about.title' | transloco }}</h1>
+      <p class="lead">{{ 'about.lead' | transloco }}</p>
+      <p class="honesty hud-panel">
+        <app-icon name="info" [size]="16" />
+        <span>{{ 'about.honesty' | transloco }}</span>
+      </p>
+      <p class="stats mono">{{ counts().metrics }} · {{ 'picker.title' | transloco }} — {{ counts().sources }} · {{ 'card.sources' | transloco }}</p>
+    </header>
+
+    <section>
+      <h2>{{ 'about.method.title' | transloco }}</h2>
+      <ol class="method">
+        @for (k of methodKeys; track k) {
+          <li>{{ 'about.method.' + k | transloco }}</li>
+        }
+      </ol>
+    </section>
+
+    <section>
+      <h2>{{ 'about.confidence.title' | transloco }}</h2>
+      <ul class="conf">
+        @for (c of confidences; track c) {
+          <li><app-confidence-badge [confidence]="c" /><span>{{ 'confidenceHint.' + c | transloco }}</span></li>
+        }
+      </ul>
+      <ul class="conf prov">
+        <li><span class="swatch reported"></span><span>{{ 'provenance.reported' | transloco }}</span></li>
+        <li><span class="swatch estimated"></span><span>{{ 'provenance.interpolated' | transloco }} / {{ 'provenance.carried' | transloco }}</span></li>
+        <li><span class="swatch allocated"></span><span>{{ 'provenance.allocated' | transloco }}</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>{{ 'about.limits.title' | transloco }}</h2>
+      <ul class="limits">
+        @for (l of limits(); track l) {
+          <li>{{ l }}</li>
+        }
+      </ul>
+    </section>
+
+    <section>
+      <h2>{{ 'about.sources.title' | transloco }}</h2>
+      <ul class="sources">
+        @for (s of sources(); track s.key) {
+          <li class="hud-panel">
+            <p class="pub hud-label">{{ s.publisher }}</p>
+            <a [href]="s.url" target="_blank" rel="noopener noreferrer">{{ s.title }}</a>
+            <p class="meta mono">
+              @if (s.published) {
+                {{ s.published }} ·
+              }
+              {{ 'about.sources.accessed' | transloco: { date: s.accessed } }}
+            </p>
+            <p class="used">
+              <span class="hud-label">{{ 'about.sources.metric' | transloco }}</span>
+              @for (m of s.metrics; track m.id; let last = $last) {
+                <a [routerLink]="['/metric', m.id]">{{ m.name }}</a>@if (!last) {, }
+              }
+            </p>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section>
+      <h2>{{ 'about.tech.title' | transloco }}</h2>
+      <p>{{ 'about.tech.text' | transloco }}</p>
+      <p class="credit">
+        {{ 'about.tech.by' | transloco }} <a [href]="site.authorUrl" target="_blank" rel="noopener noreferrer">{{ site.author }}</a> ·
+        <a [href]="site.repoUrl" target="_blank" rel="noopener noreferrer">{{ 'about.tech.source' | transloco }}</a> ({{ 'about.tech.license' | transloco }})
+      </p>
+    </section>
+  </main>
+</div>

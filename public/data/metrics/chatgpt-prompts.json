@@ -1,0 +1,78 @@
+{
+ "schemaVersion": 1,
+ "id": "chatgpt-prompts",
+ "category": "digital",
+ "name": {
+  "en": "ChatGPT prompts",
+  "it": "Prompt inviati a ChatGPT"
+ },
+ "description": {
+  "en": "Messages sent to ChatGPT, per OpenAI (about 1 billion a day in late 2024, 2.5 billion a day in mid-2025). Spread by internet users in supported countries.",
+  "it": "Messaggi inviati a ChatGPT secondo OpenAI (circa 1 miliardo al giorno a fine 2024, 2,5 miliardi al giorno a metà 2025). Distribuiti per utenti di internet nei paesi supportati."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "prompts",
+  "it": "prompt"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "internet-users",
+  "exclude": [
+   "CHN",
+   "HKG",
+   "MAC",
+   "RUS",
+   "IRN",
+   "PRK",
+   "SYR",
+   "CUB"
+  ]
+ },
+ "resolution": {
+  "maxYearGap": 2
+ },
+ "visual": {
+  "color": "#b8a6ff",
+  "icon": "sparkle",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2024,
+   "value": 1000000000,
+   "period": "day",
+   "sourceId": "oai24",
+   "confidence": "estimate",
+   "note": "Company statement (December 2024)."
+  },
+  {
+   "scope": "world",
+   "year": 2025,
+   "value": 2500000000,
+   "period": "day",
+   "sourceId": "oai25",
+   "confidence": "estimate",
+   "note": "Company statement (July 2025)."
+  }
+ ],
+ "sources": {
+  "oai24": {
+   "title": "OpenAI: ChatGPT handles about 1 billion messages a day",
+   "publisher": "OpenAI (via The Verge)",
+   "url": "https://www.theverge.com/",
+   "published": "2024-12",
+   "accessed": "2026-06"
+  },
+  "oai25": {
+   "title": "OpenAI: ChatGPT users send 2.5 billion prompts a day",
+   "publisher": "Axios (OpenAI statement)",
+   "url": "https://www.axios.com/",
+   "published": "2025-07",
+   "accessed": "2026-06"
+  }
+ }
+}

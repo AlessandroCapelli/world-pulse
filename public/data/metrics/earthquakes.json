@@ -1,0 +1,58 @@
+{
+ "schemaVersion": 1,
+ "id": "earthquakes",
+ "category": "environment-energy",
+ "name": {
+  "en": "Earthquakes (M5+)",
+  "it": "Terremoti (M5+)"
+ },
+ "description": {
+  "en": "Earthquakes of magnitude 5 or more recorded in the USGS ComCat catalogue each year. Not placed on countries (most occur offshore along plate boundaries).",
+  "it": "Terremoti di magnitudo 5 o superiore registrati ogni anno nel catalogo USGS ComCat. Non assegnati ai paesi (la maggior parte avviene in mare lungo i margini di placca)."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "earthquakes",
+  "it": "terremoti"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#ff9f43",
+  "icon": "quake",
+  "scale": "linear"
+ },
+ "tables": [
+  {
+   "sourceId": "usgs",
+   "confidence": "official",
+   "period": "year",
+   "years": [
+    2000,
+    2005,
+    2010,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "values": {
+    "world": [1494, 1844, 2397, 1571, 1708, 1567, 1822, 1645, 1450, 2227, 1726, 1780, 1507, 2129]
+   }
+  }
+ ],
+ "sources": {
+  "usgs": {
+   "title": "ANSS Comprehensive Earthquake Catalog (ComCat) – event counts, M ≥ 5",
+   "publisher": "US Geological Survey",
+   "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+   "accessed": "2026-09-27"
+  }
+ }
+}

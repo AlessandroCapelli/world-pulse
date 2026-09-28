@@ -1,0 +1,99 @@
+{
+  "name": "world-pulse",
+  "version": "1.0.0",
+  "description": "What happens in the world, right now — an interactive holographic 3D globe of births, CO₂, iPhones, emails and 60+ sourced world statistics. Angular 21 + Three.js, static on GitHub Pages.",
+  "author": {
+    "name": "Alessandro Capelli",
+    "url": "https://github.com/AlessandroCapelli"
+  },
+  "license": "MIT",
+  "homepage": "https://alessandrocapelli.github.io/world-pulse/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlessandroCapelli/world-pulse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlessandroCapelli/world-pulse/issues"
+  },
+  "keywords": [
+    "globe",
+    "threejs",
+    "webgl",
+    "angular",
+    "data-visualization",
+    "world-statistics",
+    "open-data",
+    "dataviz",
+    "worldometer",
+    "signals"
+  ],
+  "private": true,
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build:gh-pages": "ng build --base-href /world-pulse/ && node scripts/postbuild-gh-pages.mjs",
+    "watch": "ng build --watch --configuration development",
+    "lint": "ng lint",
+    "data:validate": "tsx scripts/validate-data.ts",
+    "geo:build": "node scripts/build-geo.mjs",
+    "data:fetch": "node scripts/etl/fetch.mjs",
+    "data:build": "node scripts/etl/build.mjs && tsx scripts/validate-data.ts"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "packageManager": "npm@11.8.0",
+  "dependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/platform-server": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "@angular/ssr": "^21.0.4",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@jsverse/transloco": "^8.4.0",
+    "idb": "^8.0.3",
+    "papaparse": "^5.7.0",
+    "rxjs": "~7.8.0",
+    "three": "^0.186.1",
+    "topojson-client": "^3.1.0",
+    "tslib": "^2.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.0.4",
+    "@angular/cli": "^21.0.4",
+    "@angular/compiler-cli": "^21.0.0",
+    "@eslint/js": "^10.0.1",
+    "@types/d3-geo": "^3.1.1",
+    "@types/node": "^20.17.19",
+    "@types/papaparse": "^5.5.2",
+    "@types/three": "^0.186.0",
+    "@types/topojson-client": "^3.1.5",
+    "angular-eslint": "21.4.0",
+    "countries-and-timezones": "^3.10.0",
+    "d3-geo": "^3.1.1",
+    "eslint": "^10.3.0",
+    "i18n-iso-countries": "^7.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.2",
+    "typescript-eslint": "8.59.2",
+    "world-atlas": "^2.0.2"
+  }
+}

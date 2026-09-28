@@ -1,0 +1,211 @@
+<dialog #dialog class="dlg" aria-labelledby="upload-title" (cancel)="close()">
+  <div class="hud-panel body">
+    <header>
+      <div>
+        <p class="hud-label">{{ 'upload.button' | transloco }}</p>
+        <h2 id="upload-title">{{ 'upload.title' | transloco }}</h2>
+      </div>
+      <button type="button" class="hud-button icon-only" (click)="close()" [attr.aria-label]="'upload.cancel' | transloco"><app-icon name="x" [size]="14" /></button>
+    </header>
+
+    <ol class="steps">
+      <li [class.active]="step() === 'file'">1 · {{ 'upload.step.file' | transloco }}</li>
+      <li [class.active]="step() === 'map'">2 · {{ 'upload.step.map' | transloco }}</li>
+      <li [class.active]="step() === 'check'">3 · {{ 'upload.step.check' | transloco }}</li>
+    </ol>
+
+    @if (error(); as e) {
+      <p class="error" role="alert">{{ 'upload.error' | transloco: { message: e } }}</p>
+    }
+    @if (issues().length) {
+      <div class="error" role="alert">
+        <p>{{ 'upload.invalid' | transloco }}</p>
+        <ul>
+          @for (i of issues(); track i) {
+            <li class="mono">{{ i }}</li>
+          }
+        </ul>
+      </div>
+    }
+
+    @switch (step()) {
+      @case ('file') {
+        <p class="intro">{{ 'upload.intro' | transloco }}</p>
+        <label
+          class="drop"
+          [class.over]="dragOver()"
+          (dragover)="$event.preventDefault(); dragOver.set(true)"
+          (dragleave)="dragOver.set(false)"
+          (drop)="onDrop($event)"
+        >
+          <app-icon name="upload" [size]="26" />
+          <span>{{ (busy() ? 'upload.parsing' : 'upload.drop') | transloco }}</span>
+          <span class="mono small">.csv · .json</span>
+          <input type="file" accept=".csv,.json,text/csv,application/json" (change)="onPick($event)" />
+        </label>
+        @if (mine().length) {
+          <div class="mine">
+            <p class="hud-label">{{ 'upload.yours' | transloco }}</p>
+            <ul>
+              @for (m of mine(); track m.id) {
+                <li>
+                  <span>{{ m.name[lang()] }}</span>
+                  <button type="button" class="hud-button" (click)="remove(m.id)">{{ 'upload.delete' | transloco }}</button>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      }
+      @case ('map') {
+        @if (table(); as t) {
+          <p class="meta mono">{{ cfg().fileName }} · {{ 'upload.rows' | transloco: { n: t.rows.length, c: t.columns.length } }}</p>
+          <div class="grid">
+            <label>
+              <span>{{ 'upload.name' | transloco }}</span>
+              <input type="text" [value]="cfg().name" (input)="set('name', val($event))" [placeholder]="'upload.namePlaceholder' | transloco" />
+            </label>
+            <label>
+              <span>{{ 'upload.countryCol' | transloco }}</span>
+              <select (change)="set('countryCol', val($event))">
+                @for (c of t.columns; track c) {
+                  <option [value]="c" [selected]="c === cfg().countryCol">{{ c }}</option>
+                }
+              </select>
+            </label>
+            <label>
+              <span>{{ 'upload.valueCol' | transloco }}</span>
+              <select (change)="set('valueCol', val($event))">
+                @for (c of t.columns; track c) {
+                  <option [value]="c" [selected]="c === cfg().valueCol">{{ c }}</option>
+                }
+              </select>
+            </label>
+            <fieldset>
+              <legend>{{ 'upload.yearMode' | transloco }}</legend>
+              <label class="inline"><input type="radio" name="ym" [checked]="cfg().yearMode === 'column'" (change)="set('yearMode', 'column')" /> {{ 'upload.yearColumn' | transloco }}</label>
+              <label class="inline"><input type="radio" name="ym" [checked]="cfg().yearMode === 'fixed'" (change)="set('yearMode', 'fixed')" /> {{ 'upload.yearFixed' | transloco }}</label>
+              @if (cfg().yearMode === 'column') {
+                <select (change)="set('yearCol', val($event))" [attr.aria-label]="'upload.yearCol' | transloco">
+                  @for (c of t.columns; track c) {
+                    <option [value]="c" [selected]="c === cfg().yearCol">{{ c }}</option>
+                  }
+                </select>
+              } @else {
+                <input type="number" min="1800" max="2100" [value]="cfg().fixedYear" (input)="set('fixedYear', +val($event))" [attr.aria-label]="'upload.yearFixed' | transloco" />
+              }
+            </fieldset>
+            <fieldset class="wide">
+              <legend>{{ 'upload.kind' | transloco }}</legend>
+              <label class="inline"><input type="radio" name="kind" [checked]="cfg().kind === 'flow'" (change)="set('kind', 'flow')" /> {{ 'upload.kindFlow' | transloco }}</label>
+              <label class="inline"><input type="radio" name="kind" [checked]="cfg().kind === 'stock'" (change)="set('kind', 'stock')" /> {{ 'upload.kindStock' | transloco }}</label>
+            </fieldset>
+            @if (cfg().kind === 'flow') {
+              <label>
+                <span>{{ 'upload.period' | transloco }}</span>
+                <select (change)="set('period', $any(val($event)))">
+                  @for (p of periods; track p) {
+                    <option [value]="p" [selected]="p === cfg().period">{{ p }}</option>
+                  }
+                </select>
+              </label>
+            }
+            <label>
+              <span>{{ 'upload.unit' | transloco }}</span>
+              <select (change)="setUnit($event)">
+                @for (u of units; track u) {
+                  <option [value]="u" [selected]="u === cfg().unit">{{ u }}</option>
+                }
+              </select>
+            </label>
+            <label>
+              <span>{{ 'upload.unitLabel' | transloco }}</span>
+              <input type="text" [value]="cfg().unitLabel" (input)="set('unitLabel', val($event))" [placeholder]="'upload.unitLabelPlaceholder' | transloco" />
+            </label>
+            <label>
+              <span>{{ 'upload.proxy' | transloco }}</span>
+              <select (change)="set('proxy', val($event) || null)">
+                <option value="" [selected]="!cfg().proxy">{{ 'upload.noProxy' | transloco }}</option>
+                @for (p of proxies(); track p.id) {
+                  <option [value]="p.id" [selected]="p.id === cfg().proxy">{{ p.name[lang()] }}</option>
+                }
+              </select>
+            </label>
+            <label>
+              <span>{{ 'card.confidence' | transloco }}</span>
+              <select (change)="set('confidence', $any(val($event)))">
+                @for (c of confidences; track c) {
+                  <option [value]="c" [selected]="c === cfg().confidence">{{ 'confidence.' + c | transloco }}</option>
+                }
+              </select>
+            </label>
+            <label class="wide">
+              <span>{{ 'upload.source' | transloco }}</span>
+              <input type="text" [value]="cfg().sourceTitle" (input)="set('sourceTitle', val($event))" [placeholder]="'upload.sourceTitle' | transloco" />
+              <input type="url" [value]="cfg().sourceUrl" (input)="set('sourceUrl', val($event))" placeholder="https://…" />
+            </label>
+          </div>
+          <footer>
+            <button type="button" class="hud-button" (click)="step.set('file')">{{ 'upload.back' | transloco }}</button>
+            <button type="button" class="hud-button active" [disabled]="!result()?.file" (click)="step.set('check')">{{ 'upload.next' | transloco }}</button>
+          </footer>
+        }
+      }
+      @case ('check') {
+        @if (directFile(); as f) {
+          <p class="ok"><app-icon name="check" [size]="14" /> {{ f.name[lang()] }} · {{ 'upload.points' | transloco: { n: pointCount(f) } }}</p>
+        } @else if (result(); as r) {
+          <h3 class="hud-label">{{ 'upload.report' | transloco }}</h3>
+          <ul class="report">
+            <li class="ok">{{ 'upload.matched' | transloco: { n: r.report.matched } }}</li>
+            @if (r.report.worldRows) {
+              <li>{{ 'upload.worldRows' | transloco: { n: r.report.worldRows } }}</li>
+            }
+            @if (r.report.duplicates) {
+              <li class="warn">{{ 'upload.duplicates' | transloco: { n: r.report.duplicates } }}</li>
+            }
+            @if (r.report.invalid) {
+              <li class="warn">{{ 'upload.negatives' | transloco: { n: r.report.invalid } }}</li>
+            }
+          </ul>
+          @if (r.report.unmatched.length) {
+            <h4 class="hud-label">{{ 'upload.unmatched' | transloco }}</h4>
+            <ul class="unmatched">
+              @for (u of r.report.unmatched.slice(0, 30); track u.raw) {
+                <li>
+                  <span class="mono">“{{ u.raw }}” ×{{ u.rows }}</span>
+                  @if (u.suggestion) {
+                    <button type="button" class="hud-button" [class.active]="overrides().get(u.raw) === u.suggestion" (click)="setOverride(u.raw, overrides().get(u.raw) === u.suggestion ? null : u.suggestion)">
+                      {{ 'upload.suggestion' | transloco: { name: countryName(u.suggestion) } }}
+                    </button>
+                  }
+                  <button type="button" class="hud-button" [class.active]="overrides().get(u.raw) === 'ignore'" (click)="setOverride(u.raw, overrides().get(u.raw) === 'ignore' ? null : 'ignore')">
+                    {{ 'upload.ignore' | transloco }}
+                  </button>
+                </li>
+              }
+            </ul>
+          }
+          @if (r.report.outliers.length) {
+            <h4 class="hud-label">{{ 'upload.outliers' | transloco }}</h4>
+            <p class="mono small">
+              @for (o of r.report.outliers; track o.iso3 + o.year) {
+                <span>{{ countryName(o.iso3) }} {{ o.year }}: {{ o.value }}; </span>
+              }
+            </p>
+          }
+          @if (!r.report.unmatched.length && !r.report.duplicates && !r.report.invalid && !r.report.outliers.length) {
+            <p class="ok">{{ 'upload.ok' | transloco }}</p>
+          }
+        }
+        <p class="note">{{ 'upload.saved' | transloco }}</p>
+        <footer>
+          <button type="button" class="hud-button" (click)="step.set(directFile() ? 'file' : 'map')">{{ 'upload.back' | transloco }}</button>
+          <button type="button" class="hud-button active" [disabled]="busy() || (!directFile() && !result()?.file)" (click)="save()">
+            <app-icon name="globe" [size]="14" />{{ 'upload.save' | transloco }}
+          </button>
+        </footer>
+      }
+    }
+  </div>
+</dialog>

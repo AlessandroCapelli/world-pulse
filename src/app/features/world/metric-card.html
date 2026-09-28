@@ -1,0 +1,169 @@
+<section class="hud-panel card" [class.compact]="compact()" [class.collapsed]="collapsed()" [style.--metric]="color()" [attr.aria-labelledby]="'mc-title-' + file().id">
+  <header class="head">
+    <span class="icon-wrap"><app-icon [name]="icon()" [size]="20" /></span>
+    <div class="titles">
+      <p class="hud-label">
+        @if (side()) {
+          <span class="side-label">{{ 'compare.' + side() | transloco }}</span>
+        }
+        <span class="category" [class.in-compare]="!!side()">{{ 'category.' + file().category | transloco }}</span>
+      </p>
+      <h2 [id]="'mc-title-' + file().id">{{ file().name | tx: lang() }}</h2>
+    </div>
+    @if (isUser()) {
+      <span class="badge user">{{ 'userData.badge' | transloco }}</span>
+    }
+    @if (side()) {
+      <button type="button" class="hud-button change" (click)="changeMetric.emit()">{{ 'compare.change' | transloco }}</button>
+    }
+  </header>
+
+  <div class="headline" aria-live="off">
+    <div class="big mono">
+      <app-odometer [value]="headlineParts().number" />
+      @if (headlineParts().unit) {
+        <span class="unit">{{ headlineParts().unit }}</span>
+      }
+    </div>
+    <p class="caption">
+      @switch (headline().kind) {
+        @case ('sinceOpen') {
+          {{ captionLabel() | tx: lang() }} {{ 'card.sinceOpen' | transloco }}
+        }
+        @case ('window') {
+          {{ captionLabel() | tx: lang() }} {{ 'card.inWindow' | transloco: { window: ('window.' + store.window() | transloco) } }}
+          @if (!world.replay() && hasProfile()) {
+            <span class="dim">· {{ 'window.rightNow' | transloco }}</span>
+          }
+        }
+        @case ('year') {
+          {{ captionLabel() | tx: lang() }} {{ 'card.inYear' | transloco: { year: snapshot().year } }}
+        }
+        @case ('perPerson') {
+          {{ captionLabel() | tx: lang() }} {{ captionKey() | transloco }}
+        }
+        @default {
+          {{ captionLabel() | tx: lang() }} {{ 'card.level' | transloco }}
+        }
+      }
+    </p>
+  </div>
+
+  @if (isFlow()) {
+    <dl class="stats">
+      <div>
+        <dt class="hud-label">{{ 'card.perSecond' | transloco }}</dt>
+        <dd class="mono">{{ ratePerSecond() | qty: file().unit : lang() }}</dd>
+      </div>
+      <div>
+        <dt class="hud-label">{{ 'card.perDay' | transloco }}</dt>
+        <dd class="mono">{{ perDay() | qty: file().unit : lang() }}</dd>
+      </div>
+      <div>
+        <dt class="hud-label">{{ 'card.perYear' | transloco }}</dt>
+        <dd class="mono">{{ perYear() | qty: file().unit : lang() }}</dd>
+      </div>
+    </dl>
+  } @else if (!compact()) {
+    <p class="hint">{{ 'card.levelHint' | transloco }}</p>
+  }
+
+  <div class="trust">
+    <app-confidence-badge [confidence]="snapshot().world.confidence" [provenance]="snapshot().world.provenance" [year]="snapshot().world.dataYear" />
+    @if (worldSource(); as src) {
+      <a class="source" [href]="src.url" target="_blank" rel="noopener noreferrer" [title]="src.title">{{ src.publisher }}</a>
+    }
+    @if (stale(); as y) {
+      <span class="stale">{{ 'card.stale' | transloco: { year: y } }}</span>
+    }
+  </div>
+
+  @if (!compact()) {
+    <div class="coverage">
+      <div class="cov-head">
+        <span class="hud-label">{{ 'card.coverage' | transloco }}</span>
+        <span class="mono">{{ snapshot().coveragePct | pct: lang() }}</span>
+      </div>
+      <div class="bar" role="img" [attr.aria-label]="'card.coverageHint' | transloco: { pct: (snapshot().coveragePct | pct: lang()) }">
+        <span class="seg reported" [style.width.%]="snapshot().coverageBasis === 'world' ? shares().reported : snapshot().coveragePct"></span>
+        <span class="seg allocated" [style.width.%]="shares().allocated"></span>
+        <span class="seg unallocated" [style.width.%]="shares().unallocated"></span>
+      </div>
+      <p class="hint">
+        @if (snapshot().coverageBasis === 'world') {
+          {{ 'card.coverageHint' | transloco: { pct: (snapshot().coveragePct | pct: lang()) } }}
+        } @else {
+          {{ 'card.coverageProxyHint' | transloco: { pct: (snapshot().coveragePct | pct: lang()) } }}
+        }
+        @if (shares().allocated > 0.5 && proxyKey(); as pk) {
+          {{ 'card.allocatedHint' | transloco: { proxy: (pk | transloco) } }}
+        }
+        @if (shares().unallocated > 0.5) {
+          {{ 'card.unallocated' | transloco: { pct: (shares().unallocated | pct: lang()) } }}
+        }
+      </p>
+    </div>
+  }
+
+  @if (legend(); as l) {
+    <p class="legend"><span class="dot"></span><span class="hud-label">{{ 'card.legendTitle' | transloco }}</span> <span class="mono">= {{ l.text }}</span>@if (l.label) { <span>{{ l.label | tx: lang() }}</span>}</p>
+  }
+
+  @if (store.layers().choropleth && mapLegend(); as ml) {
+    <div class="map-legend" [attr.aria-label]="'card.mapLegend' | transloco">
+      <span class="hud-label">{{ 'layers.choropleth' | transloco }}</span>
+      <span class="mono lo">{{ ml.min }}</span>
+      <span class="ramp" [title]="'card.mapQuantiles' | transloco">
+        @for (c of ml.classes; track $index) {
+          <span class="step" [style.background]="c.color" [title]="c.range"></span>
+        }
+      </span>
+      <span class="mono hi">{{ ml.max }}</span>
+      @if (ml.allocated) {
+        <span class="hatch" aria-hidden="true"></span><span class="alloc">{{ 'provenance.allocated' | transloco }}</span>
+      }
+    </div>
+  }
+
+  @if (!side()) {
+    <div class="controls" role="group" [attr.aria-label]="'layers.label' | transloco">
+      @for (k of layerKeys; track k) {
+        <button type="button" class="hud-button" [attr.aria-pressed]="store.layers()[k]" (click)="store.toggleLayer(k)">
+          <app-icon [name]="layerIcons[k]" [size]="14" />{{ 'layers.' + k | transloco }}
+        </button>
+      }
+      @if (file().id !== 'population') {
+        <button type="button" class="hud-button" [attr.aria-pressed]="store.perCapita()" (click)="store.perCapita.set(!store.perCapita())" [title]="'perCapita.hint' | transloco">
+          <app-icon name="user" [size]="14" />{{ 'perCapita.label' | transloco }}
+        </button>
+      }
+      <button type="button" class="hud-button" (click)="compareRequest.emit()">
+        <app-icon name="compare" [size]="14" />{{ 'compare.button' | transloco }}
+      </button>
+    </div>
+  }
+
+  @if (!compact()) {
+    <button type="button" class="details-toggle" [attr.aria-expanded]="showDetails()" (click)="showDetails.set(!showDetails())">
+      <app-icon name="chevron-down" [size]="14" [class.open]="showDetails()" />
+      {{ (showDetails() ? 'card.hideDetails' : 'card.details') | transloco }}
+    </button>
+    @if (showDetails()) {
+      <div class="details">
+        <p class="desc">{{ file().description | tx: lang() }}</p>
+        <h3 class="hud-label">{{ 'card.sources' | transloco }}</h3>
+        <ul class="sources">
+          @for (s of sources(); track s.id) {
+            <li>
+              <a [href]="s.url" target="_blank" rel="noopener noreferrer">{{ s.title }}</a>
+              <span class="dim">— {{ s.publisher }}@if (s.published) {, {{ s.published }}}</span>
+            </li>
+          }
+        </ul>
+        @for (w of snapshot().warnings; track w) {
+          <p class="warn">⚠ {{ w }}</p>
+        }
+      </div>
+    }
+  }
+</section>

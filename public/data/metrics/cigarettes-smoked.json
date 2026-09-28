@@ -1,0 +1,57 @@
+{
+ "schemaVersion": 1,
+ "id": "cigarettes-smoked",
+ "category": "consumer",
+ "name": {
+  "en": "Cigarettes smoked",
+  "it": "Sigarette fumate"
+ },
+ "description": {
+  "en": "Cigarettes smoked. Estimates range between 5.2 and 5.7 trillion a year; China alone accounts for over 40%. Other countries are spread by population.",
+  "it": "Sigarette fumate. Le stime variano tra 5,2 e 5,7 mila miliardi l’anno; la sola Cina supera il 40%. Gli altri paesi sono distribuiti per popolazione."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "cigarettes",
+  "it": "sigarette"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "population"
+ },
+ "visual": {
+  "color": "#c0c7d1",
+  "icon": "cigarette",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 5200000000000,
+   "period": "year",
+   "sourceId": "atlas",
+   "confidence": "estimate",
+   "note": "Order of magnitude; published estimates range 5.2–5.7 trillion."
+  },
+  {
+   "scope": "CHN",
+   "year": 2019,
+   "value": 2400000000000,
+   "period": "year",
+   "sourceId": "atlas",
+   "confidence": "estimate",
+   "note": "About 44% of the world total."
+  }
+ ],
+ "sources": {
+  "atlas": {
+   "title": "The Tobacco Atlas – Consumption",
+   "publisher": "Vital Strategies / Tobacconomics",
+   "url": "https://tobaccoatlas.org/challenges/consumption/",
+   "accessed": "2026-06"
+  }
+ }
+}

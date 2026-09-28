@@ -1,0 +1,56 @@
+{
+ "schemaVersion": 1,
+ "id": "mcdonalds-customers",
+ "category": "consumer",
+ "name": {
+  "en": "McDonald’s customers served",
+  "it": "Clienti serviti da McDonald’s"
+ },
+ "description": {
+  "en": "Customers served by McDonald’s restaurants, as stated by the company (~69 million a day). Spread by GDP share.",
+  "it": "Clienti serviti dai ristoranti McDonald’s secondo l’azienda (~69 milioni al giorno). Distribuiti per quota di PIL."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "customers",
+  "it": "clienti"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "gdp",
+  "exclude": [
+   "PRK",
+   "IRN",
+   "CUB",
+   "SYR",
+   "YEM",
+   "AFG"
+  ]
+ },
+ "visual": {
+  "color": "#ffc72c",
+  "icon": "burger",
+  "scale": "sqrt"
+ },
+ "series": [
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 69000000,
+   "period": "day",
+   "sourceId": "mcd",
+   "confidence": "estimate",
+   "note": "Company statement."
+  }
+ ],
+ "sources": {
+  "mcd": {
+   "title": "Annual Report 2019",
+   "publisher": "McDonald’s Corporation",
+   "url": "https://corporate.mcdonalds.com/corpmcd/investors.html",
+   "published": "2020-03",
+   "accessed": "2026-06"
+  }
+ }
+}

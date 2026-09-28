@@ -1,0 +1,58 @@
+{
+ "schemaVersion": 1,
+ "id": "plastic-produced",
+ "category": "environment-energy",
+ "name": {
+  "en": "Plastic produced",
+  "it": "Plastica prodotta"
+ },
+ "description": {
+  "en": "Global plastics production including additives and fibres (Geyer et al. and OECD Global Plastics Outlook, via OWID). The latest measured year is 2019.",
+  "it": "Produzione mondiale di plastica inclusi additivi e fibre (Geyer et al. e OECD Global Plastics Outlook, tramite OWID). L’ultimo anno misurato è il 2019."
+ },
+ "unit": "tonne",
+ "unitLabel": {
+  "en": "tonnes of plastic",
+  "it": "tonnellate di plastica"
+ },
+ "kind": "flow",
+ "allocation": {
+  "proxy": "gdp"
+ },
+ "resolution": {
+  "maxYearGap": 7
+ },
+ "visual": {
+  "color": "#6ff7e8",
+  "icon": "box",
+  "scale": "sqrt"
+ },
+ "tables": [
+  {
+   "sourceId": "oecd",
+   "confidence": "estimate",
+   "period": "year",
+   "years": [
+    2000,
+    2005,
+    2010,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+   ],
+   "values": {
+    "world": [213000000, 263000000, 313000000, 381000000, 400100000, 420100000, 441100000, 459700000]
+   }
+  }
+ ],
+ "sources": {
+  "oecd": {
+   "title": "Global plastics production (via Our World in Data)",
+   "publisher": "Geyer et al. (2017); OECD Global Plastics Outlook",
+   "url": "https://ourworldindata.org/grapher/global-plastics-production",
+   "accessed": "2026-09-27"
+  }
+ }
+}

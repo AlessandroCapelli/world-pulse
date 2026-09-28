@@ -1,0 +1,111 @@
+<div class="world" [class.comparing]="store.comparing()" [class.picker-open]="pickerOpen()" [class.has-country]="!!store.country()" [class.table-mode]="store.tableView() || unsupported()">
+  <!-- Prerendered, crawlable summary (the globe itself is client-only). -->
+  <div class="seo">
+    <h1>{{ 'app.title' | transloco }} — {{ world.entry()?.file?.name | tx: lang() }}</h1>
+    <p>{{ world.entry()?.file?.description | tx: lang() }}</p>
+  </div>
+
+  @if (!unsupported()) {
+    <div class="stage" [class.hidden]="store.tableView()">
+      @defer (on idle) {
+        <app-globe
+          [primary]="globeA()"
+          [secondary]="globeB()"
+          [layers]="store.layers()"
+          [selectedIndex]="selectedIndex()"
+          [timeScale]="world.timeScale()"
+          [initialPose]="initialPose()"
+          [fly]="fly()"
+          [reducedMotion]="reducedMotion()"
+          (hoverChange)="hovered.set($event)"
+          (countrySelect)="onCountrySelect($event)"
+          (poseChange)="onPose($event)"
+          (ready)="onGlobeReady($event)"
+          (unsupported)="unsupported.set(true)"
+        >
+          <app-globe-tooltip globeTooltip [index]="hovered().index" [view]="hoverView()" />
+        </app-globe>
+      } @placeholder {
+        <div class="globe-placeholder" aria-hidden="true"><div class="orb"></div></div>
+      }
+    </div>
+  }
+
+  <div class="hud">
+    <app-top-bar class="top" [pickerOpen]="pickerOpen()" (togglePicker)="pickerOpen.set(!pickerOpen())" (openUpload)="uploadOpen.set(true)" (openShare)="shareOpen.set(!shareOpen())" />
+
+    @if (store.missingUserMetric()) {
+      <p class="notice hud-panel" role="status">
+        {{ 'userData.missing' | transloco }}
+        <button type="button" class="hud-button icon-only" (click)="store.missingUserMetric.set(false)" [attr.aria-label]="'common.close' | transloco"><app-icon name="x" [size]="12" /></button>
+      </p>
+    }
+
+    <aside class="left" [class.overlay]="comparePicking()">
+      @if (pickerOpen() || comparePicking()) {
+        <app-metric-picker
+          [class.comparing-pick]="comparePicking()"
+          [selectedId]="world.entry()?.file?.id ?? null"
+          [compareId]="store.compareId()"
+          [values]="pickerValues()"
+          [heading]="pickerHeading()"
+          [mode]="pickTarget() === 'compare' ? 'compare' : 'select'"
+          (pick)="onPick($event)"
+          (closed)="closePicker()"
+        />
+      }
+      @if (store.comparing() && world.primary(); as v) {
+        <app-metric-card class="compare-left" [view]="v" [compact]="true" side="left" (changeMetric)="changeSlot('primary')" />
+      }
+    </aside>
+
+    <aside class="right" #sheet [class.collapsed]="sheetCollapsed()" (touchstart)="onSheetTouchStart($event, sheet)" (touchend)="onSheetTouchEnd($event)">
+      <button type="button" class="sheet-handle" [attr.aria-expanded]="!sheetCollapsed()" (click)="sheetCollapsed.set(!sheetCollapsed())" [attr.aria-label]="(sheetCollapsed() ? 'sheet.expand' : 'sheet.collapse') | transloco">
+        <span></span>
+      </button>
+      @if (store.comparing()) {
+        @if (compareCard(); as c) {
+          <app-metric-card [view]="c.view" [compact]="true" [side]="c.side" [collapsed]="sheetCollapsed()" (changeMetric)="changeSlot(c.side === 'left' ? 'primary' : 'compare')" />
+        }
+      } @else if (world.primary(); as v) {
+        <app-metric-card [view]="v" [compact]="!!store.country()" [collapsed]="sheetCollapsed()" (compareRequest)="startCompare()" />
+      } @else if (catalog.status() === 'error') {
+        <p class="hud-panel status">{{ 'status.error' | transloco: { message: catalog.error() } }}</p>
+      } @else {
+        <p class="hud-panel status"><span class="spinner"></span>{{ 'status.loading' | transloco }}</p>
+      }
+      @if (store.country(); as iso) {
+        <app-country-panel [class.sheet-hidden]="sheetCollapsed()" [iso3]="iso" (closed)="store.country.set(null)" (pick)="onPick($event)" />
+      }
+    </aside>
+
+    <div class="bottom">
+      @if (store.comparing()) {
+        <app-compare-bar [slot]="compareSlot()" (slotChange)="compareSlot.set($event)" (closed)="stopCompare()" />
+      }
+      <app-time-controls />
+    </div>
+
+    <app-ticker class="ticker" (pick)="onPick($event)" />
+  </div>
+
+  @if (store.tableView() || unsupported()) {
+    <div class="table-layer">
+      <app-table-view [view]="world.primary()" [unsupported]="unsupported()" (closed)="store.tableView.set(false)" (selectCountry)="showCountry($event)" />
+    </div>
+  }
+
+  @if (shareOpen()) {
+    <div class="share-pop">
+      <app-share-menu [url]="shareUrl()" [canCapture]="!unsupported() && !store.tableView()" [busy]="capturing()" (closed)="shareOpen.set(false)" (capture)="capture()" />
+    </div>
+  }
+
+  @if (uploadOpen()) {
+    @defer {
+      <app-upload-wizard (closed)="uploadOpen.set(false)" (added)="onPick($event)" />
+    }
+  }
+
+  <div class="visually-hidden" aria-live="polite" aria-atomic="true">{{ announcement() }}</div>
+</div>

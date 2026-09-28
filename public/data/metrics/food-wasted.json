@@ -1,0 +1,63 @@
+{
+ "schemaVersion": 1,
+ "id": "food-wasted",
+ "category": "environment-energy",
+ "name": {
+  "en": "Food wasted",
+  "it": "Cibo sprecato"
+ },
+ "description": {
+  "en": "Food wasted by households, food service and retail (UNEP Food Waste Index). UNEP finds household food waste per person is similar across income levels, so the total is spread by population.",
+  "it": "Cibo sprecato da famiglie, ristorazione e distribuzione (UNEP Food Waste Index). Secondo l’UNEP lo spreco domestico pro capite è simile tra livelli di reddito, quindi il totale è distribuito per popolazione."
+ },
+ "unit": "tonne",
+ "unitLabel": {
+  "en": "tonnes of food",
+  "it": "tonnellate di cibo"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "population"
+ },
+ "visual": {
+  "color": "#ffa07a",
+  "icon": "trash",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 931000000,
+   "period": "year",
+   "sourceId": "unep21",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2022,
+   "value": 1050000000,
+   "period": "year",
+   "sourceId": "unep24",
+   "confidence": "estimate"
+  }
+ ],
+ "sources": {
+  "unep21": {
+   "title": "Food Waste Index Report 2021",
+   "publisher": "UN Environment Programme",
+   "url": "https://www.unep.org/resources/report/unep-food-waste-index-report-2021",
+   "published": "2021-03",
+   "accessed": "2026-06"
+  },
+  "unep24": {
+   "title": "Food Waste Index Report 2024",
+   "publisher": "UN Environment Programme",
+   "url": "https://www.unep.org/resources/publication/food-waste-index-report-2024",
+   "published": "2024-03",
+   "accessed": "2026-06"
+  }
+ }
+}

@@ -1,0 +1,66 @@
+<section class="hud-panel wrap" role="region" [attr.aria-label]="'table.view' | transloco">
+  @if (unsupported()) {
+    <p class="notice"><app-icon name="warning" [size]="15" /> {{ 'fallback.noWebgl' | transloco }}</p>
+  }
+  @if (view(); as v) {
+    <header>
+      <h2>{{ 'table.caption' | transloco: { metric: (v.entry.file.name | tx: lang()) } }}</h2>
+      @if (!unsupported()) {
+        <button type="button" class="hud-button" (click)="closed.emit()"><app-icon name="globe" [size]="14" />{{ 'table.close' | transloco }}</button>
+      }
+    </header>
+    <p class="world mono">
+      {{ 'card.worldTotal' | transloco }}:
+      {{ worldAmount() | qty: v.entry.file.unit : lang() }}
+      {{ flow() ? ('card.perYear' | transloco) : '' }}
+      · {{ 'confidence.' + v.snapshot.world.confidence | transloco }} · {{ v.snapshot.world.dataYear }}
+      · {{ 'card.coverage' | transloco }} {{ v.snapshot.coveragePct | pct: lang() }}
+    </p>
+    <div class="toolbar">
+      <label class="filter">
+        <app-icon name="search" [size]="14" />
+        <input type="search" [value]="query()" (input)="query.set($any($event.target).value)" [placeholder]="'table.filter' | transloco" [attr.aria-label]="'table.filter' | transloco" />
+      </label>
+      <!-- Phones: the column headers are hidden, sorting moves here. -->
+      <div class="sort" role="group" [attr.aria-label]="'table.sort' | transloco">
+        @for (k of sortKeys; track k) {
+          <button type="button" [attr.aria-pressed]="sortKey() === k" (click)="sort(k)">
+            {{ 'table.' + k | transloco }}@if (sortKey() === k) {<span aria-hidden="true">{{ desc() ? ' ▼' : ' ▲' }}</span>}
+          </button>
+        }
+      </div>
+    </div>
+    <div class="scroll">
+      <table>
+        <caption class="visually-hidden">{{ 'table.caption' | transloco: { metric: (v.entry.file.name | tx: lang()) } }}</caption>
+        <thead>
+          <tr>
+            <th scope="col" [attr.aria-sort]="ariaSort('country')"><button type="button" (click)="sort('country')">{{ 'table.country' | transloco }}</button></th>
+            <th scope="col" class="num" [attr.aria-sort]="ariaSort('value')"><button type="button" (click)="sort('value')">{{ 'table.value' | transloco }}</button></th>
+            <th scope="col" class="num">{{ 'table.share' | transloco }}</th>
+            <th scope="col" [attr.aria-sort]="ariaSort('provenance')"><button type="button" (click)="sort('provenance')">{{ 'table.provenance' | transloco }}</button></th>
+            <th scope="col" class="num" [attr.aria-sort]="ariaSort('year')"><button type="button" (click)="sort('year')">{{ 'table.year' | transloco }}</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (r of rows(); track r.iso3) {
+            <tr>
+              <th scope="row"><button type="button" class="link" (click)="selectCountry.emit(r.iso3)">{{ r.name }}</button></th>
+              <td class="num mono amount">{{ r.amount | qty: v.entry.file.unit : lang() }}</td>
+              <td class="num mono share">{{ r.share === null ? '—' : (r.share | pct: lang() : 1) }}</td>
+              <td class="data">
+                <span class="prov" [class]="r.provenance">{{ 'provenance.' + r.provenance | transloco }}</span>
+                <span class="conf">{{ 'confidence.' + r.confidence | transloco }}@if (r.source) { · {{ r.source }}}<span class="year-inline"> · {{ r.year }}</span></span>
+              </td>
+              <td class="num mono year">{{ r.year }}</td>
+            </tr>
+          } @empty {
+            <tr class="empty">
+              <td colspan="5">{{ 'table.noMatch' | transloco }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

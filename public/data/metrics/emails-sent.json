@@ -1,0 +1,103 @@
+{
+ "schemaVersion": 1,
+ "id": "emails-sent",
+ "category": "digital",
+ "name": {
+  "en": "Emails sent",
+  "it": "Email inviate"
+ },
+ "description": {
+  "en": "Business and consumer emails sent and received per day (Radicati Group estimates). Spread by internet users; follows local working hours.",
+  "it": "Email aziendali e personali inviate e ricevute al giorno (stime Radicati Group). Distribuite per utenti di internet; seguono l’orario lavorativo locale."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "emails",
+  "it": "email"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "internet-users"
+ },
+ "visual": {
+  "color": "#6ee7ff",
+  "icon": "mail",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 293600000000,
+   "period": "day",
+   "sourceId": "radicati",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2020,
+   "value": 306400000000,
+   "period": "day",
+   "sourceId": "radicati",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2021,
+   "value": 319600000000,
+   "period": "day",
+   "sourceId": "radicati",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2022,
+   "value": 333200000000,
+   "period": "day",
+   "sourceId": "radicati",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2023,
+   "value": 347300000000,
+   "period": "day",
+   "sourceId": "radicati",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2024,
+   "value": 361600000000,
+   "period": "day",
+   "sourceId": "radicati24",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2025,
+   "value": 376400000000,
+   "period": "day",
+   "sourceId": "radicati24",
+   "confidence": "modelled",
+   "note": "Forecast."
+  }
+ ],
+ "sources": {
+  "radicati": {
+   "title": "Email Statistics Report, 2019–2023 and 2022–2026",
+   "publisher": "The Radicati Group",
+   "url": "https://www.radicati.com/?page_id=51",
+   "accessed": "2026-06"
+  },
+  "radicati24": {
+   "title": "Email Statistics Report, 2024–2028 (Executive Summary)",
+   "publisher": "The Radicati Group",
+   "url": "https://www.radicati.com/wp/wp-content/uploads/2024/10/Email-Statistics-Report-2024-2028-Executive-Summary.pdf",
+   "published": "2024-10",
+   "accessed": "2026-09-27"
+  }
+ }
+}

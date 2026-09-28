@@ -1,0 +1,79 @@
+@if (country(); as c) {
+  <section class="hud-panel panel" [attr.aria-labelledby]="'cp-' + c.iso3" [style.--metric]="file()?.visual?.color ?? '#46f0ff'">
+    <header>
+      <div>
+        <p class="hud-label">{{ c.iso3 }}@if (c.disputed) { · {{ 'country.disputed' | transloco }} }</p>
+        <h2 [id]="'cp-' + c.iso3">{{ c.name[lang()] }}</h2>
+      </div>
+      <button type="button" class="hud-button icon-only" (click)="closed.emit()" [attr.aria-label]="'country.close' | transloco">
+        <app-icon name="x" [size]="14" />
+      </button>
+    </header>
+
+    @if (file(); as f) {
+      @if (primaryValue(); as p) {
+        <div class="primary">
+          <p class="hud-label">{{ f.name | tx: lang() }}</p>
+          <p class="value mono">
+            {{ p.amount | qty: f.unit : lang() }}
+            <span class="per">
+              @if (f.kind === 'flow') {
+                {{ periodKey() === 'window' ? ('card.inWindow' | transloco: { window: ('window.' + store.window() | transloco) }) : ('card.perYear' | transloco) }}
+              } @else {
+                {{ 'card.level' | transloco }}
+              }
+            </span>
+          </p>
+          <div class="facts">
+            <span class="mono">{{ 'country.rank' | transloco: { rank: p.rank, total: p.total } }}</span>
+            @if (p.share !== null) {
+              <span class="mono">{{ 'country.share' | transloco: { pct: (p.share | pct: lang() : 1) } }}</span>
+            }
+            @if (p.perPerson !== null) {
+              <span class="mono">{{ p.perPerson | qty: f.unit : lang() }} {{ (f.kind === 'flow' ? 'card.perPersonYear' : 'country.perPerson') | transloco }}</span>
+            }
+          </div>
+          <div class="trust">
+            <app-confidence-badge [confidence]="p.raw.confidence" [provenance]="p.raw.provenance" [year]="p.raw.dataYear" />
+            @if (p.source; as s) {
+              <a [href]="s.url" target="_blank" rel="noopener noreferrer" [title]="s.title">{{ s.publisher }}</a>
+            }
+          </div>
+          @if (p.raw.note) {
+            <p class="note">{{ p.raw.note }}</p>
+          }
+        </div>
+        @if (spark().length > 1) {
+          <div class="spark">
+            <p class="hud-label">{{ 'country.history' | transloco }}</p>
+            <app-sparkline [points]="spark()" [current]="world.year()" [label]="f.name[lang()]" />
+          </div>
+        }
+      } @else {
+        <p class="empty">{{ 'country.noData' | transloco }}</p>
+      }
+    }
+
+    <div class="all">
+      <p class="hud-label">{{ 'country.allMetrics' | transloco: { country: c.name[lang()] } }}</p>
+      @for (g of rows(); track g.category) {
+        <h3 class="hud-label cat">{{ 'category.' + g.category | transloco }}</h3>
+        <ul>
+          @for (r of g.rows; track r.file.id) {
+            <li>
+              <button type="button" (click)="pick.emit(r.file.id)" [style.--c]="r.file.visual?.color ?? '#46f0ff'" [class.current]="r.file.id === file()?.id">
+                <app-icon [name]="r.file.visual?.icon ?? 'globe'" [size]="13" />
+                <span class="n">{{ r.file.name | tx: lang() }}</span>
+                <span class="v mono" [title]="(r.value.sourceId ? r.file.sources[r.value.sourceId].publisher + ' · ' : '') + r.value.dataYear + ' · ' + r.value.confidence">
+                  {{ r.amount | qty: r.file.unit : lang() }}
+                </span>
+                <i class="p" [class]="r.value.provenance" [title]="'provenance.' + r.value.provenance | transloco"></i>
+                <span class="visually-hidden">{{ 'provenance.' + r.value.provenance | transloco }}, {{ r.value.dataYear }}, {{ 'confidence.' + r.value.confidence | transloco }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </section>
+}

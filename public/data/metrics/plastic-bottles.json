@@ -1,0 +1,57 @@
+{
+ "schemaVersion": 1,
+ "id": "plastic-bottles",
+ "category": "consumer",
+ "name": {
+  "en": "Plastic drink bottles sold",
+  "it": "Bottiglie di plastica vendute"
+ },
+ "description": {
+  "en": "Plastic drinking bottles sold, per Euromonitor figures reported in 2017 (about a million per minute). The later value is the published forecast.",
+  "it": "Bottiglie di plastica per bevande vendute, secondo i dati Euromonitor pubblicati nel 2017 (circa un milione al minuto). Il valore successivo è la previsione pubblicata."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "bottles",
+  "it": "bottiglie"
+ },
+ "kind": "flow",
+ "temporalProfile": "waking",
+ "allocation": {
+  "proxy": "population"
+ },
+ "visual": {
+  "color": "#7fe3ff",
+  "icon": "bottle",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2016,
+   "value": 480000000000,
+   "period": "year",
+   "sourceId": "euromonitor",
+   "confidence": "estimate"
+  },
+  {
+   "scope": "world",
+   "year": 2021,
+   "value": 583300000000,
+   "period": "year",
+   "sourceId": "euromonitor",
+   "confidence": "modelled",
+   "note": "Forecast published in 2017, not an observation."
+  }
+ ],
+ "sources": {
+  "euromonitor": {
+   "title": "“A million bottles a minute: world’s plastic binge as dangerous as climate change” (Euromonitor data)",
+   "publisher": "The Guardian / Euromonitor International",
+   "url": "https://www.theguardian.com/environment/2017/jun/28/a-million-a-minute-worlds-plastic-bottle-binge-as-dangerous-as-climate-change",
+   "published": "2017-06",
+   "accessed": "2026-06"
+  }
+ }
+}

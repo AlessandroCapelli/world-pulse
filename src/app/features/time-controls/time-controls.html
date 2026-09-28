@@ -1,0 +1,45 @@
+<div class="hud-panel controls" role="group" [attr.aria-label]="'mode.label' | transloco">
+  @switch (store.mode()) {
+    @case ('live') {
+      <div class="live">
+        <span class="pulse" aria-hidden="true"></span>
+        <span class="hud-label">{{ 'mode.liveHint' | transloco }}</span>
+        <span class="clock mono" aria-live="off">{{ elapsed() }}</span>
+      </div>
+    }
+    @case ('window') {
+      <div class="window">
+        <div class="seg" role="radiogroup" [attr.aria-label]="'window.label' | transloco">
+          @for (w of windows; track w) {
+            <button type="button" role="radio" [attr.aria-checked]="store.window() === w" [class.active]="store.window() === w" (click)="setWindow(w)" [title]="'window.' + w | transloco">
+              {{ 'window.short.' + w | transloco }}
+            </button>
+          }
+        </div>
+        <button type="button" class="hud-button replay" [class.active]="!!world.replay()" (click)="toggleReplay()">
+          <app-icon [name]="world.replay() ? 'pause' : 'replay'" [size]="14" />
+          {{ (world.replay() ? 'window.stop' : 'window.replay') | transloco }}
+          @if (world.replay()) {
+            <span class="progress" [style.width.%]="replayPct()"></span>
+          }
+        </button>
+      </div>
+    }
+    @case ('history') {
+      @if (range(); as r) {
+        <div class="history">
+          <button type="button" class="hud-button icon-only" (click)="togglePlay()" [attr.aria-label]="(world.historyPlaying() ? 'history.pause' : 'history.play') | transloco">
+            <app-icon [name]="world.historyPlaying() ? 'pause' : 'play'" [size]="16" />
+          </button>
+          <span class="year mono" aria-live="polite">{{ year() }}</span>
+          <label class="slider">
+            <span class="visually-hidden">{{ 'history.year' | transloco }}</span>
+            <input type="range" [min]="r.min" [max]="r.max" step="1" [value]="year()" (input)="onYear($event)" [disabled]="r.min === r.max" />
+            <span class="ends mono"><span>{{ r.min }}</span><span>{{ r.max }}</span></span>
+          </label>
+          <button type="button" class="hud-button speed mono" (click)="cycleSpeed()" [attr.aria-label]="'history.speed' | transloco">{{ world.historySpeed() }}×</button>
+        </div>
+      }
+    }
+  }
+</div>

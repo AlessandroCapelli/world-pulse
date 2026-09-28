@@ -1,0 +1,345 @@
+:host {
+  display: block;
+}
+
+.card {
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  --metric: var(--wp-accent);
+  // Faint glow of the metric colour behind the title.
+  background:
+    radial-gradient(90% 55% at 0% 0%, color-mix(in srgb, var(--metric) 11%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(120, 230, 255, 0.04), rgba(120, 230, 255, 0) 38%),
+    var(--wp-panel);
+  transition: background 400ms ease;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-wrap {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  color: var(--metric);
+  background: color-mix(in srgb, var(--metric) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--metric) 45%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--metric) 25%, transparent);
+  flex: none;
+}
+
+.titles {
+  min-width: 0;
+  flex: 1;
+
+  h2 {
+    margin: 2px 0 0;
+    font: 600 19px/1.2 var(--wp-font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+.headline {
+  .big {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: clamp(30px, 3.4vw, 44px);
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 22px color-mix(in srgb, var(--metric) 55%, transparent);
+    letter-spacing: -0.02em;
+  }
+
+  .unit {
+    font-size: 0.5em;
+    color: var(--metric);
+    letter-spacing: 0;
+  }
+
+  .caption {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: var(--wp-text-dim);
+  }
+}
+
+.compact .headline .big {
+  font-size: clamp(24px, 2.4vw, 32px);
+}
+
+.dim {
+  color: var(--wp-text-faint);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+
+  div {
+    padding: 8px 10px;
+    border-radius: 9px;
+    background: rgba(70, 240, 255, 0.035);
+    border: 1px solid var(--wp-border);
+  }
+
+  dt {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  dd {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--wp-text);
+  }
+}
+
+.trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+
+  .source {
+    color: var(--wp-text-dim);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .stale {
+    color: var(--wp-warn);
+    font: 500 11px/1 var(--wp-font-mono);
+  }
+}
+
+.coverage {
+  .cov-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 12px;
+  }
+
+  .bar {
+    display: flex;
+    height: 6px;
+    margin-top: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .seg {
+    display: block;
+    height: 100%;
+  }
+
+  .reported {
+    background: var(--metric);
+    box-shadow: 0 0 10px var(--metric);
+  }
+
+  .allocated {
+    background: repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--metric) 70%, transparent) 0 3px,
+      transparent 3px 6px
+    );
+  }
+
+  .unallocated {
+    background: rgba(255, 255, 255, 0.14);
+  }
+}
+
+.hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--wp-text-faint);
+}
+
+.legend {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--wp-text-dim);
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid var(--metric);
+    box-shadow: 0 0 8px var(--metric);
+  }
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.details-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--wp-accent);
+  font: 500 12px/1 var(--wp-font-display);
+
+  app-icon {
+    transition: transform 160ms ease;
+  }
+
+  .open {
+    transform: rotate(180deg);
+  }
+}
+
+.details {
+  font-size: 12.5px;
+  color: var(--wp-text-dim);
+
+  .desc {
+    margin: 0 0 10px;
+    line-height: 1.5;
+  }
+
+  h3 {
+    margin: 0 0 6px;
+  }
+
+  .sources {
+    margin: 0;
+    padding-left: 16px;
+    display: grid;
+    gap: 5px;
+  }
+
+  .warn {
+    color: var(--wp-warn);
+  }
+}
+
+@media (max-width: 760px) {
+  .card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .stats dd {
+    font-size: 12px;
+  }
+}
+
+// Side-by-side compare: "Left"/"Right" replaces the category (phones show one globe: category instead).
+.category.in-compare {
+  display: none;
+}
+
+.change {
+  margin-left: auto;
+  padding: 5px 9px;
+  font-size: 11.5px;
+}
+
+.map-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+  font-size: 11px;
+  color: var(--wp-text-dim);
+
+  .ramp {
+    flex: 1 1 80px;
+    min-width: 80px;
+    display: flex;
+    gap: 2px;
+    height: 8px;
+  }
+
+  .step {
+    flex: 1;
+    border-radius: 2px;
+    box-shadow: 0 0 6px color-mix(in srgb, currentColor 0%, transparent);
+
+    &:first-child {
+      border-radius: 4px 2px 2px 4px;
+    }
+
+    &:last-child {
+      border-radius: 2px 4px 4px 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+    }
+  }
+
+  .hatch {
+    width: 16px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid color-mix(in srgb, var(--metric) 60%, transparent);
+    background: repeating-linear-gradient(
+      45deg,
+      color-mix(in srgb, var(--metric) 55%, transparent) 0 2px,
+      transparent 2px 4px
+    );
+  }
+}
+
+// Mobile collapsed sheet: title + headline only.
+@media (max-width: 760px), (max-height: 500px) and (orientation: landscape) {
+  // One globe at a time on phones: "left/right" means nothing there.
+  .side-label {
+    display: none;
+  }
+
+  .category.in-compare {
+    display: inline;
+  }
+
+  .card.collapsed {
+    gap: 6px;
+
+    .stats,
+    .trust,
+    .coverage,
+    .legend,
+    .map-legend,
+    .controls,
+    .details-toggle,
+    .details,
+    .hint {
+      display: none;
+    }
+
+    .headline .big {
+      font-size: 26px;
+    }
+
+    .headline .caption {
+      margin-top: 4px;
+    }
+  }
+}

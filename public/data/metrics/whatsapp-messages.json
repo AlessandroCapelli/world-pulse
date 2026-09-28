@@ -1,0 +1,52 @@
+{
+ "schemaVersion": 1,
+ "id": "whatsapp-messages",
+ "category": "digital",
+ "name": {
+  "en": "WhatsApp messages",
+  "it": "Messaggi WhatsApp"
+ },
+ "description": {
+  "en": "Messages sent on WhatsApp, per the company (“100 billion a day”, 2020). Spread by internet users outside China.",
+  "it": "Messaggi inviati su WhatsApp secondo l’azienda («100 miliardi al giorno», 2020). Distribuiti per utenti di internet fuori dalla Cina."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "messages",
+  "it": "messaggi"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "internet-users",
+  "exclude": [
+   "CHN",
+   "PRK"
+  ]
+ },
+ "visual": {
+  "color": "#5cff9d",
+  "icon": "chat",
+  "scale": "sqrt"
+ },
+ "series": [
+  {
+   "scope": "world",
+   "year": 2020,
+   "value": 100000000000,
+   "period": "day",
+   "sourceId": "wa",
+   "confidence": "estimate",
+   "note": "Company statement."
+  }
+ ],
+ "sources": {
+  "wa": {
+   "title": "Company statement: 100 billion messages a day",
+   "publisher": "WhatsApp / Meta",
+   "url": "https://about.fb.com/news/",
+   "published": "2020-10",
+   "accessed": "2026-06"
+  }
+ }
+}

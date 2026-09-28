@@ -1,0 +1,62 @@
+{
+ "schemaVersion": 1,
+ "id": "cement-produced",
+ "category": "economy",
+ "name": {
+  "en": "Cement produced",
+  "it": "Cemento prodotto"
+ },
+ "description": {
+  "en": "Cement production (USGS Mineral Commodity Summaries 2025; USGS values are rounded estimates). Smaller producers are unallocated.",
+  "it": "Produzione di cemento (USGS Mineral Commodity Summaries 2025; i valori USGS sono stime arrotondate). I produttori minori non sono allocati."
+ },
+ "unit": "tonne",
+ "unitLabel": {
+  "en": "tonnes of cement",
+  "it": "tonnellate di cemento"
+ },
+ "kind": "flow",
+ "visual": {
+  "color": "#d9d9d9",
+  "icon": "brick",
+  "scale": "sqrt"
+ },
+ "sources": {
+  "usgs": {
+   "title": "Mineral Commodity Summaries 2025 – Cement",
+   "publisher": "US Geological Survey",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cement.pdf",
+   "published": "2025-01",
+   "accessed": "2026-09-27"
+  }
+ },
+ "tables": [
+  {
+   "sourceId": "usgs",
+   "confidence": "estimate",
+   "period": "year",
+   "years": [
+    2023,
+    2024
+   ],
+   "values": {
+    "world": [4100000000, 4000000000],
+    "USA": [90000000, 86000000],
+    "BRA": [67000000, 68000000],
+    "CHN": [2000000000, 1900000000],
+    "EGY": [52000000, 50000000],
+    "IND": [420000000, 450000000],
+    "IDN": [67000000, 65000000],
+    "IRN": [71000000, 72000000],
+    "JPN": [48000000, 46000000],
+    "KOR": [51000000, 52000000],
+    "MEX": [48000000, 48000000],
+    "RUS": [63000000, 65000000],
+    "SAU": [49000000, 50000000],
+    "TUR": [81000000, 82000000],
+    "VNM": [110000000, 110000000]
+   },
+   "note": "USGS estimate (rounded)."
+  }
+ ]
+}

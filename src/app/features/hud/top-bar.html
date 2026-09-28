@@ -1,0 +1,70 @@
+<header class="bar">
+  <a class="brand" routerLink="/" [attr.aria-label]="'app.title' | transloco">
+    <span class="logo" aria-hidden="true"><span></span></span>
+    <span class="text">
+      <span class="name">WORLD PULSE</span>
+      <span class="tag">{{ 'app.tagline' | transloco }}</span>
+    </span>
+  </a>
+
+  <div class="modes" role="radiogroup" [attr.aria-label]="'mode.label' | transloco">
+    @for (m of modes; track m) {
+      <button type="button" role="radio" [attr.aria-checked]="store.mode() === m" [class.active]="store.mode() === m" (click)="setMode(m)" [title]="'mode.' + m + 'Hint' | transloco">
+        <app-icon [name]="modeIcon[m]" [size]="14" />
+        <span>{{ 'mode.' + m | transloco }}</span>
+      </button>
+    }
+  </div>
+
+  <div class="actions">
+    <button type="button" class="hud-button icon-only metrics-toggle" [attr.aria-expanded]="pickerOpen()" (click)="togglePicker.emit()" [attr.aria-label]="'picker.open' | transloco" [title]="'picker.open' | transloco">
+      <app-icon name="menu" [size]="16" />
+    </button>
+    <button type="button" class="hud-button icon-only wide-only" [attr.aria-pressed]="store.tableView()" (click)="store.tableView.set(!store.tableView())" [attr.aria-label]="'table.view' | transloco" [title]="'table.view' | transloco">
+      <app-icon name="table" [size]="16" />
+    </button>
+    <button type="button" class="hud-button icon-only wide-only" (click)="openUpload.emit()" [attr.aria-label]="'upload.button' | transloco" [title]="'upload.button' | transloco">
+      <app-icon name="upload" [size]="16" />
+    </button>
+    <button type="button" class="hud-button icon-only" (click)="openShare.emit()" [attr.aria-label]="'share.title' | transloco" [title]="'share.title' | transloco">
+      <app-icon name="share" [size]="16" />
+    </button>
+    <div class="langs wide-only" role="group" [attr.aria-label]="'lang.label' | transloco">
+      @for (l of langs; track l) {
+        <button type="button" [attr.aria-pressed]="locale.lang() === l" [class.active]="locale.lang() === l" (click)="setLang(l)" [attr.lang]="l" [title]="'lang.' + l | transloco">
+          {{ l.toUpperCase() }}
+        </button>
+      }
+    </div>
+    <a class="hud-button about wide-only" routerLink="/about" queryParamsHandling="preserve">
+      <app-icon name="info" [size]="15" /><span>{{ 'nav.about' | transloco }}</span>
+    </a>
+
+    <!-- Narrow screens: secondary actions live in an overflow menu. -->
+    <div class="more">
+      <button type="button" class="hud-button icon-only" aria-haspopup="menu" [attr.aria-expanded]="moreOpen()" (click)="moreOpen.set(!moreOpen())" [attr.aria-label]="'nav.more' | transloco" [title]="'nav.more' | transloco">
+        <app-icon name="more" [size]="16" />
+      </button>
+      @if (moreOpen()) {
+        <div class="hud-panel more-menu" role="menu">
+          <button type="button" role="menuitemcheckbox" [attr.aria-checked]="store.tableView()" (click)="store.tableView.set(!store.tableView()); moreOpen.set(false)">
+            <app-icon name="table" [size]="16" />{{ 'table.view' | transloco }}
+          </button>
+          <button type="button" role="menuitem" (click)="openUpload.emit(); moreOpen.set(false)">
+            <app-icon name="upload" [size]="16" />{{ 'upload.button' | transloco }}
+          </button>
+          <a role="menuitem" routerLink="/about" queryParamsHandling="preserve" (click)="moreOpen.set(false)">
+            <app-icon name="info" [size]="16" />{{ 'nav.about' | transloco }}
+          </a>
+          <div class="menu-langs" role="group" [attr.aria-label]="'lang.label' | transloco">
+            @for (l of langs; track l) {
+              <button type="button" [attr.aria-pressed]="locale.lang() === l" [class.active]="locale.lang() === l" (click)="setLang(l)" [attr.lang]="l">
+                {{ 'lang.' + l | transloco }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</header>

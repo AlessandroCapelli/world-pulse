@@ -1,0 +1,73 @@
+{
+ "schemaVersion": 1,
+ "id": "youtube-hours-uploaded",
+ "category": "digital",
+ "name": {
+  "en": "YouTube video uploaded",
+  "it": "Video caricati su YouTube"
+ },
+ "description": {
+  "en": "Hours of video uploaded to YouTube, from company statements (500+ hours every minute since 2019).",
+  "it": "Ore di video caricate su YouTube, da dichiarazioni dell’azienda (oltre 500 ore al minuto dal 2019)."
+ },
+ "unit": "hour",
+ "unitLabel": {
+  "en": "hours of video",
+  "it": "ore di video"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "internet-users",
+  "exclude": [
+   "CHN",
+   "PRK"
+  ]
+ },
+ "resolution": {
+  "maxYearGap": 6
+ },
+ "visual": {
+  "color": "#ff5c5c",
+  "icon": "video",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2014,
+   "value": 300,
+   "period": "minute",
+   "sourceId": "yt",
+   "confidence": "estimate",
+   "note": "Company statement (“more than”)."
+  },
+  {
+   "scope": "world",
+   "year": 2015,
+   "value": 400,
+   "period": "minute",
+   "sourceId": "yt",
+   "confidence": "estimate",
+   "note": "Company statement (“more than”)."
+  },
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 500,
+   "period": "minute",
+   "sourceId": "yt",
+   "confidence": "estimate",
+   "note": "Company statement (“more than”)."
+  }
+ ],
+ "sources": {
+  "yt": {
+   "title": "YouTube for Press – statistics",
+   "publisher": "YouTube / Google",
+   "url": "https://blog.youtube/press/",
+   "accessed": "2026-06"
+  }
+ }
+}

@@ -1,0 +1,291 @@
+:host {
+  display: block;
+  min-height: 0;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  padding: 16px 18px;
+}
+
+.notice {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 200, 87, 0.4);
+  color: var(--wp-warn);
+  font-size: 13px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  h2 {
+    margin: 0;
+    font: 600 18px/1.2 var(--wp-font-display);
+  }
+}
+
+.world {
+  margin: 0;
+  font-size: 12px;
+  color: var(--wp-text-dim);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 200px;
+  max-width: 320px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--wp-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--wp-text-faint);
+
+  &:focus-within {
+    border-color: var(--wp-border-strong);
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    min-height: 36px;
+    border: 0;
+    background: none;
+    color: var(--wp-text);
+    font: 400 13px/1 var(--wp-font-display);
+    outline: none;
+  }
+}
+
+.sort {
+  display: none;
+}
+
+.year-inline {
+  display: none;
+}
+
+.empty td {
+  padding: 18px 10px;
+  color: var(--wp-text-faint);
+  text-align: center;
+}
+
+.scroll {
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(110, 230, 255, 0.08);
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--wp-panel-strong);
+  font: 500 10.5px/1.2 var(--wp-font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--wp-text-dim);
+
+  button {
+    border: 0;
+    background: none;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+  }
+
+  &[aria-sort='ascending'] button::after {
+    content: ' ▲';
+  }
+  &[aria-sort='descending'] button::after {
+    content: ' ▼';
+  }
+}
+
+tbody th {
+  font-weight: 500;
+}
+
+.num {
+  text-align: right;
+}
+
+.link {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--wp-text);
+  text-align: left;
+
+  &:hover {
+    color: var(--wp-accent);
+    text-decoration: underline;
+  }
+}
+
+.prov {
+  display: inline-block;
+  margin-right: 6px;
+  font: 500 10.5px/1.4 var(--wp-font-mono);
+  text-transform: uppercase;
+  color: var(--wp-ok);
+
+  &.interpolated,
+  &.carried {
+    color: var(--wp-warn);
+  }
+
+  &.allocated {
+    color: var(--wp-accent-2);
+  }
+}
+
+.conf {
+  font-size: 11px;
+  color: var(--wp-text-faint);
+}
+
+// ---------------------------------------------------------------- phones: one card per country
+
+@media (max-width: 760px) {
+  .wrap {
+    padding: 12px 12px 6px;
+    gap: 8px;
+  }
+
+  header {
+    flex-wrap: wrap;
+
+    h2 {
+      flex: 1 1 180px;
+      font-size: 16px;
+    }
+  }
+
+  .world {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .filter {
+    max-width: none;
+  }
+
+  .sort {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 10px;
+    border: 1px solid var(--wp-border);
+    background: rgba(0, 0, 0, 0.25);
+
+    button {
+      min-height: 32px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 7px;
+      background: none;
+      color: var(--wp-text-dim);
+      font: 500 12px/1 var(--wp-font-display);
+
+      &[aria-pressed='true'] {
+        background: rgba(70, 240, 255, 0.14);
+        color: var(--wp-accent);
+      }
+    }
+  }
+
+  thead {
+    display: none;
+  }
+
+  table,
+  tbody {
+    display: block;
+  }
+
+  tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3px 12px;
+    padding: 10px 2px;
+    border-bottom: 1px solid rgba(110, 230, 255, 0.08);
+  }
+
+  tbody th,
+  tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  tbody th {
+    grid-area: 1 / 1;
+    min-width: 0;
+    font-size: 14px;
+  }
+
+  .amount {
+    grid-area: 1 / 2;
+    font-size: 14px;
+    color: var(--wp-text);
+  }
+
+  .data {
+    grid-area: 2 / 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .share {
+    grid-area: 2 / 2;
+    font-size: 11.5px;
+    color: var(--wp-text-dim);
+  }
+
+  .year {
+    display: none;
+  }
+
+  .year-inline {
+    display: inline;
+  }
+
+  .empty {
+    display: block;
+  }
+}

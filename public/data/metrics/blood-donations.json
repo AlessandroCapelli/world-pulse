@@ -1,0 +1,47 @@
+{
+ "schemaVersion": 1,
+ "id": "blood-donations",
+ "category": "demography-health",
+ "name": {
+  "en": "Blood donations",
+  "it": "Donazioni di sangue"
+ },
+ "description": {
+  "en": "Blood donations collected (WHO Global Database on Blood Safety). About 40% are collected in high-income countries, so the total is spread by GDP share.",
+  "it": "Donazioni di sangue raccolte (banca dati OMS sulla sicurezza del sangue). Circa il 40% è raccolto nei paesi ad alto reddito, quindi il totale è distribuito per quota di PIL."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "donations",
+  "it": "donazioni"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "gdp"
+ },
+ "visual": {
+  "color": "#ff3b5c",
+  "icon": "droplet",
+  "scale": "sqrt"
+ },
+ "series": [
+  {
+   "scope": "world",
+   "year": 2018,
+   "value": 118500000,
+   "period": "year",
+   "sourceId": "who",
+   "confidence": "estimate"
+  }
+ ],
+ "sources": {
+  "who": {
+   "title": "Blood safety and availability – fact sheet",
+   "publisher": "World Health Organization",
+   "url": "https://www.who.int/news-room/fact-sheets/detail/blood-safety-and-availability",
+   "published": "2023-06",
+   "accessed": "2026-06"
+  }
+ }
+}

@@ -1,0 +1,301 @@
+{
+  "app": {
+    "title": "World Pulse",
+    "tagline": "Cosa succede nel mondo, adesso",
+    "description": "Un globo olografico interattivo che mostra quanti bambini nascono, quanti iPhone si vendono, quante tonnellate di CO₂ si emettono e quante email partono: in diretta, per intervallo di tempo e negli anni. Ogni numero ha una fonte."
+  },
+  "nav": {
+    "about": "Sui dati",
+    "back": "Torna al globo",
+    "more": "Altro"
+  },
+  "lang": {
+    "label": "Lingua",
+    "en": "English",
+    "it": "Italiano"
+  },
+  "mode": {
+    "label": "Modalità temporale",
+    "live": "Live",
+    "window": "Intervallo",
+    "history": "Storico",
+    "liveHint": "Conteggio da quando hai aperto la pagina",
+    "windowHint": "Quanto succede in un intervallo scelto",
+    "historyHint": "Come è cambiato il mondo negli anni"
+  },
+  "window": {
+    "label": "Intervallo di tempo",
+    "1s": "1 secondo",
+    "1min": "1 minuto",
+    "1h": "1 ora",
+    "1d": "1 giorno",
+    "1w": "1 settimana",
+    "1y": "1 anno",
+    "short": {
+      "1s": "1s",
+      "1min": "1m",
+      "1h": "1h",
+      "1d": "1g",
+      "1w": "1sett",
+      "1y": "1a"
+    },
+    "inTheWorld": "In {{window}} nel mondo…",
+    "replay": "Riproduci questo intervallo",
+    "replaying": "Riproduzione di {{window}} in 10 secondi",
+    "stop": "Ferma la riproduzione",
+    "rightNow": "all’ora attuale del giorno"
+  },
+  "history": {
+    "year": "Anno",
+    "play": "Riproduci gli anni",
+    "pause": "Pausa",
+    "speed": "Velocità"
+  },
+  "picker": {
+    "title": "Metriche",
+    "open": "Scegli una metrica",
+    "search": "Cerca metriche…",
+    "empty": "Nessuna metrica corrisponde a «{{q}}».",
+    "count": "{{n}} metriche"
+  },
+  "category": {
+    "consumer": "Consumi",
+    "demography-health": "Persone e salute",
+    "environment-energy": "Ambiente ed energia",
+    "digital": "Digitale e scienza",
+    "economy": "Economia",
+    "geography": "Geografia",
+    "user": "I tuoi dati"
+  },
+  "card": {
+    "sinceOpen": "da quando hai aperto la pagina",
+    "perSecond": "al secondo",
+    "perYear": "all’anno",
+    "inWindow": "in {{window}}",
+    "inYear": "nel {{year}}",
+    "level": "in totale",
+    "levelHint": "È un livello (stock), non un flusso: non si accumula nel tempo.",
+    "coverage": "Copertura per paese",
+    "coverageHint": "Il {{pct}} del totale mondiale proviene da dati per paese.",
+    "coverageProxyHint": "I paesi con dati rappresentano il {{pct}} della popolazione mondiale.",
+    "unallocated": "Il {{pct}} del totale non è assegnato a nessun paese.",
+    "allocatedHint": "I paesi tratteggiati non hanno dati: ricevono una quota del totale mondiale in base a {{proxy}}.",
+    "sources": "Fonti",
+    "confidence": "Affidabilità",
+    "legendTitle": "Ogni impulso",
+    "details": "Dettagli e fonti",
+    "hideDetails": "Nascondi dettagli",
+    "worldTotal": "Mondo",
+    "stale": "Ultimo dato: {{year}}",
+    "perPersonYear": "a persona all’anno",
+    "perDay": "al giorno",
+    "mapLegend": "Scala di colore della mappa",
+    "mapQuantiles": "Classi per quantili: ogni colore raggruppa circa lo stesso numero di paesi"
+  },
+  "confidence": {
+    "official": "ufficiale",
+    "estimate": "stima",
+    "modelled": "modellato"
+  },
+  "confidenceHint": {
+    "official": "Pubblicato da un ente statistico ufficiale o dall’organizzazione stessa.",
+    "estimate": "Una stima pubblicata, o un valore approssimato/arrotondato.",
+    "modelled": "Derivato da World Pulse (allocazione, quote, previsioni)."
+  },
+  "provenance": {
+    "reported": "dato",
+    "interpolated": "interpolato",
+    "carried": "riportato",
+    "allocated": "allocato",
+    "sum": "somma dei paesi"
+  },
+  "layers": {
+    "label": "Livelli",
+    "particles": "Impulsi",
+    "spikes": "Colonne",
+    "choropleth": "Riempimento"
+  },
+  "perCapita": {
+    "label": "Pro capite",
+    "hint": "Dividi per la popolazione"
+  },
+  "compare": {
+    "button": "Confronta",
+    "title": "Confronta con…",
+    "close": "Chiudi confronto",
+    "ratio": "1 {{a}} ogni {{n}} {{b}}",
+    "left": "Sinistra",
+    "right": "Destra",
+    "incompatible": "Scegli un’altra metrica di flusso per vedere un rapporto.",
+    "swap": "Scambia le metriche",
+    "change": "Cambia",
+    "show": "Metrica mostrata sul globo"
+  },
+  "country": {
+    "close": "Chiudi il pannello del paese",
+    "rank": "#{{rank}} su {{total}}",
+    "share": "{{pct}} del mondo",
+    "perPerson": "a persona",
+    "noData": "Nessun dato per questo paese.",
+    "allMetrics": "Tutte le metriche per {{country}}",
+    "history": "Negli anni",
+    "disputed": "conteso"
+  },
+  "share": {
+    "title": "Condividi",
+    "copy": "Copia link",
+    "copied": "Link copiato",
+    "copyFailed": "Copia non riuscita: il link è nella barra degli indirizzi",
+    "screenshot": "Salva immagine",
+    "capturing": "Cattura in corso…"
+  },
+  "upload": {
+    "button": "Aggiungi i tuoi dati",
+    "title": "Aggiungi un tuo dataset",
+    "intro": "Trascina un file CSV o JSON con un valore per paese (ed eventualmente per anno). Resta solo in questo browser.",
+    "drop": "Trascina qui un file o clicca per sceglierlo",
+    "parsing": "Lettura del file…",
+    "step": {
+      "file": "File",
+      "map": "Colonne",
+      "check": "Verifica"
+    },
+    "rows": "{{n}} righe · {{c}} colonne",
+    "name": "Nome",
+    "namePlaceholder": "es. Biciclette vendute",
+    "countryCol": "Colonna del paese",
+    "valueCol": "Colonna del valore",
+    "yearMode": "Anno",
+    "yearColumn": "Da una colonna",
+    "yearFixed": "Anno fisso",
+    "yearCol": "Colonna dell’anno",
+    "kind": "Tipo",
+    "kindFlow": "Flusso: si accumula nel tempo (nascite, vendite)",
+    "kindStock": "Livello: una quantità in un momento (popolazione)",
+    "period": "Ogni valore è per",
+    "unit": "Unità",
+    "unitLabel": "Etichetta dell’unità",
+    "unitLabelPlaceholder": "es. biciclette",
+    "proxy": "Distribuisci una riga «mondo» sui paesi mancanti in base a",
+    "noProxy": "Non distribuire",
+    "source": "Fonte (titolo e URL)",
+    "sourceTitle": "Da dove vengono i dati?",
+    "report": "Rapporto di validazione",
+    "matched": "{{n}} righe associate a un paese",
+    "worldRows": "{{n}} righe mondiali",
+    "unmatched": "Nomi di paese non riconosciuti",
+    "suggestion": "usa {{name}}",
+    "ignore": "ignora",
+    "duplicates": "{{n}} righe duplicate paese/anno (vale l’ultima)",
+    "negatives": "{{n}} valori negativi o non validi ignorati",
+    "outliers": "Possibili valori anomali",
+    "ok": "Tutto a posto.",
+    "save": "Aggiungi al globo",
+    "cancel": "Annulla",
+    "back": "Indietro",
+    "next": "Avanti",
+    "saved": "Il dataset verrà salvato solo in questo browser (IndexedDB): nulla viene caricato online.",
+    "delete": "Rimuovi",
+    "yours": "I tuoi dataset",
+    "error": "Impossibile leggere il file: {{message}}",
+    "invalid": "Il dataset non è valido:",
+    "points": "{{n}} punti dati"
+  },
+  "userData": {
+    "badge": "tuoi dati",
+    "missing": "Questo link rimanda a un dataset salvato nel browser di un’altra persona, quindi qui non è disponibile. Viene mostrata la metrica predefinita."
+  },
+  "table": {
+    "view": "Vista tabella",
+    "close": "Torna al globo",
+    "caption": "{{metric}} per paese",
+    "country": "Paese",
+    "value": "Valore",
+    "share": "Quota",
+    "provenance": "Dato",
+    "year": "Anno",
+    "sortBy": "Ordina per {{col}}",
+    "filter": "Filtra i paesi…",
+    "sort": "Ordina",
+    "noMatch": "Nessun paese corrisponde al filtro."
+  },
+  "fallback": {
+    "noWebgl": "Il tuo browser non può mostrare il globo 3D (WebGL 2 non disponibile), quindi i dati sono mostrati in tabella.",
+    "globeLoading": "Avvio del globo…"
+  },
+  "status": {
+    "loading": "Caricamento dati…",
+    "error": "Impossibile caricare i dati: {{message}}"
+  },
+  "ticker": {
+    "title": "Da quando sei arrivato",
+    "pause": "Metti in pausa",
+    "play": "Riprendi"
+  },
+  "tooltip": {
+    "noData": "nessun dato",
+    "perYear": "/ anno",
+    "perPerson": "/ persona",
+    "perPersonYear": "/ persona / anno"
+  },
+  "a11y": {
+    "globe": "Globo 3D interattivo. Frecce per ruotare, più e meno per lo zoom, Invio seleziona il paese al centro, Esc annulla la selezione.",
+    "mode": "Modalità: {{mode}}"
+  },
+  "about": {
+    "title": "Sui dati",
+    "lead": "World Pulse trasforma statistiche pubblicate in tassi al secondo e li colloca sul globo. Questa pagina spiega come, e da dove viene ogni numero.",
+    "honesty": "I numeri non sono mai inventati. Ogni valore ha una fonte, un anno di riferimento e un livello di affidabilità. La maggior parte dei dataset è scaricata dagli editori originali (Banca Mondiale, ONU, OMS, Global Carbon Project, Ember, FAO, IEA, USGS…) con uno script riproducibile; il resto è trascritto dai rapporti citati. Verifica la fonte originale prima di citare un dato.",
+    "method": {
+      "title": "Metodo",
+      "rates": "Ogni valore è convertito in un tasso al secondo usando l’anno gregoriano medio (365,2425 giorni).",
+      "years": "Per un dato anno il motore usa il valore esatto; altrimenti interpola linearmente tra gli anni più vicini; oltre la serie riporta il valore più vicino per un numero limitato di anni (scalato sulla crescita mondiale quando possibile) e lo segnala come riportato. Non estrapola oltre.",
+      "allocation": "Quando esiste solo un totale mondiale, la parte non coperta dai paesi viene distribuita sugli altri paesi con un proxy dichiarato (popolazione, PIL, utenti internet o superficie) e segnata come allocata, tratteggiata sulla mappa, oppure lasciata non allocata.",
+      "coverage": "La copertura è la quota del totale mondiale sostenuta da dati per paese.",
+      "profiles": "Alcune attività seguono l’orologio (email, solare). Il loro tasso è modulato dall’ora locale di ogni paese con una curva giornaliera stilizzata di media 1, così i totali giornalieri non cambiano.",
+      "counters": "I contatori sono calcolati da timestamp assoluti (tasso × tempo trascorso), mai sommando passi per fotogramma, quindi non accumulano errori.",
+      "colours": "I colori della mappa usano classi per quantili: ogni colore raggruppa circa lo stesso numero di paesi, così i vicini restano distinguibili anche quando pochi paesi dominano. La legenda mostra l’intervallo di ogni classe.",
+      "centroids": "Le colonne si trovano al centro della massa di terra più grande di ogni paese; per 27 grandi paesi si usa invece un centro di popolazione approssimato.",
+      "etl": "Gli anni con dati incompleti (senza totale mondiale, o con un totale mondiale inferiore alla somma dei paesi) vengono scartati dalla pipeline invece di mostrare un falso calo."
+    },
+    "confidence": {
+      "title": "Livelli di affidabilità"
+    },
+    "limits": {
+      "title": "Limiti noti",
+      "items": [
+        "Le statistiche ufficiali sono arrotondate a 4 cifre significative e gli anni più recenti sono spesso provvisori; viene usato e mostrato l’ultimo anno disponibile.",
+        "Le dichiarazioni aziendali (Google, OpenAI, YouTube, WhatsApp, Coca-Cola, McDonald’s) sono autodichiarate e spesso limiti inferiori.",
+        "L’allocazione tramite proxy è un’approssimazione visiva, non una misura del paese.",
+        "Le conversioni energetiche (petrolio in barili, gas in metri cubi) usano fattori medi standard.",
+        "Ogni paese usa un solo fuso orario rappresentativo; le curve di attività giornaliera sono stilizzate.",
+        "I territori contesi sono disegnati ma non hanno dati (tranne il Kosovo, come fa la Banca Mondiale)."
+      ]
+    },
+    "sources": {
+      "title": "Tutte le fonti",
+      "metric": "Usata da",
+      "accessed": "consultata {{date}}"
+    },
+    "tech": {
+      "title": "Come è fatto",
+      "text": "Angular 21 (signals, zoneless), Three.js con shader personalizzati, geometrie Natural Earth. Tutto è servito da questo sito: nessuna API esterna, nessun tracker.",
+      "by": "Creato da",
+      "source": "codice sorgente su GitHub",
+      "license": "licenza MIT"
+    }
+  },
+  "common": {
+    "close": "Chiudi"
+  },
+  "sheet": {
+    "expand": "Mostra i dettagli",
+    "collapse": "Mostra il globo"
+  },
+  "proxyBy": {
+    "population": "popolazione",
+    "gdp": "PIL",
+    "internet-users": "numero di utenti internet",
+    "land-area": "superficie"
+  }
+}

@@ -1,0 +1,213 @@
+{
+ "schemaVersion": 1,
+ "id": "iphones-sold",
+ "category": "consumer",
+ "name": {
+  "en": "iPhones sold",
+  "it": "iPhone venduti"
+ },
+ "description": {
+  "en": "iPhone units sold worldwide. Apple reported units until fiscal 2018 (years ending in late September); later years are analyst estimates. No official country split exists, so the total is spread by GDP share.",
+  "it": "Unità di iPhone vendute nel mondo. Apple ha comunicato le unità fino all’anno fiscale 2018 (che termina a fine settembre); gli anni successivi sono stime di analisti. Non esiste una ripartizione ufficiale per paese: il totale è distribuito in base al PIL."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "iPhones",
+  "it": "iPhone"
+ },
+ "kind": "flow",
+ "temporalProfile": "localDaytime",
+ "allocation": {
+  "proxy": "gdp",
+  "exclude": [
+   "PRK",
+   "IRN",
+   "SYR",
+   "CUB"
+  ]
+ },
+ "visual": {
+  "color": "#f5f7ff",
+  "icon": "phone",
+  "scale": "sqrt"
+ },
+ "featured": true,
+ "series": [
+  {
+   "scope": "world",
+   "year": 2008,
+   "value": 11630000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2009,
+   "value": 20730000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2010,
+   "value": 39990000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2011,
+   "value": 72290000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2012,
+   "value": 125050000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2013,
+   "value": 150260000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2014,
+   "value": 169220000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2015,
+   "value": 231220000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2016,
+   "value": 211880000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2017,
+   "value": 216760000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2018,
+   "value": 217720000,
+   "period": "year",
+   "sourceId": "apple",
+   "confidence": "official",
+   "note": "Apple fiscal year (ends late September)."
+  },
+  {
+   "scope": "world",
+   "year": 2019,
+   "value": 191000000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipment estimate (IDC)."
+  },
+  {
+   "scope": "world",
+   "year": 2020,
+   "value": 206100000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipment estimate (IDC)."
+  },
+  {
+   "scope": "world",
+   "year": 2021,
+   "value": 235800000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipment estimate (IDC)."
+  },
+  {
+   "scope": "world",
+   "year": 2022,
+   "value": 226400000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipment estimate (IDC)."
+  },
+  {
+   "scope": "world",
+   "year": 2023,
+   "value": 234600000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipment estimate (IDC)."
+  },
+  {
+   "scope": "world",
+   "year": 2024,
+   "value": 232100000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipments (IDC, January 2025)."
+  },
+  {
+   "scope": "world",
+   "year": 2025,
+   "value": 247800000,
+   "period": "year",
+   "sourceId": "idc",
+   "confidence": "estimate",
+   "note": "Calendar-year shipments (IDC, January 2026)."
+  }
+ ],
+ "sources": {
+  "apple": {
+   "title": "Apple Inc. Form 10-K annual reports (FY2008–FY2018)",
+   "publisher": "Apple Inc.",
+   "url": "https://investor.apple.com/sec-filings/default.aspx",
+   "accessed": "2026-06"
+  },
+  "idc": {
+   "title": "Worldwide Quarterly Mobile Phone Tracker – vendor shipments",
+   "publisher": "IDC",
+   "url": "https://www.idc.com/promo/smartphone-market-share",
+   "accessed": "2026-09-27"
+  }
+ }
+}
