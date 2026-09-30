@@ -33,7 +33,7 @@
   }
 
   <div class="hud">
-    <app-top-bar class="top" [pickerOpen]="pickerOpen()" (togglePicker)="pickerOpen.set(!pickerOpen())" (openUpload)="uploadOpen.set(true)" (openShare)="shareOpen.set(!shareOpen())" />
+    <app-top-bar class="top" [pickerOpen]="pickerOpen()" (togglePicker)="togglePicker()" (openUpload)="uploadOpen.set(true)" (openShare)="shareOpen.set(!shareOpen())" />
 
     @if (store.missingUserMetric()) {
       <p class="notice hud-panel" role="status">
@@ -76,7 +76,7 @@
         <p class="hud-panel status"><span class="spinner"></span>{{ 'status.loading' | transloco }}</p>
       }
       @if (store.country(); as iso) {
-        <app-country-panel [class.sheet-hidden]="sheetCollapsed()" [iso3]="iso" (closed)="store.country.set(null)" (pick)="onPick($event)" />
+        <app-country-panel [class.sheet-hidden]="sheetCollapsed()" [iso3]="iso" [view]="activeView()" (closed)="store.country.set(null)" (pick)="onPick($event)" />
       }
     </aside>
 
@@ -92,7 +92,7 @@
 
   @if (store.tableView() || unsupported()) {
     <div class="table-layer">
-      <app-table-view [view]="world.primary()" [unsupported]="unsupported()" (closed)="store.tableView.set(false)" (selectCountry)="showCountry($event)" />
+      <app-table-view [view]="activeView()" [unsupported]="unsupported()" (closed)="store.tableView.set(false)" (selectCountry)="showCountry($event)" />
     </div>
   }
 

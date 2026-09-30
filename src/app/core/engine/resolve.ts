@@ -218,7 +218,15 @@ function computeSnapshot(metric: MetricFile, year: number, ctx: ResolveContext):
         `Country values exceed the world total at ${year} by ${(((knownSum - world.value) / world.value) * 100).toFixed(1)}%; world set to the country sum.`,
       );
       // ≤1% differences come from rounding of published values: keep the world provenance.
-      world = { ...world, value: knownSum, provenance: knownSum > world.value * 1.01 ? 'sum' : world.provenance };
+      world = knownSum > world.value * 1.01
+        ? {
+            value: knownSum,
+            provenance: 'sum',
+            dataYear: Math.max(...countries.map((c) => c.dataYear)),
+            confidence: countries.reduce<Confidence>((acc, c) => weakest(acc, c.confidence), 'official'),
+            sourceId: null,
+          }
+        : { ...world, value: knownSum };
       residual = 0;
     }
 

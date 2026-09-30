@@ -142,12 +142,15 @@
             <label class="wide">
               <span>{{ 'upload.source' | transloco }}</span>
               <input type="text" [value]="cfg().sourceTitle" (input)="set('sourceTitle', val($event))" [placeholder]="'upload.sourceTitle' | transloco" />
-              <input type="url" [value]="cfg().sourceUrl" (input)="set('sourceUrl', val($event))" placeholder="https://…" />
+              <input type="url" [value]="cfg().sourceUrl" (input)="set('sourceUrl', val($event))" placeholder="https://…" [attr.aria-label]="'upload.sourceUrl' | transloco" [attr.aria-invalid]="sourceUrlInvalid()" [attr.aria-describedby]="sourceUrlInvalid() ? 'upload-source-url-error' : null" />
+              @if (sourceUrlInvalid()) {
+                <span id="upload-source-url-error" class="error" role="alert">{{ 'upload.invalidSourceUrl' | transloco }}</span>
+              }
             </label>
           </div>
           <footer>
             <button type="button" class="hud-button" (click)="step.set('file')">{{ 'upload.back' | transloco }}</button>
-            <button type="button" class="hud-button active" [disabled]="!result()?.file" (click)="step.set('check')">{{ 'upload.next' | transloco }}</button>
+            <button type="button" class="hud-button active" [disabled]="!result() || sourceUrlInvalid()" (click)="step.set('check')">{{ 'upload.next' | transloco }}</button>
           </footer>
         }
       }
@@ -194,14 +197,16 @@
               }
             </p>
           }
-          @if (!r.report.unmatched.length && !r.report.duplicates && !r.report.invalid && !r.report.outliers.length) {
+          @if (!r.file) {
+            <p class="error" role="alert">{{ 'upload.noValidRows' | transloco }}</p>
+          } @else if (!r.report.unmatched.length && !r.report.duplicates && !r.report.invalid && !r.report.outliers.length) {
             <p class="ok">{{ 'upload.ok' | transloco }}</p>
           }
         }
         <p class="note">{{ 'upload.saved' | transloco }}</p>
         <footer>
           <button type="button" class="hud-button" (click)="step.set(directFile() ? 'file' : 'map')">{{ 'upload.back' | transloco }}</button>
-          <button type="button" class="hud-button active" [disabled]="busy() || (!directFile() && !result()?.file)" (click)="save()">
+          <button type="button" class="hud-button active" [disabled]="busy() || (!directFile() && (!result()?.file || sourceUrlInvalid()))" (click)="save()">
             <app-icon name="globe" [size]="14" />{{ 'upload.save' | transloco }}
           </button>
         </footer>

@@ -7,8 +7,8 @@
   "it": "Persone di almeno 65 anni"
  },
  "description": {
-  "en": "Resident population aged 65 and over. A demographic estimate of people present in that age group. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Popolazione residente di almeno 65 anni. Stima demografica delle persone presenti in questa fascia d’età. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Resident population aged 65 and over. A demographic estimate of people present in that age group. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Popolazione residente di almeno 65 anni. Stima demografica delle persone presenti in questa fascia d’età. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SP.POP.65UP.TO. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SP.POP.65UP.TO. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,
@@ -52,7 +52,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SP.POP.65UP.TO. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SP.POP.65UP.TO. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [2000, 2005, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
    "values": {
     "ABW": [6140, 7939, 9664, 12560, 13230, 13830, 14500, 15230, 15830, 16290, 16850, 17570, 18420, 19320],

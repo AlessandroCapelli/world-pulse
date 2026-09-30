@@ -7,8 +7,8 @@
   "it": "Server internet sicuri"
  },
  "description": {
-  "en": "Distinct publicly trusted TLS/SSL certificates by hosting country, the World Bank indicator named secure internet servers. Counts certificates, not physical servers, users or websites. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Certificati TLS/SSL distinti e pubblicamente riconosciuti per paese di hosting, nell’indicatore Banca Mondiale denominato server internet sicuri. Conta certificati, non server fisici, utenti o siti web. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Distinct publicly trusted TLS/SSL certificates by hosting country, the World Bank indicator named secure internet servers. Counts certificates, not physical servers, users or websites. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Certificati TLS/SSL distinti e pubblicamente riconosciuti per paese di hosting, nell’indicatore Banca Mondiale denominato server internet sicuri. Conta certificati, non server fisici, utenti o siti web. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "official",
-   "note": "Quantity formula: IT.NET.SECR. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: IT.NET.SECR. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2018,
     2019,
@@ -45,7 +45,7 @@
   {
    "sourceId": "wdi",
    "confidence": "official",
-   "note": "Quantity formula: IT.NET.SECR. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: IT.NET.SECR. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
    "values": {
     "ABW": [9, 79, 123, 103, 122, 149, 169, 177, 174, 150, 170],

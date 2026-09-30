@@ -7,8 +7,8 @@
   "it": "Persone in povertà estrema"
  },
  "description": {
-  "en": "Estimated people below the World Bank international poverty line of $3.00 a day at 2021 purchasing power parity: survey poverty share multiplied by same-year population. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Persone stimate sotto la soglia internazionale di povertà della Banca Mondiale di 3,00 dollari al giorno a parità di potere d’acquisto del 2021: quota da indagine moltiplicata per la popolazione dello stesso anno. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated people below the World Bank international poverty line of $3.00 a day at 2021 purchasing power parity: survey poverty share multiplied by same-year population. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Persone stimate sotto la soglia internazionale di povertà della Banca Mondiale di 3,00 dollari al giorno a parità di potere d’acquisto del 2021: quota da indagine moltiplicata per la popolazione dello stesso anno. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SI.POV.DDAY / 100 × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: SI.POV.DDAY / 100 × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2005,

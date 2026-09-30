@@ -7,8 +7,8 @@
   "it": "Riserve internazionali incluso oro"
  },
  "description": {
-  "en": "Total international reserve assets including gold, valued in current US dollars. A financial stock, not annual receipts. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Totale delle attività di riserva internazionale incluso l’oro, valutate in dollari USA correnti. È uno stock finanziario, non entrate annue. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Total international reserve assets including gold, valued in current US dollars. A financial stock, not annual receipts. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Totale delle attività di riserva internazionale incluso l’oro, valutate in dollari USA correnti. È uno stock finanziario, non entrate annue. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "usd",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "official",
-   "note": "Quantity formula: FI.RES.TOTL.CD. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: FI.RES.TOTL.CD. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,

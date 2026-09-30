@@ -12,7 +12,11 @@
     <p class="world mono">
       {{ 'card.worldTotal' | transloco }}:
       {{ worldAmount() | qty: v.entry.file.unit : lang() }}
-      {{ flow() ? ('card.perYear' | transloco) : '' }}
+      @if (isPerCapita()) {
+        {{ (flow() ? 'card.perPersonYear' : 'country.perPerson') | transloco }}
+      } @else if (flow()) {
+        {{ 'card.perYear' | transloco }}
+      }
       · {{ 'confidence.' + v.snapshot.world.confidence | transloco }} · {{ v.snapshot.world.dataYear }}
       · {{ 'card.coverage' | transloco }} {{ v.snapshot.coveragePct | pct: lang() }}
     </p>
@@ -36,7 +40,7 @@
         <thead>
           <tr>
             <th scope="col" [attr.aria-sort]="ariaSort('country')"><button type="button" (click)="sort('country')">{{ 'table.country' | transloco }}</button></th>
-            <th scope="col" class="num" [attr.aria-sort]="ariaSort('value')"><button type="button" (click)="sort('value')">{{ 'table.value' | transloco }}</button></th>
+            <th scope="col" class="num" [attr.aria-sort]="ariaSort('value')"><button type="button" (click)="sort('value')">{{ 'table.value' | transloco }}@if (isPerCapita()) { · {{ (flow() ? 'card.perPersonYear' : 'country.perPerson') | transloco }} }</button></th>
             <th scope="col" class="num">{{ 'table.share' | transloco }}</th>
             <th scope="col" [attr.aria-sort]="ariaSort('provenance')"><button type="button" (click)="sort('provenance')">{{ 'table.provenance' | transloco }}</button></th>
             <th scope="col" class="num" [attr.aria-sort]="ariaSort('year')"><button type="button" (click)="sort('year')">{{ 'table.year' | transloco }}</button></th>

@@ -133,21 +133,31 @@ export class WorldView {
     this.bindView(this.entry, this.year, this.primary, true);
     this.bindView(this.compareEntry, this.compareYear, this.secondary, false);
 
-    effect(() => {
+    effect((onCleanup) => {
+      let active = true;
+      onCleanup(() => { active = false; });
       this.engine.catalogVersion();
       if (this.catalog.status() !== 'ready') return;
       untracked(() => {
-        void this.engine.snapshots('latest').then((list) => this.latestAll.set(new Map(list.map((s) => [s.metricId, s]))));
+        void this.engine.snapshots('latest').then((list) => {
+          if (active) this.latestAll.set(new Map(list.map((s) => [s.metricId, s])));
+        }).catch(() => {
+          if (active) this.latestAll.set(new Map());
+        });
       });
     });
 
-    effect(() => {
+    effect((onCleanup) => {
+      let active = true;
+      onCleanup(() => { active = false; });
       const year = this.store.mode() === 'history' ? this.year() : null;
       this.engine.catalogVersion();
       if (year == null || this.catalog.status() !== 'ready') return;
       untracked(() => {
         void this.engine.snapshots(year).then((list) => {
-          if (this.year() === year) this.yearAll.set(new Map(list.map((s) => [s.metricId, s])));
+          if (active && this.year() === year) this.yearAll.set(new Map(list.map((s) => [s.metricId, s])));
+        }).catch(() => {
+          if (active) this.yearAll.set(new Map());
         });
       });
     });
@@ -196,23 +206,29 @@ export class WorldView {
     primary: boolean,
   ): void {
     let token = 0;
-    effect(() => {
+    effect((onCleanup) => {
+      const my = ++token;
+      onCleanup(() => { token++; });
       const e = entry();
       const y = year();
       const pc = this.store.perCapita();
       this.engine.catalogVersion();
       const offsets = this.offsetByIso();
       if (!e || y == null || this.catalog.status() !== 'ready') {
-        if (!e) target.set(null);
+        target.set(null);
+        if (primary) this.loading.set(this.catalog.status() === 'loading');
         return;
       }
-      const my = ++token;
       if (primary) this.loading.set(true);
       void this.engine.snapshots(y, [e.file.id, 'population']).then((list) => {
         if (my !== token) return;
         const snap = list.find((s) => s.metricId === e.file.id);
         const pop = list.find((s) => s.metricId === 'population') ?? null;
-        if (!snap) return;
+        if (!snap) {
+          target.set(null);
+          if (primary) this.loading.set(false);
+          return;
+        }
         const display = pc && pop && e.file.id !== 'population' ? perCapita(snap, pop) : snap;
         const hourly = resolveProfile(e.file.temporalProfile);
         target.set({
@@ -223,6 +239,10 @@ export class WorldView {
           rates: buildIntegrable(snap, (iso) => offsets.get(iso) ?? 0, hourly),
           byIso: new Map(display.countries.map((c) => [c.iso3, c])),
         });
+        if (primary) this.loading.set(false);
+      }).catch(() => {
+        if (my !== token) return;
+        target.set(null);
         if (primary) this.loading.set(false);
       });
     });

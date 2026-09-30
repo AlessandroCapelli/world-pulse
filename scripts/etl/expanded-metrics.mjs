@@ -22,7 +22,7 @@ function notes(def) {
   const world = def.transform === 'identity'
     ? 'World totals use reported global values where available; otherwise they sum reporting countries.'
     : 'World total is the sum of reporting countries, not a claim of complete global coverage.';
-  return `Quantity formula: ${formula(def)}.${denominator} Same-year inputs only; missing observations are not imputed. ${world}${def.note ? ` ${def.note}` : ''}`;
+  return `Quantity formula: ${formula(def)}.${denominator} Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. ${world}${def.note ? ` ${def.note}` : ''}`;
 }
 
 function frame(def) {
@@ -46,8 +46,8 @@ export const EXPANDED_DEFINITIONS = EXPANDED_INDICATORS.map((def) => {
   const derived = def.transform !== 'identity';
   const accessedDates = [fetchedOn(`wb-${def.indicator}`), ...(def.denominator ? [fetchedOn(`wb-${def.denominator}`)] : [])];
   const qualifier = {
-    en: ' Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.',
-    it: ' Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro.',
+    en: ' Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.',
+    it: ' Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro.',
   };
   return {
     id: def.id,

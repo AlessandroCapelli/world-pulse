@@ -7,8 +7,8 @@
   "it": "Spesa per ricerca e sviluppo"
  },
  "description": {
-  "en": "Estimated annual gross domestic expenditure on research and development in current US dollars: share of GDP multiplied by same-year nominal GDP. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Spesa interna lorda annua stimata per ricerca e sviluppo in dollari USA correnti: quota sul PIL moltiplicata per il PIL nominale dello stesso anno. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated annual gross domestic expenditure on research and development in current US dollars: share of GDP multiplied by same-year nominal GDP. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Spesa interna lorda annua stimata per ricerca e sviluppo in dollari USA correnti: quota sul PIL moltiplicata per il PIL nominale dello stesso anno. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "usd",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "estimate",
    "period": "year",
-   "note": "Quantity formula: GB.XPD.RSDV.GD.ZS / 100 × NY.GDP.MKTP.CD. Denominator/input: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: GB.XPD.RSDV.GD.ZS / 100 × NY.GDP.MKTP.CD. Denominator/input: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2005,

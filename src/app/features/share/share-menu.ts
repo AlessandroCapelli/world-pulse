@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, DOCUMENT, ElementRef, inject, input, output, signal, viewChild } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { Icon } from '../../shared/icons/icon';
 
@@ -8,16 +8,16 @@ import { Icon } from '../../shared/icons/icon';
   imports: [TranslocoPipe, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="hud-panel menu" role="dialog" [attr.aria-label]="'share.title' | transloco" (keydown.escape)="closed.emit()">
+    <div #menu class="hud-panel menu" role="dialog" [attr.aria-label]="'share.title' | transloco" (keydown.escape)="$event.preventDefault(); $event.stopPropagation(); closed.emit()">
       <div class="row">
         <p class="hud-label">{{ 'share.title' | transloco }}</p>
         <button type="button" class="hud-button icon-only" (click)="closed.emit()" [attr.aria-label]="'common.close' | transloco">
           <app-icon name="x" [size]="13" />
         </button>
       </div>
-      <input class="url mono" type="text" readonly [value]="url()" (focus)="select($event)" aria-label="URL" />
+      <input #urlInput class="url mono" type="text" readonly [value]="url()" (focus)="select($event)" aria-label="URL" />
       <div class="row">
-        <button type="button" class="hud-button" (click)="copy()">
+        <button type="button" class="hud-button" [disabled]="copying()" [attr.aria-busy]="copying()" (click)="copy()">
           <app-icon [name]="copied() ? 'check' : 'link'" [size]="14" />
           {{ (copied() ? 'share.copied' : failed() ? 'share.copyFailed' : 'share.copy') | transloco }}
         </button>
@@ -42,14 +42,49 @@ export class ShareMenu {
   readonly capture = output<void>();
   protected readonly copied = signal(false);
   protected readonly failed = signal(false);
+  protected readonly copying = signal(false);
+  private readonly menu = viewChild.required<ElementRef<HTMLElement>>('menu');
+  private readonly urlInput = viewChild.required<ElementRef<HTMLInputElement>>('urlInput');
+  private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
+  private feedbackTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      if (this.feedbackTimer) clearTimeout(this.feedbackTimer);
+    });
+    afterNextRender(() => {
+      const trigger = this.document.activeElement;
+      const menu = this.menu().nativeElement;
+      this.urlInput().nativeElement.focus();
+      this.destroyRef.onDestroy(() => {
+        const active = this.document.activeElement;
+        if ((active === this.document.body || (active && menu.contains(active))) && trigger instanceof HTMLElement && trigger.isConnected) {
+          trigger.focus();
+        }
+      });
+    });
+  }
 
   protected async copy(): Promise<void> {
+    if (this.copying()) return;
+    if (this.feedbackTimer) clearTimeout(this.feedbackTimer);
+    this.feedbackTimer = null;
+    this.copied.set(false);
+    this.failed.set(false);
+    this.copying.set(true);
     try {
       await navigator.clipboard.writeText(this.url());
+      if (this.destroyRef.destroyed) return;
       this.copied.set(true);
-      setTimeout(() => this.copied.set(false), 2000);
+      this.feedbackTimer = setTimeout(() => {
+        this.copied.set(false);
+        this.feedbackTimer = null;
+      }, 2000);
     } catch {
-      this.failed.set(true);
+      if (!this.destroyRef.destroyed) this.failed.set(true);
+    } finally {
+      if (!this.destroyRef.destroyed) this.copying.set(false);
     }
   }
 

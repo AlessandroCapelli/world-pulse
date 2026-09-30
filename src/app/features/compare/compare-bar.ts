@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { Router } from '@angular/router';
 import { formatNumber } from '../../core/engine/units';
 import { LocaleService } from '../../core/i18n/locale.service';
 import { AppStore } from '../../core/state/app-store';
@@ -62,6 +63,7 @@ export class CompareBar {
   readonly closed = output<void>();
   private readonly world = inject(WorldView);
   private readonly store = inject(AppStore);
+  private readonly router = inject(Router);
   protected readonly lang = inject(LocaleService).lang;
 
   protected readonly ratio = computed(() => {
@@ -92,10 +94,10 @@ export class CompareBar {
   );
 
   protected swap(): void {
-    const a = this.store.metricId();
+    const a = this.world.entry()?.file.id;
     const b = this.store.compareId();
     if (!a || !b) return;
     this.store.compareId.set(a);
-    this.store.metricId.set(b);
+    void this.router.navigate(['/metric', b], { queryParams: { cmp: a }, queryParamsHandling: 'merge' });
   }
 }

@@ -7,8 +7,8 @@
   "it": "Spesa sanitaria corrente"
  },
  "description": {
-  "en": "Estimated annual current health expenditure in current US dollars: per-person expenditure multiplied by same-year population. Includes public and private spending and excludes capital investment. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Spesa sanitaria corrente annua stimata in dollari USA correnti: spesa per persona moltiplicata per la popolazione dello stesso anno. Include spesa pubblica e privata ed esclude gli investimenti in capitale. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated annual current health expenditure in current US dollars: per-person expenditure multiplied by same-year population. Includes public and private spending and excludes capital investment. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Spesa sanitaria corrente annua stimata in dollari USA correnti: spesa per persona moltiplicata per la popolazione dello stesso anno. Include spesa pubblica e privata ed esclude gli investimenti in capitale. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "usd",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "estimate",
    "period": "year",
-   "note": "Quantity formula: SH.XPD.CHEX.PC.CD × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: SH.XPD.CHEX.PC.CD × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2005,

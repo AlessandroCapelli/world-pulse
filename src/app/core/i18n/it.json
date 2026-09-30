@@ -146,6 +146,7 @@
     "disputed": "conteso",
     "population": "popolazione {{value}}",
     "rankLabel": "Posizione",
+    "annualBasis": "Valori annui",
     "noMetricMatch": "Nessuna metrica corrisponde al filtro."
   },
   "share": {
@@ -187,6 +188,9 @@
     "noProxy": "Non distribuire",
     "source": "Fonte (titolo e URL)",
     "sourceTitle": "Da dove vengono i dati?",
+    "sourceUrl": "URL della fonte (facoltativo)",
+    "invalidSourceUrl": "Inserisci un URL valido che inizi con http:// o https://, oppure lascia il campo vuoto.",
+    "noValidRows": "Nessun punto dati valido. Correggi i nomi dei paesi o la selezione delle colonne prima di salvare.",
     "report": "Rapporto di validazione",
     "matched": "{{n}} righe associate a un paese",
     "worldRows": "{{n}} righe mondiali",
@@ -206,6 +210,7 @@
     "yours": "I tuoi dataset",
     "error": "Impossibile leggere il file: {{message}}",
     "invalid": "Il dataset non è valido:",
+    "tooManyRows": "Questo file supera il limite di {{n}} righe. Dividilo in file più piccoli prima di importarlo; nessun dato è stato salvato.",
     "points": "{{n}} punti dati"
   },
   "userData": {

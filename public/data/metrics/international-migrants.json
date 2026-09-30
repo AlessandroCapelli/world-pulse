@@ -7,8 +7,8 @@
   "it": "Migranti internazionali"
  },
  "description": {
-  "en": "International migrant stock: people living outside their country of birth, or foreign citizens where birth data are unavailable. Includes refugees where covered by the source. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Stock di migranti internazionali: persone residenti fuori dal paese di nascita, oppure cittadini stranieri quando manca il dato di nascita. Include i rifugiati quando coperti dalla fonte. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "International migrant stock: people living outside their country of birth, or foreign citizens where birth data are unavailable. Includes refugees where covered by the source. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Stock di migranti internazionali: persone residenti fuori dal paese di nascita, oppure cittadini stranieri quando manca il dato di nascita. Include i rifugiati quando coperti dalla fonte. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SM.POP.TOTL. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SM.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,
@@ -44,7 +44,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SM.POP.TOTL. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SM.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [2000, 2005, 2010, 2015, 2020, 2024],
    "values": {
     "ABW": [30100, 32540, 34330, 36110, 53590, 73490],

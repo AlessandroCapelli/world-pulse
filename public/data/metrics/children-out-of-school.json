@@ -7,8 +7,8 @@
   "it": "Bambini in età primaria fuori dalla scuola"
  },
  "description": {
-  "en": "Children of official primary school age not enrolled in primary or secondary education. A population level for the reported year. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Bambini dell’età ufficiale della scuola primaria non iscritti all’istruzione primaria o secondaria. È una popolazione presente nell’anno rilevato. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Children of official primary school age not enrolled in primary or secondary education. A population level for the reported year. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Bambini dell’età ufficiale della scuola primaria non iscritti all’istruzione primaria o secondaria. È una popolazione presente nell’anno rilevato. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "official",
-   "note": "Quantity formula: SE.PRM.UNER. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SE.PRM.UNER. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,

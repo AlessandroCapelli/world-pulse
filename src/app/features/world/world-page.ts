@@ -17,6 +17,7 @@ import { CatalogService } from '../../core/data/catalog.service';
 import { UserDataStore } from '../../core/data/user-data.store';
 import { buildIntegrable, integrate } from '../../core/engine/integrate';
 import { SECONDS_PER_YEAR, WINDOW_SECONDS } from '../../core/engine/periods';
+import { formatQuantity } from '../../core/engine/units';
 import { resolveProfile } from '../../core/engine/profiles';
 import { LocaleService } from '../../core/i18n/locale.service';
 import { SeoService } from '../../core/seo/seo.service';
@@ -81,6 +82,7 @@ export class WorldPage {
   protected readonly lang = this.locale.lang;
   private readonly seo = inject(SeoService);
   private readonly router = inject(Router);
+  private readonly urlSync = inject(UrlSync);
   private readonly clock = inject(ClockService);
   private readonly transloco = inject(TranslocoService);
   private readonly userData = inject(UserDataStore);
@@ -118,6 +120,10 @@ export class WorldPage {
   /** Phones: how much of the screen the bottom sheet covers, so the globe (and the selected country) stays visible above it. */
   protected readonly bottomInset = computed(() => (this.sheetCollapsed() ? 0.28 : this.store.country() ? 0.56 : 0.4));
   private readonly singleCompare = computed(() => this.narrow() && this.store.comparing());
+  /** Country details and the mobile table follow the same metric as the visible globe. */
+  protected readonly activeView = computed(() =>
+    this.singleCompare() && this.compareSlot() === 1 ? this.world.secondary() : this.world.primary(),
+  );
   /** Globe inputs: on phones only one metric is drawn at a time (full-size globe), switched by the compare tabs. */
   protected readonly globeA = computed(() => (this.singleCompare() && this.compareSlot() === 1 ? this.world.globeSecondary() : this.world.globePrimary()));
   protected readonly globeB = computed(() => (this.narrow() ? null : this.world.globeSecondary()));
@@ -191,13 +197,10 @@ export class WorldPage {
   });
 
   protected readonly shareUrl = computed(() => {
-    // Recompute when state changes (URL is updated asynchronously by UrlSync).
-    this.store.camera();
+    // The route remains in the path; query parameters come directly from current state.
     this.store.metricId();
-    this.store.mode();
-    this.store.country();
     this.clock.now();
-    return this.isBrowser ? location.href : SITE.url;
+    return this.isBrowser ? this.urlSync.shareUrl(location.href) : SITE.url;
   });
 
   constructor() {
@@ -206,9 +209,16 @@ export class WorldPage {
       const onChange = () => this.narrow.set(mq.matches);
       mq.addEventListener('change', onChange);
       inject(DestroyRef).onDestroy(() => mq.removeEventListener('change', onChange));
-      inject(UrlSync).start();
+      this.urlSync.start();
       this.cameraFromUrl = this.store.camera() !== null;
     }
+
+    // Table and comparison start with the picker closed; the toolbar can reopen it.
+    effect(() => {
+      if (this.store.tableView() || this.unsupported() || this.store.comparing()) {
+        untracked(() => this.closePicker());
+      }
+    });
 
     // Route param → store (the metric lives in the path).
     effect(() => {
@@ -268,13 +278,15 @@ export class WorldPage {
     this.pickTarget.set(null);
     if (target === 'compare') {
       this.store.compareId.set(id === this.world.entry()?.file.id ? null : id);
-      if (!this.isBrowser || this.narrow()) this.pickerOpen.set(false);
+      this.pickerOpen.set(false);
       return;
     }
     if (target === 'primary' && id === this.store.compareId()) this.store.compareId.set(null);
     const isDefault = id === this.catalog.defaultMetricId() && !this.id();
-    void this.router.navigate(isDefault ? ['/'] : ['/metric', id], { queryParamsHandling: 'preserve' });
-    if (!this.isBrowser || this.narrow()) this.pickerOpen.set(false);
+    void this.router.navigate(isDefault ? ['/'] : ['/metric', id], {
+      queryParams: { cmp: this.store.compareId() }, queryParamsHandling: 'merge',
+    });
+    if (!this.isBrowser || this.narrow() || this.store.tableView() || this.unsupported() || this.store.comparing()) this.pickerOpen.set(false);
   }
 
   protected onCountrySelect(e: { index: number | null }): void {
@@ -317,6 +329,14 @@ export class WorldPage {
     this.pickerOpen.set(false);
   }
 
+  protected togglePicker(): void {
+    if (this.pickerOpen()) this.closePicker();
+    else {
+      this.pickTarget.set(this.store.comparing() ? 'primary' : null);
+      this.pickerOpen.set(true);
+    }
+  }
+
   protected changeSlot(target: 'primary' | 'compare'): void {
     this.pickTarget.set(target);
     this.pickerOpen.set(true);
@@ -347,7 +367,7 @@ export class WorldPage {
   }
 
   protected async capture(): Promise<void> {
-    const v = this.world.primary();
+    const v = this.singleCompare() && this.compareSlot() === 1 ? this.world.secondary() : this.world.primary();
     if (!this.engine || !v) return;
     this.capturing.set(true);
     try {
@@ -355,25 +375,33 @@ export class WorldPage {
       const lang = this.lang();
       const f = v.entry.file;
       const mode = this.store.mode();
+      const perPerson = this.store.perCapita() && f.id !== 'population' && !!v.population;
+      const replay = this.world.replay();
       const value =
-        f.kind === 'stock'
-          ? v.snapshot.world.value
-          : mode === 'live'
-            ? this.world.sinceOpen(v)
-            : mode === 'window'
-              ? this.world.inWindow(v, this.store.window())
-              : v.snapshot.world.value * SECONDS_PER_YEAR;
-      const q = splitQuantity(value, f.unit, lang, mode !== 'history');
+        perPerson
+          ? v.display.world.value * (f.kind === 'flow' ? SECONDS_PER_YEAR : 1)
+          : f.kind === 'stock'
+            ? v.snapshot.world.value
+            : mode === 'live'
+              ? this.world.sinceOpen(v)
+              : mode === 'window'
+                ? this.world.inWindow(v, this.store.window()) * (replay ? this.world.replayProgress() : 1)
+                : v.snapshot.world.value * SECONDS_PER_YEAR;
+      const q = perPerson
+        ? formatQuantity(value, f.unit, lang)
+        : splitQuantity(value, f.unit, lang, f.kind === 'flow' && mode !== 'history' && value < 1e9);
       // Same wording as the metric card: the metric name when a unit symbol is shown ("13 kt · CO₂ emitted").
       const label = q.unit ? f.name[lang] : f.unitLabel[lang];
       const caption =
-        f.kind === 'stock'
-          ? `${label} ${this.transloco.translate('card.level')}`
-          : mode === 'live'
-            ? `${label} ${this.transloco.translate('card.sinceOpen')}`
-            : mode === 'window'
-              ? `${label} ${this.transloco.translate('card.inWindow', { window: this.transloco.translate('window.' + this.store.window()) })}`
-              : `${label} ${this.transloco.translate('card.inYear', { year: v.snapshot.year })}`;
+        perPerson
+          ? `${label} ${this.transloco.translate(f.kind === 'flow' ? 'card.perPersonYear' : 'country.perPerson')}`
+          : f.kind === 'stock'
+            ? `${label} ${this.transloco.translate('card.level')}`
+            : mode === 'live'
+              ? `${label} ${this.transloco.translate('card.sinceOpen')}`
+              : mode === 'window'
+                ? `${label} ${this.transloco.translate('card.inWindow', { window: this.transloco.translate('window.' + this.store.window()) })}`
+                : `${label} ${this.transloco.translate('card.inYear', { year: v.snapshot.year })}`;
       const src = v.snapshot.world.sourceId ? f.sources[v.snapshot.world.sourceId] : undefined;
       const blob = await composeScreenshot(base, {
         metric: f.name[lang],

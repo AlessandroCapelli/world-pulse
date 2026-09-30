@@ -37,13 +37,13 @@
             @if (p.share !== null) {
               <div class="share" role="img" [attr.aria-label]="'country.share' | transloco: { pct: (p.share | pct: lang() : 1) }">
                 <span class="bar"><span class="fill" [style.width.%]="shareBar(p.share)"></span></span>
-                <span class="mono">{{ 'country.share' | transloco: { pct: (p.share | pct: lang() : 1) } }}</span>
+                <span class="mono">{{ 'country.share' | transloco: { pct: (p.share | pct: lang() : 1) } }}@if (f.kind === 'flow' && periodKey() === 'window') { · {{ 'country.annualBasis' | transloco }} }</span>
               </div>
             }
 
             <dl class="tiles">
               <div>
-                <dt class="hud-label">{{ 'country.rankLabel' | transloco }}</dt>
+                <dt class="hud-label">{{ 'country.rankLabel' | transloco }}@if (f.kind === 'flow' && periodKey() === 'window') { · {{ 'country.annualBasis' | transloco }} }</dt>
                 <dd class="mono">{{ 'country.rank' | transloco: { rank: p.rank, total: p.total } }}</dd>
               </div>
               @if (p.perPerson !== null) {
@@ -68,7 +68,7 @@
           @if (spark().length > 1) {
             <div class="spark">
               <p class="hud-label">{{ 'country.history' | transloco }}</p>
-              <app-sparkline [points]="spark()" [current]="world.year()" [label]="f.name[lang()]" [height]="64" />
+            <app-sparkline [points]="spark()" [current]="dataYear()" [label]="f.name[lang()]" [height]="64" />
             </div>
           }
         } @else {

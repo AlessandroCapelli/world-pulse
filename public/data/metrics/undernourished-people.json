@@ -7,8 +7,8 @@
   "it": "Persone denutrite"
  },
  "description": {
-  "en": "Estimated people with insufficient dietary energy, from the FAO prevalence multiplied by the same-year population. Reported 2.5% can represent less than 2.5%, so the derived count is approximate. Can overlap with food insecurity. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Persone stimate con apporto energetico alimentare insufficiente, dalla prevalenza FAO moltiplicata per la popolazione dello stesso anno. Il dato 2,5% può indicare meno del 2,5%, quindi il conteggio derivato è approssimativo. Può sovrapporsi all’insicurezza alimentare. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated people with insufficient dietary energy, from the FAO prevalence multiplied by the same-year population. Reported 2.5% can represent less than 2.5%, so the derived count is approximate. Can overlap with food insecurity. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Persone stimate con apporto energetico alimentare insufficiente, dalla prevalenza FAO moltiplicata per la popolazione dello stesso anno. Il dato 2,5% può indicare meno del 2,5%, quindi il conteggio derivato è approssimativo. Può sovrapporsi all’insicurezza alimentare. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: SN.ITK.DEFC.ZS / 100 × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage. Reported prevalence of 2.5% may mean <2.5%; derived counts are approximate, not exact population counts.",
+   "note": "Quantity formula: SN.ITK.DEFC.ZS / 100 × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage. Reported prevalence of 2.5% may mean <2.5%; derived counts are approximate, not exact population counts.",
    "years": [
     2005,
     2010,

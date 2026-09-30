@@ -7,8 +7,8 @@
   "it": "Abbonamenti di telefonia mobile"
  },
  "description": {
-  "en": "Active mobile cellular subscriptions, including prepaid subscriptions meeting the source criteria. Counts subscriptions, not unique people; one person can hold several. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Abbonamenti attivi di telefonia mobile, incluse le schede prepagate che rispettano i criteri della fonte. Conta abbonamenti, non persone uniche; una persona può averne diversi. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Active mobile cellular subscriptions, including prepaid subscriptions meeting the source criteria. Counts subscriptions, not unique people; one person can hold several. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Abbonamenti attivi di telefonia mobile, incluse le schede prepagate che rispettano i criteri della fonte. Conta abbonamenti, non persone uniche; una persona può averne diversi. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "official",
-   "note": "Quantity formula: IT.CEL.SETS. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries. Reported global releases lag country data or are incomplete; world figures use available-country sums for this dataset.",
+   "note": "Quantity formula: IT.CEL.SETS. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries. Reported global releases lag country data or are incomplete; world figures use available-country sums for this dataset.",
    "years": [
     2000,
     2005,

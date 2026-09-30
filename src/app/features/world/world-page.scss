@@ -198,6 +198,12 @@
   visibility: hidden;
 }
 
+.table-mode.picker-open .left,
+.table-mode .left.overlay {
+  visibility: visible;
+  z-index: 8;
+}
+
 .share-pop {
   position: absolute;
   top: 64px;

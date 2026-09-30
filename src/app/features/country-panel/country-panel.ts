@@ -2,15 +2,18 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ou
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CATEGORY_ORDER, CatalogService } from '../../core/data/catalog.service';
 import { EngineClient } from '../../core/data/engine-client.service';
+import { prefixSums, weightedSeconds } from '../../core/engine/integrate';
 import { SECONDS_PER_YEAR, WINDOW_SECONDS } from '../../core/engine/periods';
+import { isUniform, resolveProfile } from '../../core/engine/profiles';
 import { CountryValue, MetricFile, MetricSnapshot } from '../../core/engine/types';
 import { LocaleService } from '../../core/i18n/locale.service';
 import { AppStore } from '../../core/state/app-store';
+import { ClockService } from '../../core/time/clock.service';
 import { I18nTextPipe, PercentPipe, QuantityPipe } from '../../shared/format/format.pipes';
 import { Icon } from '../../shared/icons/icon';
 import { ConfidenceBadge } from '../../shared/ui/confidence-badge';
 import { SparkPoint, Sparkline } from '../../shared/ui/sparkline';
-import { WorldView } from '../world/world-view.service';
+import { MetricView, WorldView } from '../world/world-view.service';
 
 interface Row {
   file: MetricFile;
@@ -27,22 +30,31 @@ interface Row {
 })
 export class CountryPanel {
   readonly iso3 = input.required<string>();
+  readonly view = input<MetricView | null>(null);
   readonly closed = output<void>();
   readonly pick = output<string>();
 
   private readonly catalog = inject(CatalogService);
   private readonly engine = inject(EngineClient);
+  private readonly clock = inject(ClockService);
   protected readonly world = inject(WorldView);
   protected readonly store = inject(AppStore);
   protected readonly lang = inject(LocaleService).lang;
 
   protected readonly country = computed(() => this.catalog.countryByIso().get(this.iso3()) ?? null);
-  protected readonly view = computed(() => this.world.primary());
   protected readonly file = computed(() => this.view()?.entry.file ?? null);
+  protected readonly dataYear = computed(() => this.view()?.snapshot.year ?? null);
 
   /** Amount shown for flows: per window in window mode, otherwise per year. */
-  private amountFor(rate: number): number {
-    return rate * (this.store.mode() === 'window' ? WINDOW_SECONDS[this.store.window()] : SECONDS_PER_YEAR);
+  private amountFor(rate: number, file: MetricFile): number {
+    if (this.store.mode() !== 'window') return rate * SECONDS_PER_YEAR;
+    const now = this.clock.now() / 1000;
+    const start = now - WINDOW_SECONDS[this.store.window()];
+    const country = this.country();
+    const offset = country ? this.world.offsetsByIndex()[country.i] : 0;
+    const hourly = resolveProfile(file.temporalProfile);
+    if (isUniform(hourly)) return rate * (now - start);
+    return rate * weightedSeconds(hourly, prefixSums(hourly), offset, start, now);
   }
   protected readonly periodKey = computed(() => (this.store.mode() === 'window' ? 'window' : 'year'));
 
@@ -58,7 +70,7 @@ export class CountryPanel {
     const src = raw.sourceId ? v.entry.file.sources[raw.sourceId] : null;
     return {
       raw,
-      amount: flow ? this.amountFor(raw.value) : raw.value,
+      amount: flow ? this.amountFor(raw.value, v.entry.file) : raw.value,
       perPerson: pop && v.entry.file.id !== 'population' ? (flow ? raw.value * SECONDS_PER_YEAR : raw.value) / pop : null,
       share: v.snapshot.world.value > 0 ? (raw.value / v.snapshot.world.value) * 100 : null,
       rank,
@@ -95,7 +107,7 @@ export class CountryPanel {
       const value = s?.countries.find((c) => c.iso3 === iso);
       if (!value) continue;
       const cat = e.origin === 'user' ? 'user' : e.file.category;
-      const amount = e.file.kind === 'flow' ? this.amountFor(value.value) : value.value;
+      const amount = e.file.kind === 'flow' ? this.amountFor(value.value, e.file) : value.value;
       groups.set(cat, [...(groups.get(cat) ?? []), { file: e.file, value, amount }]);
     }
     return CATEGORY_ORDER.filter((c) => groups.has(c)).map((category) => ({ category, rows: groups.get(category)! }));
@@ -103,12 +115,14 @@ export class CountryPanel {
 
   constructor() {
     let token = 0;
-    effect(() => {
+    effect((onCleanup) => {
+      const my = ++token;
+      onCleanup(() => { token++; });
       const v = this.view();
       const iso = this.iso3();
       this.engine.catalogVersion();
+      this.history.set([]);
       if (!v) return;
-      const my = ++token;
       const { min, max } = v.entry.range;
       const step = Math.max(1, Math.ceil((max - min) / 30));
       const years: number[] = [];
@@ -123,6 +137,8 @@ export class CountryPanel {
           if (c) pts.push({ x: years[k], y: c.value, estimated: c.provenance !== 'reported' });
         });
         this.history.set(pts);
+      }).catch(() => {
+        if (my === token) this.history.set([]);
       });
     });
   }

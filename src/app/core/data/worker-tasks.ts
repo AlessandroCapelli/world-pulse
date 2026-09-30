@@ -102,6 +102,10 @@ export async function parseUpload(name: string, text: string): Promise<ParsedTab
     skipEmptyLines: 'greedy',
     transformHeader: (h) => h.trim(),
   });
+  const structuralError = result.errors.find((e) => e.type === 'Quotes' || e.type === 'FieldMismatch');
+  if (structuralError) {
+    throw new Error(`Invalid CSV${structuralError.row == null ? '' : ` at data row ${structuralError.row + 1}`}: ${structuralError.message}`);
+  }
   if (!result.meta.fields?.length) throw new Error('No header row found');
   return {
     format: 'csv',

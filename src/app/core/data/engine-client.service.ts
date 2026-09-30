@@ -1,10 +1,10 @@
-import { effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { DestroyRef, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { GeoAssets } from '../../globe/geo/rasterize';
 import { MetricSnapshot } from '../engine/types';
 import { CatalogService } from './catalog.service';
 import type { WorkerCall, WorkerResponse } from './worker-protocol';
-import { EngineState, GeoRequest, loadGeo, parseUpload, ParsedTable } from './worker-tasks';
+import { CatalogPayload, EngineState, GeoRequest, loadGeo, parseUpload, ParsedTable } from './worker-tasks';
 
 /**
  * Runs parsing and aggregation off the main thread (Web Worker), with an inline fallback
@@ -17,7 +17,9 @@ export class EngineClient {
   private worker: Worker | null = null;
   private inline: EngineState | null = null;
   private nextId = 1;
-  private readonly pending = new Map<number, { resolve: (v: unknown) => void; reject: (e: Error) => void }>();
+  private readonly pending = new Map<number, { msg: WorkerCall; resolve: (v: unknown) => void; reject: (e: Error) => void }>();
+  private catalogPayload: CatalogPayload | null = null;
+  private destroyed = false;
   private catalogSent: Promise<unknown> | null = null;
   private readonly cache = new Map<string, Promise<MetricSnapshot[]>>();
 
@@ -35,10 +37,23 @@ export class EngineClient {
           if (data.ok) p.resolve(data.result);
           else p.reject(new Error(data.error));
         };
+        this.worker.onerror = (event) => {
+          event.preventDefault();
+          this.fallbackToInline();
+        };
+        this.worker.onmessageerror = () => this.fallbackToInline();
       } catch {
         this.worker = null;
       }
     }
+    inject(DestroyRef).onDestroy(() => {
+      this.destroyed = true;
+      this.worker?.terminate();
+      this.worker = null;
+      for (const p of this.pending.values()) p.reject(new Error('engine destroyed'));
+      this.pending.clear();
+      this.cache.clear();
+    });
     effect(() => {
       if (this.catalog.status() !== 'ready') return;
       const entries = this.catalog.entries();
@@ -51,6 +66,7 @@ export class EngineClient {
       };
       this.cache.clear();
       this.catalogSent = this.call({ type: 'catalog', payload });
+      void this.catalogSent.catch(() => undefined);
       this.catalogVersion.update((v) => v + 1);
     });
   }
@@ -62,7 +78,9 @@ export class EngineClient {
     if (!p) {
       p = this.catalogSent.then(() => this.call({ type: 'snapshots', year, ids }) as Promise<MetricSnapshot[]>);
       this.cache.set(key, p);
-      p.catch(() => this.cache.delete(key));
+      p.catch(() => {
+        if (this.cache.get(key) === p) this.cache.delete(key);
+      });
     }
     return p;
   }
@@ -76,14 +94,31 @@ export class EngineClient {
   }
 
   private call(msg: WorkerCall): Promise<unknown> {
+    if (this.destroyed) return Promise.reject(new Error('engine destroyed'));
+    if (msg.type === 'catalog') this.catalogPayload = msg.payload;
     if (this.worker) {
       const id = this.nextId++;
       return new Promise((resolve, reject) => {
-        this.pending.set(id, { resolve, reject });
-        this.worker!.postMessage({ ...msg, id });
+        this.pending.set(id, { msg, resolve, reject });
+        try {
+          this.worker!.postMessage({ ...msg, id });
+        } catch {
+          this.fallbackToInline();
+        }
       });
     }
     return this.runInline(msg);
+  }
+
+  private fallbackToInline(): void {
+    if (this.destroyed) return;
+    this.worker?.terminate();
+    this.worker = null;
+    this.inline ??= new EngineState();
+    if (this.catalogPayload) this.inline.setCatalog(this.catalogPayload);
+    const pending = [...this.pending.values()];
+    this.pending.clear();
+    for (const p of pending) void this.runInline(p.msg).then(p.resolve, p.reject);
   }
 
   private async runInline(msg: WorkerCall): Promise<unknown> {

@@ -1,7 +1,8 @@
 import { DestroyRef, effect, inject, Injectable, untracked } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { LocaleService } from '../i18n/locale.service';
-import { AppStore, CameraState, isMode, isWindow, Layers } from './app-store';
+import { AppStore, CameraState, DEFAULT_LAYERS, isMode, isWindow, Layers } from './app-store';
 
 const LAYER_CODES: [keyof Layers, string][] = [
   ['particles', 'p'],
@@ -27,6 +28,17 @@ export class UrlSync {
   start(): void {
     this.read(this.route.snapshot.queryParams);
     this.destroyRef.onDestroy(() => this.timer && clearTimeout(this.timer));
+    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
+      if (event instanceof NavigationStart && this.timer) {
+        clearTimeout(this.timer);
+        this.timer = null;
+      }
+      if (event instanceof NavigationEnd) {
+        const params = this.route.snapshot.queryParams;
+        // Our own URL writes must not round the live camera pose back into the store.
+        if (!sameParams(params, this.serialize())) this.read(params, true);
+      }
+    });
     effect(() => {
       const params = this.serialize();
       if (this.applying) return;
@@ -34,15 +46,25 @@ export class UrlSync {
     });
   }
 
-  private read(q: Params): void {
+  /** Creates a link immediately, without waiting for the debounced URL update. */
+  shareUrl(currentUrl: string): string {
+    const url = new URL(currentUrl);
+    url.search = '';
+    for (const [key, value] of Object.entries(this.serialize())) {
+      if (value != null) url.searchParams.set(key, String(value));
+    }
+    return url.href;
+  }
+
+  private read(q: Params, restoreLanguage = false): void {
     this.applying = true;
     const s = this.store;
     const str = (k: string): string | null => (typeof q[k] === 'string' ? (q[k] as string) : null);
     s.compareId.set(str('cmp'));
     const mode = str('mode');
-    if (isMode(mode)) s.mode.set(mode);
+    s.mode.set(isMode(mode) ? mode : 'live');
     const w = str('w');
-    if (isWindow(w)) s.window.set(w);
+    s.window.set(isWindow(w) ? w : '1min');
     const y = Number(str('y'));
     s.year.set(Number.isInteger(y) && y > 1800 && y < 2200 ? y : null);
     const c = str('c');
@@ -51,9 +73,10 @@ export class UrlSync {
     const layers = str('layers');
     if (layers !== null) {
       s.layers.set(Object.fromEntries(LAYER_CODES.map(([k, code]) => [k, layers.includes(code)])) as unknown as Layers);
-    }
+    } else s.layers.set({ ...DEFAULT_LAYERS });
     s.tableView.set(str('view') === 'table');
     s.camera.set(parseCamera(str('cam')));
+    if (restoreLanguage) this.locale.set(str('lang') === 'it' ? 'it' : 'en');
     this.applying = false;
   }
 
@@ -81,7 +104,10 @@ export class UrlSync {
 
   private schedule(params: Params): void {
     if (this.timer) clearTimeout(this.timer);
+    this.timer = null;
+    if (sameParams(this.route.snapshot.queryParams, params)) return;
     this.timer = setTimeout(() => {
+      this.timer = null;
       void this.router.navigate([], { relativeTo: this.route, queryParams: params, replaceUrl: true, queryParamsHandling: '' });
     }, 350);
   }
@@ -89,8 +115,15 @@ export class UrlSync {
 
 function parseCamera(v: string | null): CameraState | null {
   if (!v) return null;
+  if (v.split(',').length !== 3) return null;
   const [lat, lng, alt] = v.split(',').map(Number);
   if (![lat, lng, alt].every(Number.isFinite)) return null;
   return { lat: Math.max(-85, Math.min(85, lat)), lng: ((((lng + 180) % 360) + 360) % 360) - 180, alt: Math.max(0.2, Math.min(9, alt)) };
+}
+
+function sameParams(a: Params, b: Params): boolean {
+  return Object.keys({ ...a, ...b }).every((key) =>
+    (a[key] == null ? null : String(a[key])) === (b[key] == null ? null : String(b[key])),
+  );
 }
 

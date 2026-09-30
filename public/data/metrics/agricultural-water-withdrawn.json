@@ -7,8 +7,8 @@
   "it": "Prelievi di acqua dolce per agricoltura"
  },
  "description": {
-  "en": "Estimated annual agricultural freshwater withdrawals: agricultural share of withdrawals multiplied by same-year total freshwater withdrawals and converted from billion m³ to m³. A subset of the existing total withdrawals metric. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Prelievi annui stimati di acqua dolce per agricoltura: quota agricola dei prelievi moltiplicata per i prelievi totali dello stesso anno e convertita da miliardi di m³ a m³. È una parte della metrica esistente dei prelievi totali. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated annual agricultural freshwater withdrawals: agricultural share of withdrawals multiplied by same-year total freshwater withdrawals and converted from billion m³ to m³. A subset of the existing total withdrawals metric. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Prelievi annui stimati di acqua dolce per agricoltura: quota agricola dei prelievi moltiplicata per i prelievi totali dello stesso anno e convertita da miliardi di m³ a m³. È una parte della metrica esistente dei prelievi totali. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "m3",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "estimate",
    "period": "year",
-   "note": "Quantity formula: (ER.H2O.FWAG.ZS / 100 × ER.H2O.FWTL.K3) × 1000000000. Denominator/input: https://data.worldbank.org/indicator/ER.H2O.FWTL.K3. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: (ER.H2O.FWAG.ZS / 100 × ER.H2O.FWTL.K3) × 1000000000. Denominator/input: https://data.worldbank.org/indicator/ER.H2O.FWTL.K3. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2005,

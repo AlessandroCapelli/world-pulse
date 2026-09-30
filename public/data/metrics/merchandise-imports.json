@@ -7,8 +7,8 @@
   "it": "Merci importate"
  },
  "description": {
-  "en": "Annual value of merchandise imports in current US dollars, from WTO via World Bank. Uses import valuation conventions and should not be added to exports as net trade. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Valore annuo delle importazioni di merci in dollari USA correnti, dall’OMC tramite Banca Mondiale. Usa le convenzioni di valutazione delle importazioni e non va sommato alle esportazioni come commercio netto. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Annual value of merchandise imports in current US dollars, from WTO via World Bank. Uses import valuation conventions and should not be added to exports as net trade. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Valore annuo delle importazioni di merci in dollari USA correnti, dall’OMC tramite Banca Mondiale. Usa le convenzioni di valutazione delle importazioni e non va sommato alle esportazioni come commercio netto. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "usd",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "official",
    "period": "year",
-   "note": "Quantity formula: TM.VAL.MRCH.CD.WT. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: TM.VAL.MRCH.CD.WT. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,
@@ -54,7 +54,7 @@
    "sourceId": "wdi",
    "confidence": "official",
    "period": "year",
-   "note": "Quantity formula: TM.VAL.MRCH.CD.WT. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: TM.VAL.MRCH.CD.WT. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [2000, 2005, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
    "values": {
     "ABW": [2582000000, 4288000000, 1394000000, 1250000000, 1138000000, 1124000000, 1232000000, 1206000000, 863000000, 1064000000, 1387000000, 1403000000, 1490000000, 1604000000],

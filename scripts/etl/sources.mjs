@@ -5,7 +5,7 @@ import { EXTRA_WB_INDICATORS } from './expanded-indicators.mjs';
 const WB = (indicator) => ({
   id: `wb-${indicator}`,
   kind: 'worldbank',
-  url: `https://api.worldbank.org/v2/country/all/indicator/${indicator}?format=json&per_page=20000&date=1995:2026`,
+  url: `https://api.worldbank.org/v2/country/all/indicator/${indicator}?format=json&per_page=20000&date=1995:${new Date().getUTCFullYear()}`,
   file: `wb-${indicator}.json`,
 });
 

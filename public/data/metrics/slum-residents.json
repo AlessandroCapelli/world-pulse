@@ -7,8 +7,8 @@
   "it": "Residenti urbani negli slum"
  },
  "description": {
-  "en": "Estimated urban residents living in slums: the reported urban slum share multiplied by same-year urban population. Coverage is concentrated in developing economies. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Residenti urbani stimati negli slum: quota urbana dichiarata negli slum moltiplicata per la popolazione urbana dello stesso anno. La copertura si concentra nelle economie in sviluppo. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated urban residents living in slums: the reported urban slum share multiplied by same-year urban population. Coverage is concentrated in developing economies. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Residenti urbani stimati negli slum: quota urbana dichiarata negli slum moltiplicata per la popolazione urbana dello stesso anno. La copertura si concentra nelle economie in sviluppo. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: EN.POP.SLUM.UR.ZS / 100 × SP.URB.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.URB.TOTL. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: EN.POP.SLUM.UR.ZS / 100 × SP.URB.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.URB.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2010,

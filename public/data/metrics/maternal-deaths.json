@@ -7,8 +7,8 @@
   "it": "Morti materne"
  },
  "description": {
-  "en": "Estimated maternal deaths during the year, from the UN inter-agency maternal mortality estimates. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Morti materne stimate durante l’anno, dalle stime del gruppo interagenzia ONU sulla mortalità materna. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated maternal deaths during the year, from the UN inter-agency maternal mortality estimates. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Morti materne stimate durante l’anno, dalle stime del gruppo interagenzia ONU sulla mortalità materna. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "estimate",
    "period": "year",
-   "note": "Quantity formula: SH.MMR.DTHS. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SH.MMR.DTHS. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [
     2000,
     2005,
@@ -52,7 +52,7 @@
    "sourceId": "wdi",
    "confidence": "estimate",
    "period": "year",
-   "note": "Quantity formula: SH.MMR.DTHS. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "note": "Quantity formula: SH.MMR.DTHS. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries.",
    "years": [2000, 2005, 2010, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
    "values": {
     "AFG": [14000, 12000, 11000, 9900, 9400, 9000, 8700, 8500, 9100, 9600, 8100, 7600],

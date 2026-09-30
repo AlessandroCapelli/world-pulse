@@ -9,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CatalogService } from '../../core/data/catalog.service';
 import { EngineClient } from '../../core/data/engine-client.service';
 import { describeIssues, metricFileSchema } from '../../core/data/schema';
@@ -21,7 +21,7 @@ import {
   UploadReport,
 } from '../../core/data/upload-mapper';
 import { UserDataStore } from '../../core/data/user-data.store';
-import type { ParsedTable } from '../../core/data/worker-tasks';
+import { MAX_UPLOAD_ROWS, type ParsedTable } from '../../core/data/worker-tasks';
 import { Confidence, MetricFile, Period, UNIT_IDS, UnitId } from '../../core/engine/types';
 import { pointCount } from '../../core/engine/series';
 import { LocaleService } from '../../core/i18n/locale.service';
@@ -45,6 +45,8 @@ export class UploadWizard {
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
   private readonly catalog = inject(CatalogService);
   private readonly engine = inject(EngineClient);
+  private readonly transloco = inject(TranslocoService);
+  private readToken = 0;
   protected readonly userData = inject(UserDataStore);
   protected readonly lang = inject(LocaleService).lang;
 
@@ -81,6 +83,16 @@ export class UploadWizard {
   protected readonly mine = computed(() => this.catalog.userMetrics());
   protected readonly proxies = computed(() => [...this.catalog.proxies().values()]);
   private readonly index = computed(() => buildCountryIndex(this.catalog.countries()));
+  protected readonly sourceUrlInvalid = computed(() => {
+    const value = this.cfg().sourceUrl.trim();
+    if (!value) return false;
+    try {
+      const url = new URL(value);
+      return url.protocol !== 'http:' && url.protocol !== 'https:';
+    } catch {
+      return true;
+    }
+  });
 
   protected readonly result = computed<{ file: MetricFile | null; report: UploadReport } | null>(() => {
     const t = this.table();
@@ -97,6 +109,7 @@ export class UploadWizard {
   }
 
   protected close(): void {
+    this.readToken++;
     this.dialog().nativeElement.close();
     this.closed.emit();
   }
@@ -114,6 +127,12 @@ export class UploadWizard {
   }
 
   private async read(file: File): Promise<void> {
+    const token = ++this.readToken;
+    this.step.set('file');
+    this.directFile.set(null);
+    this.table.set(null);
+    this.overrides.set(new Map());
+    this.busy.set(false);
     this.error.set(null);
     this.issues.set([]);
     if (file.size > MAX_BYTES) {
@@ -123,6 +142,11 @@ export class UploadWizard {
     this.busy.set(true);
     try {
       const parsed = await this.engine.parse(file.name, await file.text());
+      if (token !== this.readToken) return;
+      if (parsed.truncated) {
+        this.error.set(this.transloco.translate('upload.tooManyRows', { n: MAX_UPLOAD_ROWS }));
+        return;
+      }
       if (parsed.format === 'metric-file') {
         const res = metricFileSchema.safeParse(parsed.metric);
         if (!res.success) {
@@ -148,13 +172,13 @@ export class UploadWizard {
         yearCol: g.yearCol,
         yearMode: g.yearCol ? 'column' : 'fixed',
         fileName: file.name,
-        name: c.name || file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
+        name: file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '),
       }));
       this.step.set('map');
     } catch (e) {
-      this.error.set(e instanceof Error ? e.message : String(e));
+      if (token === this.readToken) this.error.set(e instanceof Error ? e.message : String(e));
     } finally {
-      this.busy.set(false);
+      if (token === this.readToken) this.busy.set(false);
     }
   }
 
@@ -180,6 +204,8 @@ export class UploadWizard {
   }
 
   protected async save(): Promise<void> {
+    if (this.busy()) return;
+    if (!this.directFile() && this.sourceUrlInvalid()) return;
     const file = this.directFile() ?? this.result()?.file;
     if (!file) return;
     const res = metricFileSchema.safeParse(file);

@@ -7,8 +7,8 @@
   "it": "Persone senza strutture di base per lavarsi le mani"
  },
  "description": {
-  "en": "Estimated people without a handwashing facility with soap and water at home: the complement of the access share multiplied by population. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Persone stimate senza una struttura per lavarsi le mani con acqua e sapone a casa: complemento della quota di accesso moltiplicato per la popolazione. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Estimated people without a handwashing facility with soap and water at home: the complement of the access share multiplied by population. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Persone stimate senza una struttura per lavarsi le mani con acqua e sapone a casa: complemento della quota di accesso moltiplicato per la popolazione. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "count",
  "unitLabel": {
@@ -28,7 +28,7 @@
   {
    "sourceId": "wdi",
    "confidence": "estimate",
-   "note": "Quantity formula: (1 − SH.STA.HYGN.ZS / 100) × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing observations are not imputed. World total is the sum of reporting countries, not a claim of complete global coverage.",
+   "note": "Quantity formula: (1 − SH.STA.HYGN.ZS / 100) × SP.POP.TOTL. Denominator/input: https://data.worldbank.org/indicator/SP.POP.TOTL. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World total is the sum of reporting countries, not a claim of complete global coverage.",
    "years": [
     2000,
     2005,

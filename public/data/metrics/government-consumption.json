@@ -7,8 +7,8 @@
   "it": "Consumi delle amministrazioni pubbliche"
  },
  "description": {
-  "en": "Annual general government final consumption expenditure in current US dollars. Covers public goods and services, not all government spending; a GDP component. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
-  "it": "Spesa annua per consumi finali delle amministrazioni pubbliche in dollari USA correnti. Comprende beni e servizi pubblici, non tutta la spesa pubblica; è una componente del PIL. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+  "en": "Annual general government final consumption expenditure in current US dollars. Covers public goods and services, not all government spending; a GDP component. Missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Spesa annua per consumi finali delle amministrazioni pubbliche in dollari USA correnti. Comprende beni e servizi pubblici, non tutta la spesa pubblica; è una componente del PIL. Le osservazioni mancanti non vengono completate durante la generazione dei dati. L’app può interpolare tra osservazioni o riportare i valori agli estremi per un massimo di tre anni, indicando la provenienza; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
  },
  "unit": "usd",
  "unitLabel": {
@@ -29,7 +29,7 @@
    "sourceId": "wdi",
    "confidence": "official",
    "period": "year",
-   "note": "Quantity formula: NE.CON.GOVT.CD. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries. Reported global releases lag country data or are incomplete; world figures use available-country sums for this dataset.",
+   "note": "Quantity formula: NE.CON.GOVT.CD. Same-year inputs only; missing raw observations are not filled during dataset generation. The app can interpolate between observations or carry endpoint values for up to three years, with provenance labels. World totals use reported global values where available; otherwise they sum reporting countries. Reported global releases lag country data or are incomplete; world figures use available-country sums for this dataset.",
    "years": [
     2000,
     2005,
