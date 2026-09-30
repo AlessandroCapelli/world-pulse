@@ -163,11 +163,14 @@ export function round(v, digits = 4) {
 }
 
 /** Converts a frame into a compact SeriesTable (only kept years that have data). */
-export function toTable(frame, { sourceId, confidence, period, note, minYear = 1995, maxYear = 2100 }) {
+export function toTable(frame, {
+  sourceId, confidence, period, note, minYear = 1995, maxYear = 2100,
+  trimIncomplete = true, requireCountryCoverage = false,
+}) {
   const years = new Set();
   for (const ys of frame.values()) for (const y of ys.keys()) if (y >= minYear && y <= maxYear && keepYear(y)) years.add(y);
   let sorted = [...years].sort((a, b) => a - b);
-  sorted = completeYears(frame, sorted);
+  if (trimIncomplete) sorted = completeYears(frame, sorted, { requireCountryCoverage });
   const values = {};
   for (const scope of [...frame.keys()].sort((a, b) => (a === 'world' ? -1 : b === 'world' ? 1 : a.localeCompare(b)))) {
     const ys = frame.get(scope);
@@ -190,7 +193,7 @@ export function latestYearOf(frame) {
  * and (c) without a world row, trailing years keep at least 85% of the best-covered year's countries
  * (partial latest releases). Historical years with fewer reporting countries are kept. Dropped years are logged.
  */
-export function completeYears(frame, years) {
+export function completeYears(frame, years, { requireCountryCoverage = false } = {}) {
   const world = frame.get('world');
   const countries = [...frame].filter(([s]) => s !== 'world');
   const count = (y) => countries.filter(([, ys]) => ys.has(y)).length;
@@ -205,7 +208,7 @@ export function completeYears(frame, years) {
       const s = countries.reduce((acc, [, ys]) => acc + (ys.get(y) ?? 0), 0);
       if (s > world.get(y) * 1.02) reason = `countries exceed world by ${((s / world.get(y) - 1) * 100).toFixed(1)}%`;
     }
-    if (!reason && !hasWorld && y > bestYear && maxCount > 20 && n < maxCount * 0.85) reason = `only ${n}/${maxCount} countries`;
+    if (!reason && (!hasWorld || requireCountryCoverage) && y > bestYear && maxCount > 20 && n < maxCount * 0.85) reason = `only ${n}/${maxCount} countries`;
     if (reason) TRIMMED.push(`${y}: ${reason}`);
     return !reason;
   });

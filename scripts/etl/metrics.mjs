@@ -1,6 +1,7 @@
 // ETL metric definitions. Each definition fully describes one generated file in public/data/{metrics,proxies}:
 // descriptive metadata + the tables built from the downloaded datasets. Hand-curated metrics (company
 // statements, analyst estimates) are NOT listed here and are never overwritten by the build.
+import { EXPANDED_DEFINITIONS } from './expanded-metrics.mjs';
 import {
   blockchainDailyAverage,
   combine,
@@ -36,6 +37,7 @@ const yearly = (frame, sourceId, confidence, note, maxYear) => toTable(frame, { 
 const level = (frame, sourceId, confidence, note) => toTable(frame, { sourceId, confidence, note });
 
 export const DEFINITIONS = [
+  ...EXPANDED_DEFINITIONS,
   // ============================================================== proxies
   {
     id: 'population',

@@ -1,5 +1,6 @@
 // Registry of public datasets downloaded by `npm run data:fetch` (development time only —
 // the app itself never calls these APIs). Files land in data-raw/ (git-ignored).
+import { EXTRA_WB_INDICATORS } from './expanded-indicators.mjs';
 
 const WB = (indicator) => ({
   id: `wb-${indicator}`,
@@ -60,7 +61,14 @@ export const OWID_SLUGS = [
 export const GHO_INDICATORS = ['MALARIA_EST_CASES', 'MALARIA_EST_DEATHS', 'RS_196'];
 
 export const SOURCES = [
-  ...WB_INDICATORS.map(WB),
+  ...WB_INDICATORS.map((code) => ({
+    ...WB(code),
+    ...(EXTRA_WB_INDICATORS.includes(code) ? { group: 'expanded' } : {}),
+  })),
+  ...EXTRA_WB_INDICATORS.filter((code) => !WB_INDICATORS.includes(code)).map((code) => ({
+    ...WB(code),
+    group: 'expanded',
+  })),
   ...OWID_SLUGS.map(OWID),
   ...GHO_INDICATORS.map(GHO),
   {

@@ -1,5 +1,5 @@
 // Builds the ETL-managed metric files from data-raw/ (see metrics.mjs) and updates the manifest.
-// Hand-curated metric files are left untouched. Usage: npm run data:build [-- --only <id>]
+// Hand-curated metric files are left untouched. Usage: node scripts/etl/build.mjs [--only <id|group>]
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { DATA, TRIMMED } from './lib.mjs';
@@ -7,6 +7,12 @@ import { DEFINITIONS } from './metrics.mjs';
 
 const args = process.argv.slice(2);
 const only = args.includes('--only') ? args[args.indexOf('--only') + 1] : null;
+if (args.includes('--only') && !only) throw new Error('--only requires a metric id or group');
+const selected = DEFINITIONS.filter((def) => !only || def.id === only || def.group === only);
+if (selected.length === 0) throw new Error(`No metric matches "${only}"`);
+if (new Set(DEFINITIONS.map((def) => def.id)).size !== DEFINITIONS.length) {
+  throw new Error('Duplicate metric definitions');
+}
 
 /** Pretty JSON that keeps each table row on a single line (readable diffs, compact files). */
 function stringify(obj) {
@@ -20,8 +26,7 @@ const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
 const built = [];
 let failed = 0;
 
-for (const def of DEFINITIONS) {
-  if (only && def.id !== only) continue;
+for (const def of selected) {
   try {
     TRIMMED.length = 0;
     const tables = def.tables().filter(Boolean);
