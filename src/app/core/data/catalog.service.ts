@@ -15,8 +15,12 @@ export interface MetricEntry {
 
 export const CATEGORY_ORDER: CategoryId[] = [
   'demography-health',
+  'education-work',
+  'living-conditions',
   'consumer',
+  'agriculture-food',
   'environment-energy',
+  'infrastructure',
   'digital',
   'economy',
   'geography',

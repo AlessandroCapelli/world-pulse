@@ -1,0 +1,125 @@
+{
+ "schemaVersion": 1,
+ "id": "conflict-displacements",
+ "category": "demography-health",
+ "name": {
+  "en": "New conflict displacements",
+  "it": "Nuovi sfollamenti da conflitti"
+ },
+ "description": {
+  "en": "New internal displacements caused by conflict and violence during the year, from IDMC. Counts displacement events, not unique people; one person can be displaced repeatedly. Missing observations are not imputed; countries without usable data remain unavailable. Categories and subsets can overlap, so metrics must not be added together.",
+  "it": "Nuovi sfollamenti interni causati da conflitti e violenze durante l’anno, da IDMC. Conta casi di sfollamento, non persone uniche; una persona può essere sfollata più volte. Le osservazioni mancanti non vengono imputate; i paesi senza dati utilizzabili restano non disponibili. Categorie e sottoinsiemi possono sovrapporsi, quindi le metriche non vanno sommate fra loro."
+ },
+ "unit": "count",
+ "unitLabel": {
+  "en": "displacements",
+  "it": "sfollamenti"
+ },
+ "kind": "flow",
+ "resolution": {
+  "maxYearGap": 3
+ },
+ "visual": {
+  "color": "#ff9ecb",
+  "icon": "users",
+  "scale": "sqrt"
+ },
+ "tables": [
+  {
+   "sourceId": "wdi",
+   "confidence": "official",
+   "period": "year",
+   "note": "Quantity formula: VC.IDP.NWCV. Same-year inputs only; missing observations are not imputed. World totals use reported global values where available; otherwise they sum reporting countries.",
+   "years": [
+    2010,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+   ],
+   "values": {
+    "AFG": [102000, 335000, 653000, 474000, 372000, 461000, 404000, 723000, 32000, null],
+    "ARM": [null, null, null, null, null, null, 800, null, 7600, null],
+    "AZE": [null, null, null, null, null, null, 84000, null, null, 5100],
+    "BDI": [null, 23000, 16000, 14000, 5100, 530, 310, 94, 600, 230],
+    "BEN": [null, null, null, null, 3500, null, null, null, 1200, 6500],
+    "BFA": [null, null, 700, 4900, 42000, 513000, 515000, 682000, 438000, 707000],
+    "BGD": [3500, null, null, 6000, 300, 29, 210, 150, 120, null],
+    "BOL": [null, null, null, null, null, 31, null, null, null, null],
+    "BRA": [null, null, null, null, null, null, null, 21000, 5600, 16000],
+    "CAF": [24000, 210000, 46000, 539000, 510000, 96000, 318000, 487000, 290000, 214000],
+    "CIV": [2700, 3200, null, 5500, 700, 300, 15000, null, null, null],
+    "CMR": [null, 71000, 83000, 119000, 459000, 67000, 123000, 131000, 139000, 164000],
+    "COD": [400000, 621000, 922000, 2166000, 1840000, 1672000, 2209000, 2712000, 4004000, 3772000],
+    "COG": [null, null, 25000, 86000, null, 2, null, null, null, null],
+    "COL": [280000, 224000, 171000, 139000, 145000, 139000, 106000, 134000, 339000, 293000],
+    "DZA": [null, null, 2800, null, null, null, null, null, null, null],
+    "ECU": [null, null, null, null, 420, null, null, null, null, null],
+    "EGY": [null, 8400, null, 1800, 15000, 4, 1000, null, null, null],
+    "ETH": [null, 56000, 296000, 725000, 2895000, 1052000, 1692000, 5142000, 2032000, 794000],
+    "GHA": [null, null, null, null, 5000, 2000, null, null, null, 680],
+    "GMB": [null, null, null, 162000, null, null, null, 700, 7800, null],
+    "GTM": [null, null, 6200, 1200, null, null, null, 130, 5, 580],
+    "HND": [null, null, 16000, null, 950, null, null, 550, 260, 5100],
+    "HTI": [null, null, null, null, null, 2100, 7900, 20000, 106000, 245000],
+    "IDN": [35000, 150, null, 2700, 4500, 23000, 4600, 27000, 7100, 2200],
+    "IND": [106000, 1000, 448000, 78000, 169000, 12000, 3900, 13000, 1000, 67000],
+    "IRQ": [null, 1114000, 659000, 1379000, 150000, 104000, 67000, 57000, 32000, 21000],
+    "ISR": [null, null, 1800, 2900, 2100, 2300, 3000, 3200, 1100, 203000],
+    "KAZ": [null, null, null, null, null, null, null, null, 120, null],
+    "KEN": [null, null, null, 27000, 10000, 1800, 3900, 4600, 15000, 7700],
+    "KGZ": [300000, null, null, null, null, 770, 250, 46000, 166000, null],
+    "LAO": [4400, null, null, null, null, null, null, null, null, null],
+    "LBN": [null, 3000, 110, 200, null, null, null, 61, null, 139000],
+    "LBY": [null, 100000, 156000, 29000, 70000, 215000, 39000, null, 360, 1700],
+    "LKA": [null, null, null, null, 1100, 1700, null, null, null, null],
+    "MDG": [null, null, null, null, 1700, null, null, 1300, null, null],
+    "MEX": [115000, 6000, 23000, 20000, 11000, 8700, 9700, 29000, 9200, 11000],
+    "MLI": [null, null, 6300, 35000, 126000, 284000, 277000, 249000, 154000, 152000],
+    "MMR": [73000, 16000, 32000, 57000, 42000, 80000, 70000, 448000, 1006000, 1298000],
+    "MOZ": [null, null, 15000, 130, 3800, 5300, 592000, 187000, 283000, 41000],
+    "NCL": [null, null, null, null, null, null, 140, 13, null, null],
+    "NER": [null, 47000, 166000, 40000, 52000, 56000, 136000, 110000, 101000, 181000],
+    "NGA": [5000, 737000, 501000, 279000, 541000, 248000, 169000, 376000, 148000, 291000],
+    "NIC": [null, null, null, null, null, null, 77, null, null, 280],
+    "NPL": [null, null, null, 2, null, null, null, null, null, null],
+    "PAK": [400000, null, 2400, 75000, 1700, 15000, 160, null, 680, 2800],
+    "PER": [null, null, null, null, null, 35, null, null, null, null],
+    "PHL": [70000, 288000, 280000, 645000, 188000, 183000, 111000, 140000, 123000, 160000],
+    "PNG": [null, null, 290, null, null, 1300, null, 9500, 60000, 2000],
+    "PSE": [600, 740, 1600, 700, 490, 1500, 1000, 118000, 1800, 3438000],
+    "RUS": [null, null, null, null, null, null, null, null, 7100, 60000],
+    "SDN": [490000, 144000, 97000, 17000, 41000, 84000, 79000, 442000, 314000, 6039000],
+    "SEN": [4000, null, null, null, null, null, null, null, null, null],
+    "SLB": [null, null, null, null, null, null, null, 1000, null, null],
+    "SLE": [null, null, null, null, 3000, 2500, null, null, null, null],
+    "SLV": [null, 170000, 220000, 296000, 246000, 454000, 114000, 175000, 73000, 66000],
+    "SOM": [300000, 90000, 175000, 388000, 578000, 188000, 293000, 549000, 621000, 673000],
+    "SSD": [null, 199000, 281000, 857000, 321000, 259000, 271000, 429000, 337000, 282000],
+    "SYR": [null, 1300000, 2148000, 2911000, 1649000, 1847000, 1822000, 456000, 171000, 174000],
+    "TCD": [null, 36000, 36000, 5800, null, 58000, 79000, 42000, 80000, 118000],
+    "TGO": [null, null, null, 2700, null, null, null, null, 2300, 12000],
+    "THA": [null, null, null, null, null, null, null, 520, null, null],
+    "TJK": [null, null, null, null, null, null, null, 15000, null, null],
+    "TUR": [null, null, 204000, null, null, 2000, null, null, null, null],
+    "UGA": [null, null, 23000, 1300, 9000, 2300, 79, 1300, 2000, 640],
+    "UKR": [null, 942000, 109000, 21000, 12000, 60, 74, 40, 16870000, 714000],
+    "YEM": [176000, 2175000, 478000, 160000, 252000, 398000, 143000, 377000, 276000, 80000],
+    "ZAF": [null, null, null, null, null, 2300, null, 520, null, 620]
+   }
+  }
+ ],
+ "sources": {
+  "wdi": {
+   "title": "World Development Indicators – New conflict displacements (VC.IDP.NWCV)",
+   "publisher": "World Bank",
+   "url": "https://data.worldbank.org/indicator/VC.IDP.NWCV",
+   "accessed": "2026-09-30"
+  }
+ }
+}

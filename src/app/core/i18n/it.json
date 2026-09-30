@@ -61,6 +61,10 @@
   "category": {
     "consumer": "Consumi",
     "demography-health": "Persone e salute",
+    "education-work": "Istruzione e lavoro",
+    "living-conditions": "Condizioni di vita",
+    "agriculture-food": "Agricoltura e alimentazione",
+    "infrastructure": "Infrastrutture e accesso",
     "environment-energy": "Ambiente ed energia",
     "digital": "Digitale e scienza",
     "economy": "Economia",
@@ -251,7 +255,8 @@
     "honesty": "I numeri non sono mai inventati. Ogni valore ha una fonte, un anno di riferimento e un livello di affidabilità. La maggior parte dei dataset è scaricata dagli editori originali (Banca Mondiale, ONU, OMS, Global Carbon Project, Ember, FAO, IEA, USGS…) con uno script riproducibile; il resto è trascritto dai rapporti citati. Verifica la fonte originale prima di citare un dato.",
     "method": {
       "title": "Metodo",
-      "rates": "Ogni valore è convertito in un tasso al secondo usando l’anno gregoriano medio (365,2425 giorni).",
+      "rates": "I flussi annuali sono convertiti in tassi al secondo usando l’anno gregoriano medio (365,2425 giorni). Le consistenze, come alunni, posti letto e superfici, rimangono livelli e non si accumulano nel tempo.",
+      "derived": "Alcuni conteggi sono stime calcolate da una percentuale o densità pubblicata e dal relativo denominatore nello stesso paese e anno. Ogni dataset indica formula e fonti. I relativi valori mondiali sono somme delle stime nazionali disponibili; ai paesi mancanti non vengono assegnati valori tramite proxy. Metriche diverse possono sovrapporsi e non vanno sommate tra loro.",
       "years": "Per un dato anno il motore usa il valore esatto; altrimenti interpola linearmente tra gli anni più vicini; oltre la serie riporta il valore più vicino per un numero limitato di anni (scalato sulla crescita mondiale quando possibile) e lo segnala come riportato. Non estrapola oltre.",
       "allocation": "Quando esiste solo un totale mondiale, la parte non coperta dai paesi viene distribuita sugli altri paesi con un proxy dichiarato (popolazione, PIL, utenti internet o superficie) e segnata come allocata, tratteggiata sulla mappa, oppure lasciata non allocata.",
       "coverage": "La copertura è la quota del totale mondiale sostenuta da dati per paese.",
@@ -259,7 +264,7 @@
       "counters": "I contatori sono calcolati da timestamp assoluti (tasso × tempo trascorso), mai sommando passi per fotogramma, quindi non accumulano errori.",
       "colours": "I colori della mappa usano classi per quantili: ogni colore raggruppa circa lo stesso numero di paesi, così i vicini restano distinguibili anche quando pochi paesi dominano. La legenda mostra l’intervallo di ogni classe.",
       "centroids": "Le colonne si trovano al centro della massa di terra più grande di ogni paese; per 27 grandi paesi si usa invece un centro di popolazione approssimato.",
-      "etl": "Gli anni con dati incompleti (senza totale mondiale, o con un totale mondiale inferiore alla somma dei paesi) vengono scartati dalla pipeline invece di mostrare un falso calo."
+      "etl": "Le pubblicazioni incomplete delle serie mondiali vengono scartate dalla pipeline per evitare falsi cali. I dataset aggiuntivi verificano anche la copertura nazionale dei totali mondiali pubblicati. Le relative serie solo nazionali e derivate conservano le osservazioni sparse, mostrando esplicitamente copertura e provenienza."
     },
     "confidence": {
       "title": "Livelli di affidabilità"
@@ -271,6 +276,7 @@
         "Le dichiarazioni aziendali (Google, OpenAI, YouTube, WhatsApp, Coca-Cola, McDonald’s) sono autodichiarate e spesso limiti inferiori.",
         "L’allocazione tramite proxy è un’approssimazione visiva, non una misura del paese.",
         "Le conversioni energetiche (petrolio in barili, gas in metri cubi) usano fattori medi standard.",
+        "I conteggi di povertà e accesso ai servizi sono stime derivate, non censimenti. I valori di denutrizione riportati come 2,5% possono significare meno del 2,5%. Gli sfollamenti contano episodi: una persona può essere conteggiata più volte.",
         "Ogni paese usa un solo fuso orario rappresentativo; le curve di attività giornaliera sono stilizzate.",
         "I territori contesi sono disegnati ma non hanno dati (tranne il Kosovo, come fa la Banca Mondiale)."
       ]

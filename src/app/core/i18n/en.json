@@ -61,6 +61,10 @@
   "category": {
     "consumer": "Consumption",
     "demography-health": "People & health",
+    "education-work": "Education & work",
+    "living-conditions": "Living conditions",
+    "agriculture-food": "Agriculture & food",
+    "infrastructure": "Infrastructure & access",
     "environment-energy": "Environment & energy",
     "digital": "Digital & science",
     "economy": "Economy",
@@ -251,7 +255,8 @@
     "honesty": "Numbers are never invented. Every value carries a source, a data year and a confidence level. Most datasets are downloaded from the original publishers (World Bank, UN, WHO, Global Carbon Project, Ember, FAO, IEA, USGS…) by a reproducible script; the rest are transcribed from the cited reports. Check the original source before citing a figure.",
     "method": {
       "title": "Methodology",
-      "rates": "Every value is converted into a per-second rate using the mean Gregorian year (365.2425 days).",
+      "rates": "Annual flows are converted into per-second rates using the mean Gregorian year (365.2425 days). Stocks, such as pupils, hospital beds and land area, remain levels and do not accumulate over time.",
+      "derived": "Some counts are estimates calculated from a published percentage or density and its matching denominator in the same country and year. Each dataset states the formula and sources. These world figures are sums of available country estimates; missing countries are not assigned values by proxy. Different metrics can overlap and must not be added together.",
       "years": "For a given year the engine uses the exact data point; otherwise it interpolates linearly between the nearest years; beyond the series it carries the nearest value for a limited number of years (scaled by world growth when possible) and flags it as carried forward. It never extrapolates further.",
       "allocation": "When only a world total exists, the part not covered by countries is either spread over the remaining countries by a declared proxy (population, GDP, internet users or land area) and marked as allocated — hatched on the map — or left unallocated.",
       "coverage": "Coverage is the share of the world total backed by country-level data.",
@@ -259,7 +264,7 @@
       "counters": "Counters are computed from absolute timestamps (rate × elapsed time), never by adding per-frame steps, so they do not drift.",
       "colours": "Map colours use quantile classes: each colour groups about the same number of countries, so neighbours stay distinguishable even when a few countries dominate. The legend shows the range of every class.",
       "centroids": "Spikes stand at the centre of the largest land mass of each country; for 27 large countries an approximate population centre is used instead.",
-      "etl": "Years with incomplete reporting (no world total, or a world total smaller than the sum of its countries) are dropped by the data pipeline instead of being shown as a false decline."
+      "etl": "Incomplete world-series releases are dropped by the data pipeline instead of being shown as a false decline. The additional datasets also check country coverage for reported world totals. Their country-only and derived series retain sparse national observations, with coverage and provenance shown explicitly."
     },
     "confidence": {
       "title": "Confidence levels"
@@ -271,6 +276,7 @@
         "Company statements (Google, OpenAI, YouTube, WhatsApp, Coca-Cola, McDonald’s) are self-reported and often lower bounds.",
         "Allocation by proxy is a visual approximation, not a measurement of the receiving country.",
         "Energy conversions (oil in barrels, gas in cubic metres) use standard average factors.",
+        "Poverty and service-access counts are derived estimates, not censuses. Undernourishment values reported as 2.5% may mean below 2.5%. Displacement counts measure incidents, so one person can be counted more than once.",
         "Each country uses a single representative time zone; daily activity curves are stylized.",
         "Disputed territories are drawn but carry no data (Kosovo excepted, following the World Bank)."
       ]

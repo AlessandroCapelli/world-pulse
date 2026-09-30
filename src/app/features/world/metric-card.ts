@@ -17,6 +17,10 @@ import { splitQuantity, worldPlacedShares } from './figures';
 const CATEGORY_ICON: Record<string, string> = {
   consumer: 'bag',
   'demography-health': 'users',
+  'education-work': 'book',
+  'living-conditions': 'shield',
+  'agriculture-food': 'leaf',
+  infrastructure: 'network',
   'environment-energy': 'leaf',
   digital: 'wifi',
   economy: 'dollar',

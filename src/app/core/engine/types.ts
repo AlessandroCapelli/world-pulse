@@ -9,6 +9,10 @@ export type Scale = 'linear' | 'sqrt' | 'log';
 export const CATEGORY_IDS = [
   'consumer',
   'demography-health',
+  'education-work',
+  'living-conditions',
+  'agriculture-food',
+  'infrastructure',
   'environment-energy',
   'digital',
   'economy',

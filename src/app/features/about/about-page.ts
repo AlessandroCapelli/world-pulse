@@ -28,7 +28,7 @@ export class AboutPage {
   protected readonly lang = inject(LocaleService).lang;
   protected readonly confidences: Confidence[] = ['official', 'estimate', 'modelled'];
   protected readonly site = SITE;
-  protected readonly methodKeys = ['rates', 'years', 'allocation', 'coverage', 'profiles', 'counters', 'colours', 'etl', 'centroids'];
+  protected readonly methodKeys = ['rates', 'derived', 'years', 'allocation', 'coverage', 'profiles', 'counters', 'colours', 'etl', 'centroids'];
 
   protected readonly limits = computed(() => {
     this.lang();

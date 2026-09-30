@@ -5,7 +5,7 @@
 **What happens in the world, right now.**
 
 An interactive holographic 3D globe showing how many babies are born, tonnes of CO₂ emitted, iPhones sold,
-emails sent and 60+ other things happen on Earth — **live** since you opened the page, over any **time window**
+emails sent and 110+ other things happen on Earth — **live** since you opened the page, over any **time window**
 from one second to one year, and across **two decades of history**. Every number is sourced.
 
 **[▶ Open the live globe](https://alessandrocapelli.github.io/world-pulse/)** · [About the data](https://alessandrocapelli.github.io/world-pulse/about)
@@ -18,18 +18,18 @@ from one second to one year, and across **two decades of history**. Every number
 
 - **Holographic globe** (Three.js, custom shaders, bloom) with day/night shading, GPU pulses, spikes and a choropleth
   with quantile classes on a perceptual colour ramp.
-- **Three time modes** — *Live* counters since you opened the page (modulated by each country's local hour),
-  *Window* totals from 1 second to 1 year with a replay, *History* from 2000 to the latest data.
-- **66 datasets** (62 metrics + 4 proxies): people & health, consumption, environment & energy, digital & science,
-  economy.
+- **Three time modes** — _Live_ counters since you opened the page (modulated by each country's local hour),
+  _Window_ totals from 1 second to 1 year with a replay, _History_ from 2000 to the latest data.
+- **116 datasets** (112 metrics + 4 proxies): people & health, education & work, living conditions, consumption,
+  agriculture & food, environment & energy, infrastructure & access, digital & science, economy.
 - **Honest by design** — every value shows its source, data year and confidence; countries without data are hatched
   and receive a share of the world total by a declared proxy, with the coverage always visible.
 - Country panel, side-by-side compare, table view, deep links, PNG export, CSV/JSON upload (kept in your browser).
 - Desktop and phone layouts, English and Italian, keyboard navigation, reduced-motion support, WebGL-less fallback.
 - Static prerendered site: no backend, no trackers, no runtime requests to third-party servers.
 
-| Time window | Compare | History | Mobile |
-|---|---|---|---|
+| Time window                            | Compare                                  | History                                  | Mobile                            |
+| -------------------------------------- | ---------------------------------------- | ---------------------------------------- | --------------------------------- |
 | ![Window mode](docs/images/window.jpg) | ![Compare mode](docs/images/compare.jpg) | ![History mode](docs/images/history.jpg) | ![Mobile](docs/images/mobile.jpg) |
 
 ## Getting started
@@ -43,15 +43,16 @@ npm ci
 npm start                 # http://localhost:4200
 ```
 
-| Script | What it does |
-|---|---|
-| `npm start` | Dev server |
-| `npm run build` | Production build with prerendered pages |
-| `npm run build:gh-pages` | Build for the `/world-pulse/` sub-path (+ `404.html`, `.nojekyll`, `sitemap.xml`) |
-| `npm run lint` | ESLint |
-| `npm run data:validate` | Validate every dataset |
-| `npm run data:fetch` / `data:build` | Download the public datasets into `data-raw/` and rebuild the generated metric files |
-| `npm run geo:build` | Rebuild the country registry and TopoJSON from Natural Earth |
+| Script                                                | What it does                                                                                                         |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `npm start`                                           | Dev server                                                                                                           |
+| `npm run build`                                       | Production build with prerendered pages                                                                              |
+| `npm run build:gh-pages`                              | Build for the `/world-pulse/` sub-path (+ `404.html`, `.nojekyll`, `sitemap.xml`)                                    |
+| `npm run lint`                                        | ESLint                                                                                                               |
+| `npm run data:validate`                               | Validate every dataset                                                                                               |
+| `npm run data:fetch` / `data:build`                   | Download the public datasets into `data-raw/` and rebuild the generated metric files                                 |
+| `npm run data:fetch:expanded` / `data:build:expanded` | Download and rebuild just the additional country metrics and their shared inputs, then validate the complete catalog |
+| `npm run geo:build`                                   | Rebuild the country registry and TopoJSON from Natural Earth                                                         |
 
 ## Project structure
 
@@ -71,7 +72,7 @@ The methodology (normalization, interpolation, allocation, coverage, time-of-day
 
 ## Deploy
 
-Push to `main` with *Settings → Pages → Source: GitHub Actions*. The workflow in `.github/workflows/deploy.yml`
+Push to `main` with _Settings → Pages → Source: GitHub Actions_. The workflow in `.github/workflows/deploy.yml`
 validates the data, lints, builds with the repository sub-path and publishes.
 
 ## Data and licenses

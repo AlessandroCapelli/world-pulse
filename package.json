@@ -1,7 +1,7 @@
 {
   "name": "world-pulse",
   "version": "1.0.0",
-  "description": "What happens in the world, right now — an interactive holographic 3D globe of births, CO₂, iPhones, emails and 60+ sourced world statistics. Angular 21 + Three.js, static on GitHub Pages.",
+  "description": "What happens in the world, right now — an interactive holographic 3D globe with 110+ sourced statistics on people, education, health, living conditions, agriculture, infrastructure and the economy. Angular 21 + Three.js, static on GitHub Pages.",
   "author": {
     "name": "Alessandro Capelli",
     "url": "https://github.com/AlessandroCapelli"
@@ -41,6 +41,8 @@
     "data:validate": "tsx scripts/validate-data.ts",
     "geo:build": "node scripts/build-geo.mjs",
     "data:fetch": "node scripts/etl/fetch.mjs",
+    "data:fetch:expanded": "node scripts/etl/fetch.mjs --only expanded",
+    "data:build:expanded": "node scripts/etl/build.mjs --only expanded && tsx scripts/validate-data.ts",
     "data:build": "node scripts/etl/build.mjs && tsx scripts/validate-data.ts"
   },
   "prettier": {
